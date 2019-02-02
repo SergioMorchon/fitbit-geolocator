@@ -1,4 +1,4 @@
-function settingsComponent(props) {
+function settingsComponent() {
   return (
     <Page>
       <Section
@@ -7,7 +7,9 @@ function settingsComponent(props) {
             App Settings
           </Text>
         }
-      />
+      >
+        Settings
+      </Section>
     </Page>
   );
 }
