@@ -14,7 +14,9 @@
     "appDisplayName": "Geolocator",
     "iconFile": "resources/icon.png",
     "wipeColor": "#ffffff",
-    "requestedPermissions": [],
+    "requestedPermissions": [
+      "access_location"
+    ],
     "buildTargets": [
       "higgs",
       "meson"
