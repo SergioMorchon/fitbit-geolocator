@@ -1,5 +1,5 @@
-import { Point } from "./point";
+import { IPoint } from './point';
 
-export type Settings = {
-  readonly to: Point | undefined;
-};
+export interface ISettings {
+	readonly to: IPoint | undefined;
+}

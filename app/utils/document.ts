@@ -1,10 +1,10 @@
-import document from "document";
+import document from 'document';
 
 export const getElementById = (id: string) => {
-  const element = document.getElementById(id);
-  if (!element) {
-    throw Error(`Element #${id} not found`);
-  }
+	const element = document.getElementById(id);
+	if (!element) {
+		throw Error(`Element #${id} not found`);
+	}
 
-  return element;
+	return element;
 };

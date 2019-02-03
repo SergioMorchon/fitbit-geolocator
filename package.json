@@ -1,38 +1,46 @@
 {
-  "name": "geolocator",
-  "version": "0.1.0",
-  "private": true,
-  "license": "UNLICENSED",
-  "devDependencies": {
-    "@fitbit/sdk": "~3.0.0",
-    "@fitbit/sdk-cli": "^1.5.0",
-    "fitbit-sdk-types": "^3.2.1"
-  },
-  "fitbit": {
-    "appUUID": "6aeb6da0-dfb9-40a5-9fcb-160a5b5e3be5",
-    "appType": "app",
-    "appDisplayName": "Geolocator",
-    "iconFile": "resources/icon.png",
-    "wipeColor": "#ffffff",
-    "requestedPermissions": [
-      "access_location"
-    ],
-    "buildTargets": [
-      "higgs",
-      "meson"
-    ],
-    "i18n": {
-      "en": {
-        "name": "Geolocator"
-      },
-      "es": {
-        "name": "Geolocalizador"
-      }
-    },
-    "defaultLanguage": "en"
-  },
-  "scripts": {
-    "build": "fitbit-build",
-    "debug": "fitbit"
-  }
+	"name": "geolocator",
+	"version": "0.1.0",
+	"private": true,
+	"license": "UNLICENSED",
+	"devDependencies": {
+		"@fitbit/sdk": "3.0.0",
+		"@fitbit/sdk-cli": "1.5.0",
+		"fitbit-sdk-types": "3.2.2",
+		"prettier": "^1.16.4",
+		"tslint": "^5.12.1",
+		"tslint-config-prettier": "^1.17.0",
+		"typescript": "^3.3.1"
+	},
+	"fitbit": {
+		"appUUID": "6aeb6da0-dfb9-40a5-9fcb-160a5b5e3be5",
+		"appType": "app",
+		"appDisplayName": "Geolocator",
+		"iconFile": "resources/icon.png",
+		"wipeColor": "#ffffff",
+		"requestedPermissions": [
+			"access_location"
+		],
+		"buildTargets": [
+			"higgs",
+			"meson"
+		],
+		"i18n": {
+			"en": {
+				"name": "Geolocator"
+			},
+			"es": {
+				"name": "Geolocalizador"
+			}
+		},
+		"defaultLanguage": "en"
+	},
+	"scripts": {
+		"prettier": "prettier **/*.ts **/*.json **/*.md",
+		"tslint": "tslint --project app",
+		"check-code": "npm run tslint && npm run prettier -- -l",
+		"fix-code": "npm run tslint -- --fix && npm run prettier -- --write",
+		"build": "fitbit-build",
+		"debug": "fitbit"
+	}
 }
