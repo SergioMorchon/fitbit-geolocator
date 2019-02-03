@@ -21,8 +21,15 @@
       "higgs",
       "meson"
     ],
-    "i18n": {},
-    "defaultLanguage": "en-US"
+    "i18n": {
+      "en": {
+        "name": "Geolocator"
+      },
+      "es": {
+        "name": "Geolocalizador"
+      }
+    },
+    "defaultLanguage": "en"
   },
   "scripts": {
     "build": "fitbit-build",
