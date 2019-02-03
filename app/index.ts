@@ -1,27 +1,25 @@
 import { me } from "appbit";
-import { peerSocket } from "messaging";
 import { geolocation } from "geolocation";
-import createView from "./view";
+import createNavigationView from "./views/navigation";
 import createStorage from "./storage";
 
-const view = createView();
+const view = createNavigationView();
 const storage = createStorage();
-view.to = storage.target;
-
-peerSocket.addEventListener("message", e => {
-  storage.target = e.data;
-  view.to = e.data;
-});
+view.to = storage.to;
+view.onSetCurrentPosition = () => {
+  view.to = view.from;
+  storage.to = view.to;
+};
 
 if (me.permissions.granted("access_location")) {
-  const watcher = geolocation.watchPosition(
-    ({ coords }) => {
-      view.from = coords;
-    },
-    error => {
-      console.error(error.message);
+  const watcher = geolocation.watchPosition(({ coords }) => {
+    const { latitude, longitude } = coords;
+    if (latitude === null || longitude === null) {
+      return;
     }
-  );
+
+    view.from = { latitude, longitude };
+  });
   me.addEventListener("unload", () => {
     geolocation.clearWatch(watcher);
   });

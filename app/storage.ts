@@ -1,11 +1,11 @@
 import { readFileSync, writeFileSync } from "fs";
-import { Coordinate } from "../common/coordinate";
+import { Point } from "../common/point";
 
 const SETTINGS_FILE_NAME = "settings";
 const ENCODING = "cbor";
 
 type Settings = {
-  target: Coordinate | null;
+  to: Point | null;
 };
 
 const writeSettings = (settings: Settings) => {
@@ -17,22 +17,22 @@ const readSettings = (): Settings => {
     return readFileSync(SETTINGS_FILE_NAME, ENCODING);
   } catch (e) {
     return {
-      target: null
+      to: null
     };
   }
 };
 
 export default () => {
-  let target: Coordinate | null = readSettings().target;
+  let to: Point | null = readSettings().to;
 
   return {
-    get target() {
-      return target;
+    get to() {
+      return to;
     },
 
-    set target(value) {
-      target = value;
-      writeSettings({ target });
+    set to(value) {
+      to = value;
+      writeSettings({ to: to });
     }
   };
 };
