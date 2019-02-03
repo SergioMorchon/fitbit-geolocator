@@ -1,7 +1,7 @@
 import { me } from "appbit";
 import { geolocation } from "geolocation";
 import createNavigationView from "./views/navigation";
-import createStorage from "./storage";
+import createStorage from "./data-sources/settings";
 
 const view = createNavigationView();
 const storage = createStorage();

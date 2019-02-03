@@ -1,12 +1,9 @@
 import { readFileSync, writeFileSync } from "fs";
-import { Point } from "../common/point";
+import { Point } from "../models/point";
+import { Settings } from "../models/settings";
 
 const SETTINGS_FILE_NAME = "settings";
 const ENCODING = "cbor";
-
-type Settings = {
-  to: Point | null;
-};
 
 const writeSettings = (settings: Settings) => {
   writeFileSync(SETTINGS_FILE_NAME, settings, ENCODING);
@@ -17,13 +14,13 @@ const readSettings = (): Settings => {
     return readFileSync(SETTINGS_FILE_NAME, ENCODING);
   } catch (e) {
     return {
-      to: null
+      to: undefined
     };
   }
 };
 
 export default () => {
-  let to: Point | null = readSettings().to;
+  let to: Point | undefined = readSettings().to;
 
   return {
     get to() {
@@ -32,7 +29,7 @@ export default () => {
 
     set to(value) {
       to = value;
-      writeSettings({ to: to });
+      writeSettings({ to });
     }
   };
 };

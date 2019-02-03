@@ -3,13 +3,13 @@ import {
   getDistance,
   distanceToString,
   pointToString
-} from "../../common/point";
-import { getElementById } from "./util";
+} from "../models/point";
+import { getElementById } from "../utils/document";
 
 interface NavigationView {
   onSetCurrentPosition: (() => void) | null;
-  from: Point | null;
-  to: Point | null;
+  from: Point | undefined;
+  to: Point | undefined;
 }
 
 export default () => {
@@ -19,8 +19,8 @@ export default () => {
     "to-current-position-button"
   ) as ComboButton;
 
-  let from: Point | null | undefined;
-  let to: Point | null | undefined;
+  let from: Point | undefined;
+  let to: Point | undefined;
 
   const update = () => {
     if (!to) {
