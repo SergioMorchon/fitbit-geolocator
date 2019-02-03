@@ -23,25 +23,31 @@ export default () => {
   let from: Point | undefined;
   let to: Point | undefined;
 
-  const update = () => {
-    if (!to) {
-      toText.text = i18n("set-target");
-    }
+  const updateTarget = () => {
+    toText.text = to ? pointToString(to) : i18n("set-target");
+  };
 
+  const updateDistance = () => {
     if (!from) {
       distanceText.text = i18n("wating-gps");
-      toCurrentPositionButton.disable();
-    } else {
-      distanceText.text = "---";
-      toCurrentPositionButton.enable();
-    }
-
-    if (!(to && from)) {
       return;
     }
 
-    toText.text = pointToString(to);
-    distanceText.text = distanceToString(getDistance(from, to));
+    distanceText.text = to ? distanceToString(getDistance(from, to)) : "---";
+  };
+
+  const updateCurrentPositionButton = () => {
+    if (from) {
+      toCurrentPositionButton.enable();
+    } else {
+      toCurrentPositionButton.disable();
+    }
+  };
+
+  const update = () => {
+    updateTarget();
+    updateDistance();
+    updateCurrentPositionButton();
   };
 
   const self: NavigationView = {
