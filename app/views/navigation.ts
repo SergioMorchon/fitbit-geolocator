@@ -32,6 +32,7 @@ export default () => {
       distanceText.text = i18n("wating-gps");
       toCurrentPositionButton.disable();
     } else {
+      distanceText.text = "---";
       toCurrentPositionButton.enable();
     }
 
