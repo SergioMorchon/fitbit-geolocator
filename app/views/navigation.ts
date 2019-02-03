@@ -5,6 +5,7 @@ import {
   pointToString
 } from "../models/point";
 import { getElementById } from "../utils/document";
+import i18n from "../utils/i18n";
 
 interface NavigationView {
   onSetCurrentPosition: (() => void) | null;
@@ -24,11 +25,11 @@ export default () => {
 
   const update = () => {
     if (!to) {
-      toText.text = "Set a target";
+      toText.text = i18n("set-target");
     }
 
     if (!from) {
-      distanceText.text = "Wating for GPS";
+      distanceText.text = i18n("wating-gps");
     }
 
     if (!(to && from)) {
