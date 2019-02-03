@@ -30,6 +30,9 @@ export default () => {
 
     if (!from) {
       distanceText.text = i18n("wating-gps");
+      toCurrentPositionButton.disable();
+    } else {
+      toCurrentPositionButton.enable();
     }
 
     if (!(to && from)) {
@@ -59,11 +62,13 @@ export default () => {
     }
   };
 
-  toCurrentPositionButton.addEventListener("click", () => {
+  toCurrentPositionButton.addEventListener("activate", () => {
     if (self.onSetCurrentPosition) {
       self.onSetCurrentPosition();
     }
   });
+
+  update();
 
   return self;
 };
