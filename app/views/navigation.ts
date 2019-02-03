@@ -19,21 +19,23 @@ export default () => {
     "to-current-position-button"
   ) as ComboButton;
 
-  let from: Point | null;
-  let to: Point | null;
+  let from: Point | null | undefined;
+  let to: Point | null | undefined;
 
   const update = () => {
-    if (to === null) {
+    if (!to) {
       toText.text = "Set a target";
+    }
+
+    if (!from) {
+      distanceText.text = "Wating for GPS";
+    }
+
+    if (!(to && from)) {
       return;
     }
 
     toText.text = pointToString(to);
-    if (from === null) {
-      distanceText.text = "Wating for GPS";
-      return;
-    }
-
     distanceText.text = distanceToString(getDistance(from, to));
   };
 
