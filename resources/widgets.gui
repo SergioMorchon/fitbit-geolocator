@@ -1,7 +1,8 @@
 <svg>
-  <defs>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="import" href="/mnt/sysassets/widgets_common.gui" />
-    <link rel="import" href="/mnt/sysassets/widgets/combo_button_widget.gui" />
-  </defs>
+	<defs>
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="import" href="/mnt/sysassets/widgets_common.gui" />
+		<link rel="import" href="/mnt/sysassets/widgets/combo_button_widget.gui" />
+		<link rel="import" href="/mnt/assets/resources/views/navigator.gui" />
+	</defs>
 </svg>
