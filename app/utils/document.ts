@@ -8,3 +8,7 @@ export const getElementById = (id: string) => {
 
 	return element;
 };
+
+export const isGraphisElement = (
+	element: Element,
+): element is GraphicsElement => !!(element as GraphicsElement).style;

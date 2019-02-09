@@ -1,3 +1,6 @@
+import { me } from 'appbit';
+import { geolocation } from 'geolocation';
+import createSettingsDataSource from '../data-sources/settings';
 import {
 	distanceToString,
 	getDistance,
@@ -6,14 +9,13 @@ import {
 } from '../models/point';
 import { getElementById } from '../utils/document';
 import i18n from '../utils/i18n';
+import { createView } from '../utils/views';
 
-interface INavigationView {
-	onSetCurrentPosition: (() => void) | null;
-	from: IPoint | undefined;
-	to: IPoint | undefined;
-}
+export const createNavigationView = () => {
+	const settingsDataSourceStorage = createSettingsDataSource();
 
-export default () => {
+	const navigationView = createView('navigation-view');
+
 	const distanceText = getElementById('distance-text') as TextElement;
 	const toText = getElementById('to-text') as TextElement;
 	const toCurrentPositionButton = getElementById(
@@ -21,7 +23,7 @@ export default () => {
 	) as ComboButton;
 
 	let from: IPoint | undefined;
-	let to: IPoint | undefined;
+	let to: IPoint | undefined = settingsDataSourceStorage.to;
 
 	const updateTarget = () => {
 		toText.text = to ? pointToString(to) : i18n('set-target');
@@ -50,8 +52,7 @@ export default () => {
 		updateCurrentPositionButton();
 	};
 
-	const self: INavigationView = {
-		onSetCurrentPosition: null,
+	const self = {
 		get from() {
 			return from;
 		},
@@ -66,16 +67,29 @@ export default () => {
 		set to(value) {
 			to = value;
 			update();
+			settingsDataSourceStorage.to = to;
 		},
 	};
 
-	toCurrentPositionButton.addEventListener('activate', () => {
-		if (self.onSetCurrentPosition) {
-			self.onSetCurrentPosition();
-		}
-	});
+	toCurrentPositionButton.onclick = () => {
+		self.to = self.from;
+	};
+
+	if (me.permissions.granted('access_location')) {
+		const watcher = geolocation.watchPosition(({ coords }) => {
+			const { latitude, longitude } = coords;
+			if (latitude === null || longitude === null) {
+				return;
+			}
+
+			self.from = { latitude, longitude };
+		});
+		me.addEventListener('unload', () => {
+			geolocation.clearWatch(watcher);
+		});
+	}
 
 	update();
 
-	return self;
+	return navigationView;
 };

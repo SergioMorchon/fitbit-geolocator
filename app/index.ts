@@ -1,26 +1,6 @@
-import { me } from 'appbit';
-import { geolocation } from 'geolocation';
-import createStorage from './data-sources/settings';
-import createNavigationView from './views/navigation';
+import { createNavigationView } from './views/navigation';
 
-const view = createNavigationView();
-const storage = createStorage();
-view.to = storage.to;
-view.onSetCurrentPosition = () => {
-	view.to = view.from;
-	storage.to = view.to;
-};
+import { createViewSet } from './utils/views';
 
-if (me.permissions.granted('access_location')) {
-	const watcher = geolocation.watchPosition(({ coords }) => {
-		const { latitude, longitude } = coords;
-		if (latitude === null || longitude === null) {
-			return;
-		}
-
-		view.from = { latitude, longitude };
-	});
-	me.addEventListener('unload', () => {
-		geolocation.clearWatch(watcher);
-	});
-}
+const navigationView = createNavigationView();
+createViewSet([navigationView]);
