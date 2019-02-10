@@ -26,23 +26,60 @@
 			y="50%+20"
 			text-anchor="middle"
 		/>
+	</g>
+	<g id="location-slots-view">
+		<defs>
+			<symbol id="location-slot" href="#tile-list-item" focusable="false"
+					pointer-events="none" system-events="all" display="none">
+			<text id="text" text-length="30" />
+			<rect id="tile-divider-bottom" class="tile-divider-bottom" />
+			<rect id="action" pointer-events="all" x="0" y="0" width="100%"
+					height="100%-2" opacity="0" />
+			</symbol>
+		</defs>
+		<use id="location-slots-list" href="#tile-list">
+			<var id="virtual" value="1" />
+			<var id="separator-height-bottom" value="2" />
+			<use id="location-slots" href="#tile-list-pool">
+				<use id="location-slots[0]" href="#location-slot" class="tile-list-item" />
+				<use id="location-slots[1]" href="#location-slot" class="tile-list-item" />
+				<use id="location-slots[2]" href="#location-slot" class="tile-list-item" />
+				<use id="location-slots[3]" href="#location-slot" class="tile-list-item" />
+				<use id="location-slots[4]" href="#location-slot" class="tile-list-item" />
+				<use id="location-slots[5]" href="#location-slot" class="tile-list-item" />
+				<use id="location-slots[6]" href="#location-slot" class="tile-list-item" />
+				<use id="location-slots[7]" href="#location-slot" class="tile-list-item" />
+				<use id="location-slots[8]" href="#location-slot" class="tile-list-item" />
+				<use id="location-slots[9]" href="#location-slot" class="tile-list-item" />
+			</use>
+		</use>
 
 		<use
-			id="to-current-position-button"
+			id="add-location-button"
 			href="#combo-button-lower-right"
 			fill="fb-white"
 		>
 			<set
 				href="combo-button-icon"
 				attributeName="href"
-				to="btn_combo_flag_p.png"
+				to="sqr_btn_plus_p.png"
 			/>
 			<set
 				href="combo-button-icon-press"
 				attributeName="href"
-				to="btn_combo_flag_p.png"
+				to="sqr_btn_plus_p.png"
 			/>
 			<set href="combo-button-stroke" attributeName="display" to="inline" />
 		</use>
+	</g>
+	<g id="new-location-view">
+		<text id="current-location"		
+			text-length="100"
+			font-size="40"
+			font-weight="bold"
+			x="50%"
+			y="50%+20"
+			text-anchor="middle"
+		/>
 	</g>
 </svg>

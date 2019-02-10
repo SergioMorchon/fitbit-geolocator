@@ -1,6 +1,7 @@
 import { me } from 'appbit';
 import { geolocation } from 'geolocation';
-import createSettingsDataSource from '../data-sources/settings';
+import { LOCATION_SLOTS_VIEW, NAVIGATION_VIEW } from '../constants/views';
+import settings from '../data-sources/settings';
 import { ILocationSlot } from '../models/location-slot';
 import { getElementById } from '../utils/document';
 import i18n from '../utils/i18n';
@@ -9,24 +10,36 @@ import {
 	getDistance,
 	positionToString,
 } from '../utils/position';
-import { createView } from '../utils/views';
+import { createView, INavigation } from '../utils/views';
 
-export const createNavigationView = () => {
-	const settingsDataSourceStorage = createSettingsDataSource();
+const getCurrentTargetPosition = () => {
+	if (
+		settings.currentLocationSlot === null ||
+		!(settings.currentLocationSlot in settings.locationSlots)
+	) {
+		return null;
+	}
 
-	const navigationView = createView('navigation-view');
+	return settings.locationSlots[settings.currentLocationSlot];
+};
 
-	const distanceText = getElementById('distance-text') as TextElement;
-	const toText = getElementById('to-text') as TextElement;
-	const toCurrentPositionButton = getElementById(
-		'to-current-position-button',
-	) as ComboButton;
+export const createNavigationView = (navigation: INavigation) => {
+	const view = createView(NAVIGATION_VIEW);
+	view.onKeyBack = e => {
+		e.preventDefault();
+		navigation.navigate(LOCATION_SLOTS_VIEW);
+	};
+
+	const distanceText = getElementById(
+		view.root,
+		'distance-text',
+	) as TextElement;
+	const toText = getElementById(view.root, 'to-text') as TextElement;
 
 	let from: ILocationSlot | undefined;
-	let to: ILocationSlot | undefined =
-		settingsDataSourceStorage.locationSlots[0];
 
 	const updateTarget = () => {
+		const to = getCurrentTargetPosition();
 		toText.text = to ? positionToString(to.position) : i18n('set-target');
 	};
 
@@ -36,23 +49,15 @@ export const createNavigationView = () => {
 			return;
 		}
 
+		const to = getCurrentTargetPosition();
 		distanceText.text = to
 			? distanceToString(getDistance(from.position, to.position))
 			: '---';
 	};
 
-	const updateCurrentPositionButton = () => {
-		if (from) {
-			toCurrentPositionButton.enable();
-		} else {
-			toCurrentPositionButton.disable();
-		}
-	};
-
 	const update = () => {
 		updateTarget();
 		updateDistance();
-		updateCurrentPositionButton();
 	};
 
 	const self = {
@@ -64,22 +69,9 @@ export const createNavigationView = () => {
 			from = value;
 			update();
 		},
-		get to() {
-			return to;
-		},
-		set to(value) {
-			to = value;
-			update();
-			if (to) {
-				settingsDataSourceStorage.locationSlots = [to];
-			}
-		},
 	};
 
-	toCurrentPositionButton.onclick = () => {
-		self.to = self.from;
-	};
-
+	settings.addEventListener(update);
 	if (me.permissions.granted('access_location')) {
 		const watcher = geolocation.watchPosition(position => {
 			const { latitude, longitude } = position.coords;
@@ -96,5 +88,5 @@ export const createNavigationView = () => {
 
 	update();
 
-	return navigationView;
+	return view;
 };
