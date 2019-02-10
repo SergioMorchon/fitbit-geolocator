@@ -1,14 +1,14 @@
 import { me } from 'appbit';
 import { geolocation } from 'geolocation';
 import createSettingsDataSource from '../data-sources/settings';
-import { ILocation } from '../models/location';
+import { ILocationSlot } from '../models/location-slot';
 import { getElementById } from '../utils/document';
 import i18n from '../utils/i18n';
 import {
 	distanceToString,
 	getDistance,
-	locationToString,
-} from '../utils/location';
+	positionToString,
+} from '../utils/position';
 import { createView } from '../utils/views';
 
 export const createNavigationView = () => {
@@ -22,11 +22,12 @@ export const createNavigationView = () => {
 		'to-current-position-button',
 	) as ComboButton;
 
-	let from: ILocation | undefined;
-	let to: ILocation | undefined = settingsDataSourceStorage.to;
+	let from: ILocationSlot | undefined;
+	let to: ILocationSlot | undefined =
+		settingsDataSourceStorage.locationSlots[0];
 
 	const updateTarget = () => {
-		toText.text = to ? locationToString(to) : i18n('set-target');
+		toText.text = to ? positionToString(to.position) : i18n('set-target');
 	};
 
 	const updateDistance = () => {
@@ -35,7 +36,9 @@ export const createNavigationView = () => {
 			return;
 		}
 
-		distanceText.text = to ? distanceToString(getDistance(from, to)) : '---';
+		distanceText.text = to
+			? distanceToString(getDistance(from.position, to.position))
+			: '---';
 	};
 
 	const updateCurrentPositionButton = () => {
@@ -67,7 +70,9 @@ export const createNavigationView = () => {
 		set to(value) {
 			to = value;
 			update();
-			settingsDataSourceStorage.to = to;
+			if (to) {
+				settingsDataSourceStorage.locationSlots = [to];
+			}
 		},
 	};
 
@@ -76,13 +81,13 @@ export const createNavigationView = () => {
 	};
 
 	if (me.permissions.granted('access_location')) {
-		const watcher = geolocation.watchPosition(({ coords }) => {
-			const { latitude, longitude } = coords;
+		const watcher = geolocation.watchPosition(position => {
+			const { latitude, longitude } = position.coords;
 			if (latitude === null || longitude === null) {
 				return;
 			}
 
-			self.from = { latitude, longitude };
+			self.from = { name: positionToString(position), position };
 		});
 		me.addEventListener('unload', () => {
 			geolocation.clearWatch(watcher);

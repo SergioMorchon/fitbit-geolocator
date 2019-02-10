@@ -1,5 +1,5 @@
-import { ILocation } from './location';
+import { ILocationSlot } from './location-slot';
 
 export interface ISettings {
-	readonly to: ILocation | undefined;
+	readonly locationSlots: ReadonlyArray<ILocationSlot>;
 }

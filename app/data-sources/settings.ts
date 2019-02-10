@@ -1,5 +1,4 @@
 import { readFileSync, writeFileSync } from 'fs';
-import { ILocation } from '../models/location';
 import { ISettings } from '../models/settings';
 
 const SETTINGS_FILE_NAME = 'settings';
@@ -14,22 +13,22 @@ const readSettings = (): ISettings => {
 		return readFileSync(SETTINGS_FILE_NAME, ENCODING);
 	} catch (e) {
 		return {
-			to: undefined,
+			locationSlots: [],
 		};
 	}
 };
 
 export default () => {
-	let to: ILocation | undefined = readSettings().to;
+	let locationSlots = readSettings().locationSlots;
 
 	return {
-		get to() {
-			return to;
+		get locationSlots() {
+			return locationSlots;
 		},
 
-		set to(value) {
-			to = value;
-			writeSettings({ to });
+		set locationSlots(value) {
+			locationSlots = value;
+			writeSettings({ locationSlots });
 		},
 	};
 };
