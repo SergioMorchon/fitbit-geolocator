@@ -1,14 +1,14 @@
 import { me } from 'appbit';
 import { geolocation } from 'geolocation';
 import createSettingsDataSource from '../data-sources/settings';
+import { ILocation } from '../models/location';
+import { getElementById } from '../utils/document';
+import i18n from '../utils/i18n';
 import {
 	distanceToString,
 	getDistance,
-	ILocation,
 	locationToString,
-} from '../models/location';
-import { getElementById } from '../utils/document';
-import i18n from '../utils/i18n';
+} from '../utils/location';
 import { createView } from '../utils/views';
 
 export const createNavigationView = () => {
