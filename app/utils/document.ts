@@ -1,7 +1,5 @@
-import document from 'document';
-
-export const getElementById = (id: string) => {
-	const element = document.getElementById(id);
+export const getElementById = (root: ElementSearch, id: string) => {
+	const element = root.getElementById(id);
 	if (!element) {
 		throw Error(`Element #${id} not found`);
 	}

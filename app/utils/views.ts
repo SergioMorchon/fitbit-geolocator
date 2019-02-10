@@ -1,16 +1,25 @@
 import { display } from 'display';
+import document from 'document';
+import { ViewId } from '../constants/views';
 import { getElementById, isGraphisElement } from './document';
 
+type KeyboardCallback = (e: KeyboardEvent) => void;
 type Callback = () => void;
 
 export interface IView {
-	onShow?: Callback;
-	onHide?: Callback;
 	readonly root: GraphicsElement;
+	onKeyBack?: KeyboardCallback;
+	onKeyUp?: KeyboardCallback;
+	onKeyDown?: KeyboardCallback;
+	onShow?: Callback;
 }
 
-export const createView = (id: string): IView => {
-	const root = getElementById(id);
+export interface INavigation {
+	navigate(viewId: ViewId): void;
+}
+
+export const createView = (id: ViewId): IView => {
+	const root = getElementById(document, id);
 	if (!isGraphisElement(root)) {
 		throw new Error(`#${id} isn't GraphicsElement`);
 	}
@@ -20,51 +29,57 @@ export const createView = (id: string): IView => {
 	};
 };
 
-const show = ({ root, onShow }: IView) => {
+const show = ({ root }: IView) => {
 	root.style.display = 'inline';
-	if (onShow) {
-		onShow();
-	}
 };
 
-const hide = ({ root, onHide }: IView) => {
+const hide = ({ root }: IView) => {
 	root.style.display = 'none';
-	if (onHide) {
-		onHide();
-	}
 };
 
-export const createViewSet = (views: ReadonlyArray<IView>) => {
-	const innerViews = [...views];
-	const [firstView, ...restOfViews] = innerViews;
-	restOfViews.forEach(view => hide(view));
-	show(firstView);
-
-	let innerCurrentView = innerViews[0];
+export const createViewSet = () => {
+	const views: { [id: string]: IView } = {};
+	let innerCurrentViewId: ViewId | null = null;
+	const isValidViewId = (id: ViewId | null): id is ViewId =>
+		id !== null && id in views;
 	const self = {
-		get currentView() {
-			return innerCurrentView;
+		addView(view: IView) {
+			views[view.root.id] = view;
+			hide(view);
 		},
-		set currentView(value) {
-			if (innerViews.indexOf(value) < 0) {
-				throw new Error(`Unknown view #${value.root.id}`);
+		get currentViewId() {
+			return innerCurrentViewId;
+		},
+		set currentViewId(newCurrentViewId) {
+			if (isValidViewId(innerCurrentViewId)) {
+				hide(views[innerCurrentViewId]);
 			}
+			innerCurrentViewId = newCurrentViewId;
+			if (isValidViewId(innerCurrentViewId)) {
+				const view = views[innerCurrentViewId];
+				show(view);
+				if (view.onShow) {
+					view.onShow();
+				}
 
-			hide(innerCurrentView);
-			innerCurrentView = value;
-			show(innerCurrentView);
+				display.poke();
+			}
 		},
 	};
 
-	display.addEventListener('change', () => {
-		const {
-			currentView: { onShow, onHide },
-		} = self;
-		const { on } = display;
-		if (on && onShow) {
-			onShow();
-		} else if (!on && onHide) {
-			onHide();
+	document.addEventListener('keypress', e => {
+		if (!isValidViewId(innerCurrentViewId)) {
+			return;
+		}
+
+		const { key } = e;
+		const { onKeyBack, onKeyDown, onKeyUp } = views[innerCurrentViewId];
+		if (key === 'back' && onKeyBack) {
+			onKeyBack(e);
+		} else if (key === 'down' && onKeyDown) {
+			onKeyDown(e);
+		} else if (key === 'up' && onKeyUp) {
+			onKeyUp(e);
 		}
 	});
 

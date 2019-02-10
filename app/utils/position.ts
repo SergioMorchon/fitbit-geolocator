@@ -1,10 +1,6 @@
 import { units } from 'user-settings';
-import i18n from '../utils/i18n';
-
-export interface IPoint {
-	readonly latitude: number;
-	readonly longitude: number;
-}
+import i18n from './i18n';
+import { toNum } from './number';
 
 const { distance: distanceUnits } = units;
 const EARTH_RADIUS = 6371e3;
@@ -25,22 +21,27 @@ const distanceConfig = {
 
 const degreesToRadians = (degrees: number) => (degrees * Math.PI) / 180;
 
-export const pointToString = ({ latitude, longitude }: IPoint) =>
-	`${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+export const positionToString = ({
+	coords: { latitude, longitude },
+}: Position) => `${toNum(latitude).toFixed(6)}, ${toNum(longitude).toFixed(6)}`;
 
-export const getDistance = (from: IPoint, to: IPoint) => {
-	const latitudeDistance = degreesToRadians(to.latitude - from.latitude);
-	const longitudeDistance = degreesToRadians(to.longitude - from.longitude);
+export const getDistance = (from: Position, to: Position) => {
+	const latitudeDistance = degreesToRadians(
+		toNum(to.coords.latitude) - toNum(from.coords.latitude),
+	);
+	const longitudeDistance = degreesToRadians(
+		toNum(to.coords.longitude) - toNum(from.coords.longitude),
+	);
 	const a =
 		Math.sin(latitudeDistance / 2) * Math.sin(latitudeDistance / 2) +
 		Math.sin(longitudeDistance / 2) *
 			Math.sin(longitudeDistance / 2) *
-			Math.cos(degreesToRadians(from.latitude)) *
-			Math.cos(degreesToRadians(to.latitude));
+			Math.cos(degreesToRadians(toNum(from.coords.latitude))) *
+			Math.cos(degreesToRadians(toNum(to.coords.latitude)));
 	return EARTH_RADIUS * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 
-export const distanceToString = (distance: ReturnType<typeof getDistance>) => {
+export const distanceToString = (distance: number) => {
 	const { short, shortName, long, longName } = distanceConfig[distanceUnits];
 	const longPart = Math.floor(distance / long);
 	const shortPart = Math.floor((distance - longPart * long) / short);

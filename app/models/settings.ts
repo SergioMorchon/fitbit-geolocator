@@ -1,5 +1,6 @@
-import { IPoint } from './point';
+import { ILocationSlot } from './location-slot';
 
 export interface ISettings {
-	readonly to: IPoint | undefined;
+	readonly locationSlots: ReadonlyArray<ILocationSlot>;
+	readonly currentLocationSlot: number | null;
 }

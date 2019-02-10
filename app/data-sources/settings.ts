@@ -1,12 +1,11 @@
 import { readFileSync, writeFileSync } from 'fs';
-import { IPoint } from '../models/point';
 import { ISettings } from '../models/settings';
 
 const SETTINGS_FILE_NAME = 'settings';
 const ENCODING = 'cbor';
 
-const writeSettings = (settings: ISettings) => {
-	writeFileSync(SETTINGS_FILE_NAME, settings, ENCODING);
+const writeSettings = (newSettings: ISettings) => {
+	writeFileSync(SETTINGS_FILE_NAME, newSettings, ENCODING);
 };
 
 const readSettings = (): ISettings => {
@@ -14,22 +13,29 @@ const readSettings = (): ISettings => {
 		return readFileSync(SETTINGS_FILE_NAME, ENCODING);
 	} catch (e) {
 		return {
-			to: undefined,
+			currentLocationSlot: null,
+			locationSlots: [],
 		};
 	}
 };
 
-export default () => {
-	let to: IPoint | undefined = readSettings().to;
+const getSettings = () => {
+	let currentSettings = readSettings();
+
+	const update = () => {
+		writeSettings(currentSettings);
+	};
 
 	return {
-		get to() {
-			return to;
+		get() {
+			return currentSettings;
 		},
-
-		set to(value) {
-			to = value;
-			writeSettings({ to });
+		set(newSettings: ISettings) {
+			currentSettings = newSettings;
+			update();
 		},
 	};
 };
+
+const settings = getSettings();
+export default settings;
