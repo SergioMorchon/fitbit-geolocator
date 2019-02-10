@@ -4,12 +4,14 @@ import { ViewId } from '../constants/views';
 import { getElementById, isGraphisElement } from './document';
 
 type KeyboardCallback = (e: KeyboardEvent) => void;
+type Callback = () => void;
 
 export interface IView {
 	readonly root: GraphicsElement;
 	onKeyBack?: KeyboardCallback;
 	onKeyUp?: KeyboardCallback;
 	onKeyDown?: KeyboardCallback;
+	onShow?: Callback;
 }
 
 export interface INavigation {
@@ -54,7 +56,12 @@ export const createViewSet = () => {
 			}
 			innerCurrentViewId = newCurrentViewId;
 			if (isValidViewId(innerCurrentViewId)) {
-				show(views[innerCurrentViewId]);
+				const view = views[innerCurrentViewId];
+				show(view);
+				if (view.onShow) {
+					view.onShow();
+				}
+
 				display.poke();
 			}
 		},

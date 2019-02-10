@@ -40,5 +40,6 @@ export const createNewLocationView = (navigation: INavigation) => {
 		e.preventDefault();
 		navigation.navigate(LOCATION_SLOTS_VIEW);
 	};
+	view.onShow = update;
 	return view;
 };

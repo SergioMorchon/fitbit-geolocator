@@ -55,9 +55,7 @@ export const createLocationSlotsView = (navigation: INavigation) => {
 			list.value = currentSettings.currentLocationSlot;
 		}
 	};
-	settings.addEventListener(update);
-
-	update();
+	view.onShow = update;
 
 	return view;
 };

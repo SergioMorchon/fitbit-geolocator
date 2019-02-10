@@ -19,17 +19,12 @@ const readSettings = (): ISettings => {
 	}
 };
 
-type Listener = () => void;
-
 const getSettings = () => {
 	let currentSettings = readSettings();
 
 	const update = () => {
 		writeSettings(currentSettings);
-		listeners.forEach(listener => listener());
 	};
-
-	const listeners: Listener[] = [];
 
 	return {
 		get() {
@@ -38,9 +33,6 @@ const getSettings = () => {
 		set(newSettings: ISettings) {
 			currentSettings = newSettings;
 			update();
-		},
-		addEventListener(listener: () => void) {
-			listeners.push(listener);
 		},
 	};
 };

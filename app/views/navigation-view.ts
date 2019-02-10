@@ -76,7 +76,6 @@ export const createNavigationView = (navigation: INavigation) => {
 		},
 	};
 
-	settings.addEventListener(update);
 	removeLocationButton.onclick = () => {
 		container.value = 0;
 		const to = getCurrentTargetPosition();
@@ -100,7 +99,10 @@ export const createNavigationView = (navigation: INavigation) => {
 		});
 	}
 
-	update();
+	view.onShow = () => {
+		container.value = 0;
+		update();
+	};
 
 	return view;
 };
