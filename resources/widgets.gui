@@ -6,6 +6,6 @@
 		<link rel="import" href="/mnt/sysassets/widgets/baseview_widget.gui" />
 		<link rel="import" href="/mnt/sysassets/widgets/panoramaview_widget.gui" />
 		<link rel="import" href="/mnt/sysassets/widgets/pagination_dots.gui" />
-    	<link rel="import" href="/mnt/sysassets/widgets/tile_list_widget.gui" />
+		<link rel="import" href="/mnt/sysassets/widgets/tile_list_widget.gui" />
 	</defs>
 </svg>
