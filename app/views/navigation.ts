@@ -4,9 +4,9 @@ import createSettingsDataSource from '../data-sources/settings';
 import {
 	distanceToString,
 	getDistance,
-	IPoint,
-	pointToString,
-} from '../models/point';
+	ILocation,
+	locationToString,
+} from '../models/location';
 import { getElementById } from '../utils/document';
 import i18n from '../utils/i18n';
 import { createView } from '../utils/views';
@@ -22,11 +22,11 @@ export const createNavigationView = () => {
 		'to-current-position-button',
 	) as ComboButton;
 
-	let from: IPoint | undefined;
-	let to: IPoint | undefined = settingsDataSourceStorage.to;
+	let from: ILocation | undefined;
+	let to: ILocation | undefined = settingsDataSourceStorage.to;
 
 	const updateTarget = () => {
-		toText.text = to ? pointToString(to) : i18n('set-target');
+		toText.text = to ? locationToString(to) : i18n('set-target');
 	};
 
 	const updateDistance = () => {

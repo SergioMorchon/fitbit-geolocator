@@ -1,5 +1,7 @@
 # Geolocator
 
+[![Build Status](https://travis-ci.com/SergioMorchon/fitbit-geolocator.svg?branch=master)](https://travis-ci.com/SergioMorchon/fitbit-geolocator)
+
 Plain simple geolocator, with really basic features:
 
 1. Set the current position as a Target.

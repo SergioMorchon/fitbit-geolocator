@@ -1,7 +1,7 @@
 import { units } from 'user-settings';
 import i18n from '../utils/i18n';
 
-export interface IPoint {
+export interface ILocation {
 	readonly latitude: number;
 	readonly longitude: number;
 }
@@ -25,10 +25,10 @@ const distanceConfig = {
 
 const degreesToRadians = (degrees: number) => (degrees * Math.PI) / 180;
 
-export const pointToString = ({ latitude, longitude }: IPoint) =>
+export const locationToString = ({ latitude, longitude }: ILocation) =>
 	`${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
 
-export const getDistance = (from: IPoint, to: IPoint) => {
+export const getDistance = (from: ILocation, to: ILocation) => {
 	const latitudeDistance = degreesToRadians(to.latitude - from.latitude);
 	const longitudeDistance = degreesToRadians(to.longitude - from.longitude);
 	const a =
@@ -40,7 +40,7 @@ export const getDistance = (from: IPoint, to: IPoint) => {
 	return EARTH_RADIUS * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 
-export const distanceToString = (distance: ReturnType<typeof getDistance>) => {
+export const distanceToString = (distance: number) => {
 	const { short, shortName, long, longName } = distanceConfig[distanceUnits];
 	const longPart = Math.floor(distance / long);
 	const shortPart = Math.floor((distance - longPart * long) / short);

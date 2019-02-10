@@ -1,5 +1,5 @@
-import { IPoint } from './point';
+import { ILocation } from './location';
 
 export interface ISettings {
-	readonly to: IPoint | undefined;
+	readonly to: ILocation | undefined;
 }

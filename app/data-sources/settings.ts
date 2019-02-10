@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from 'fs';
-import { IPoint } from '../models/point';
+import { ILocation } from '../models/location';
 import { ISettings } from '../models/settings';
 
 const SETTINGS_FILE_NAME = 'settings';
@@ -20,7 +20,7 @@ const readSettings = (): ISettings => {
 };
 
 export default () => {
-	let to: IPoint | undefined = readSettings().to;
+	let to: ILocation | undefined = readSettings().to;
 
 	return {
 		get to() {
