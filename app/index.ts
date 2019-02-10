@@ -1,7 +1,7 @@
 import { LOCATION_SLOTS_VIEW } from './constants/views';
 import { createViewSet, INavigation } from './utils/views';
-import { createLocationSlotsView } from './views/location-slots';
-import { createNavigationView } from './views/navigation';
+import { createLocationSlotsView } from './views/location-slots-view';
+import { createNavigationView } from './views/navigation-view';
 import { createNewLocationView } from './views/new-location-view';
 
 const views = createViewSet();

@@ -31,24 +31,30 @@ export const createLocationSlotsView = (navigation: INavigation) => {
 			const actionElement = getElementById(tile, 'action') as RectElement;
 			textElement.text = locationSlot.name;
 			actionElement.onclick = () => {
-				settings.currentLocationSlot = settings.locationSlots.indexOf(
-					locationSlot,
-				);
+				settings.set({
+					...settings.get(),
+					currentLocationSlot: settings
+						.get()
+						.locationSlots.indexOf(locationSlot),
+				});
 				navigation.navigate(NAVIGATION_VIEW);
 			};
 		},
 		getTileInfo(position) {
 			return {
-				locationSlot: settings.locationSlots[position],
+				locationSlot: settings.get().locationSlots[position],
 				type: 'location-slots',
 			};
 		},
 	};
 	const update = () => {
-		list.length = settings.locationSlots.length;
-		list.redraw();
+		const currentSettings = settings.get();
+		list.length = 0;
+		list.length = currentSettings.locationSlots.length;
+		if (currentSettings.currentLocationSlot) {
+			list.value = currentSettings.currentLocationSlot;
+		}
 	};
-	list.length = settings.locationSlots.length;
 	settings.addEventListener(update);
 
 	update();

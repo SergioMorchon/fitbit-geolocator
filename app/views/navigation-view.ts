@@ -13,14 +13,15 @@ import {
 import { createView, INavigation } from '../utils/views';
 
 const getCurrentTargetPosition = () => {
+	const currentSettings = settings.get();
 	if (
-		settings.currentLocationSlot === null ||
-		!(settings.currentLocationSlot in settings.locationSlots)
+		currentSettings.currentLocationSlot === null ||
+		!(currentSettings.currentLocationSlot in currentSettings.locationSlots)
 	) {
 		return null;
 	}
 
-	return settings.locationSlots[settings.currentLocationSlot];
+	return currentSettings.locationSlots[currentSettings.currentLocationSlot];
 };
 
 export const createNavigationView = (navigation: INavigation) => {
@@ -29,12 +30,16 @@ export const createNavigationView = (navigation: INavigation) => {
 		e.preventDefault();
 		navigation.navigate(LOCATION_SLOTS_VIEW);
 	};
-
 	const distanceText = getElementById(
 		view.root,
 		'distance-text',
 	) as TextElement;
 	const toText = getElementById(view.root, 'to-text') as TextElement;
+	const removeLocationButton = getElementById(
+		view.root,
+		'remove-location-button',
+	) as ComboButton;
+	const container = getElementById(view.root, 'container');
 
 	let from: ILocationSlot | undefined;
 
@@ -72,6 +77,15 @@ export const createNavigationView = (navigation: INavigation) => {
 	};
 
 	settings.addEventListener(update);
+	removeLocationButton.onclick = () => {
+		container.value = 0;
+		const to = getCurrentTargetPosition();
+		settings.set({
+			currentLocationSlot: null,
+			locationSlots: settings.get().locationSlots.filter(slot => slot !== to),
+		});
+		navigation.navigate(LOCATION_SLOTS_VIEW);
+	};
 	if (me.permissions.granted('access_location')) {
 		const watcher = geolocation.watchPosition(position => {
 			const { latitude, longitude } = position.coords;

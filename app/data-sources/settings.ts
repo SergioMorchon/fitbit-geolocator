@@ -22,31 +22,21 @@ const readSettings = (): ISettings => {
 type Listener = () => void;
 
 const getSettings = () => {
-	let locationSlots = readSettings().locationSlots;
-	let currentLocationSlot = readSettings().currentLocationSlot;
+	let currentSettings = readSettings();
 
 	const update = () => {
-		writeSettings({ currentLocationSlot, locationSlots });
+		writeSettings(currentSettings);
 		listeners.forEach(listener => listener());
 	};
 
 	const listeners: Listener[] = [];
 
 	return {
-		get locationSlots() {
-			return locationSlots;
+		get() {
+			return currentSettings;
 		},
-
-		set locationSlots(value) {
-			locationSlots = value;
-			update();
-		},
-		get currentLocationSlot() {
-			return currentLocationSlot;
-		},
-
-		set currentLocationSlot(value) {
-			currentLocationSlot = value;
+		set(newSettings: ISettings) {
+			currentSettings = newSettings;
 			update();
 		},
 		addEventListener(listener: () => void) {

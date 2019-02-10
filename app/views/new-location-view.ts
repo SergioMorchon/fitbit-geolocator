@@ -28,10 +28,14 @@ export const createNewLocationView = (navigation: INavigation) => {
 	});
 	view.onKeyBack = e => {
 		if (position) {
-			settings.locationSlots = [
-				...settings.locationSlots,
-				{ position, name: positionToString(position) },
-			];
+			const currentSettings = settings.get();
+			settings.set({
+				...currentSettings,
+				locationSlots: [
+					...currentSettings.locationSlots,
+					{ position, name: positionToString(position) },
+				],
+			});
 		}
 		e.preventDefault();
 		navigation.navigate(LOCATION_SLOTS_VIEW);
