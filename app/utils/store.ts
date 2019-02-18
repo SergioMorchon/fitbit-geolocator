@@ -10,7 +10,7 @@ interface IConfigureStoreOptions<State> {
 	initialState?: State;
 }
 
-type Subscriber = (() => void) | ((action: IAction) => void);
+type Subscriber = (action: IAction) => void;
 
 export const configureStore = <State>({
 	reducer,
