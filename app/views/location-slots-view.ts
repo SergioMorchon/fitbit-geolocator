@@ -1,10 +1,12 @@
+import { setCurrentLocationSlot } from '../actions/location-slots';
 import {
 	LOCATION_SLOTS_VIEW,
 	NAVIGATION_VIEW,
 	NEW_LOCATION_VIEW,
 } from '../constants/views';
-import settings from '../data-sources/settings';
+import store from '../data-sources/state';
 import { ILocationSlot } from '../models/location-slot';
+import { getLocationSlotByName, getLocationSlots } from '../reducers';
 import { getElementById } from '../utils/document';
 import { createView, INavigation } from '../utils/views';
 
@@ -31,31 +33,26 @@ export const createLocationSlotsView = (navigation: INavigation) => {
 			const actionElement = getElementById(tile, 'action') as RectElement;
 			textElement.text = locationSlot.name;
 			actionElement.onclick = () => {
-				settings.set({
-					...settings.get(),
-					currentLocationSlot: settings
-						.get()
-						.locationSlots.indexOf(locationSlot),
-				});
+				store.dispatch(setCurrentLocationSlot(locationSlot.name));
 				navigation.navigate(NAVIGATION_VIEW);
 			};
 		},
 		getTileInfo(position) {
 			return {
-				locationSlot: settings.get().locationSlots[position],
+				locationSlot: getLocationSlotByName(
+					store.state,
+					getLocationSlots(store.state)[position].name,
+				),
 				type: 'location-slots',
 			};
 		},
 	};
 	const update = () => {
-		const currentSettings = settings.get();
 		list.length = 0;
-		list.length = currentSettings.locationSlots.length;
-		if (currentSettings.currentLocationSlot) {
-			list.value = currentSettings.currentLocationSlot;
-		}
+		list.length = getLocationSlots(store.state).length;
 	};
 	view.onShow = update;
+	store.subscribe(update);
 
 	return view;
 };
