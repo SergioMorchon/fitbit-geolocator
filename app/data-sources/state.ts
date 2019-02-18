@@ -18,8 +18,7 @@ const store = configureStore({
 	reducer: reducers,
 });
 
-store.subscribe(action => {
-	console.log(`Dispatch ${action.type}`);
+store.subscribe(() => {
 	writeFileSync(SETTINGS_FILE_NAME, store.state, ENCODING);
 });
 
