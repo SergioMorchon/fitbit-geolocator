@@ -1,7 +1,8 @@
 import { me } from 'appbit';
 import { geolocation } from 'geolocation';
+import { addLocationSlot } from '../actions/location-slots';
 import { LOCATION_SLOTS_VIEW, NEW_LOCATION_VIEW } from '../constants/views';
-import settings from '../data-sources/settings';
+import store from '../data-sources/state';
 import { getElementById } from '../utils/document';
 import i18n from '../utils/i18n';
 import { positionToString } from '../utils/position';
@@ -28,18 +29,14 @@ export const createNewLocationView = (navigation: INavigation) => {
 	});
 	view.onKeyBack = e => {
 		if (position) {
-			const currentSettings = settings.get();
-			settings.set({
-				...currentSettings,
-				locationSlots: [
-					...currentSettings.locationSlots,
-					{ position, name: positionToString(position) },
-				],
-			});
+			store.dispatch(
+				addLocationSlot({ position, name: positionToString(position) }),
+			);
 		}
 		e.preventDefault();
 		navigation.navigate(LOCATION_SLOTS_VIEW);
 	};
 	view.onShow = update;
+
 	return view;
 };

@@ -1,8 +1,10 @@
 import { me } from 'appbit';
 import { geolocation } from 'geolocation';
+import { removeLocationSlot } from '../actions/location-slots';
 import { LOCATION_SLOTS_VIEW, NAVIGATION_VIEW } from '../constants/views';
-import settings from '../data-sources/settings';
+import store from '../data-sources/state';
 import { ILocationSlot } from '../models/location-slot';
+import { getCurrentLocationSlot } from '../reducers';
 import { getElementById } from '../utils/document';
 import i18n from '../utils/i18n';
 import {
@@ -12,17 +14,7 @@ import {
 } from '../utils/position';
 import { createView, INavigation } from '../utils/views';
 
-const getCurrentTargetPosition = () => {
-	const currentSettings = settings.get();
-	if (
-		currentSettings.currentLocationSlot === null ||
-		!(currentSettings.currentLocationSlot in currentSettings.locationSlots)
-	) {
-		return null;
-	}
-
-	return currentSettings.locationSlots[currentSettings.currentLocationSlot];
-};
+const getCurrentTargetPosition = () => getCurrentLocationSlot(store.state);
 
 export const createNavigationView = (navigation: INavigation) => {
 	const view = createView(NAVIGATION_VIEW);
@@ -79,10 +71,9 @@ export const createNavigationView = (navigation: INavigation) => {
 	removeLocationButton.onclick = () => {
 		container.value = 0;
 		const to = getCurrentTargetPosition();
-		settings.set({
-			currentLocationSlot: null,
-			locationSlots: settings.get().locationSlots.filter(slot => slot !== to),
-		});
+		if (to) {
+			store.dispatch(removeLocationSlot(to.name));
+		}
 		navigation.navigate(LOCATION_SLOTS_VIEW);
 	};
 	if (me.permissions.granted('access_location')) {
@@ -101,8 +92,11 @@ export const createNavigationView = (navigation: INavigation) => {
 
 	view.onShow = () => {
 		container.value = 0;
-		update();
 	};
+
+	store.subscribe(update);
+
+	update();
 
 	return view;
 };
