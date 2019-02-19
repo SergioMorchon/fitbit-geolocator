@@ -1,4 +1,4 @@
-import { combineReducers } from '../utils/store';
+import { combineReducers } from 'reduced-state';
 import locationSlots from './location-slots';
 import * as fromLocationSlots from './location-slots';
 

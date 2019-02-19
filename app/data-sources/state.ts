@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs';
+import { configureStore } from 'reduced-state';
 import reducers from '../reducers';
-import { configureStore } from '../utils/store';
 
 const SETTINGS_FILE_NAME = 'storage';
 const ENCODING = 'cbor';
