@@ -44,6 +44,6 @@
 		"debug": "fitbit"
 	},
 	"dependencies": {
-		"reduced-state": "0.0.1"
+		"reduced-state": "0.0.2"
 	}
 }

@@ -1,4 +1,3 @@
-import { IAction } from 'reduced-state';
 import {
 	ADD_LOCATION_SLOT,
 	REMOVE_LOCATION_SLOT,
@@ -17,7 +16,7 @@ export default (
 	state: IState = {
 		byName: {},
 	},
-	action: IAction,
+	action: any,
 ): IState => {
 	switch (action.type) {
 		case ADD_LOCATION_SLOT: {
