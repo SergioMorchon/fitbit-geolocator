@@ -1,7 +1,7 @@
 <svg>
 	<g id="navigation-view">
 		<use id="container" href="#panoramaview">
-			<use id="item1" href="#panoramaview-item">
+			<use href="#panoramaview-item">
 				<text
 					id="to-text"
 					text-length="100"
@@ -29,7 +29,7 @@
 					text-anchor="middle"
 				/>
 			</use>
-			<use id="item2" href="#panoramaview-item">
+			<use href="#panoramaview-item">
 				<use
 					id="remove-location-button"
 					href="#combo-button-lower-right"
@@ -43,13 +43,11 @@
 					<set
 						href="combo-button-icon-press"
 						attributeName="href"
-						to="sqr_btn_plus_p.png"
+						to="sqr_btn_trash_p.png"
 					/>
 					<set href="combo-button-stroke" attributeName="display" to="inline" />
 				</use>
 			</use>
-
-			<!-- Have enough pagination dots for your slides (extras are hidden) -->
 			<use id="pagination-dots" href="#pagination-widget" y="8">
 				<use href="#pagination-dot" />
 				<use href="#pagination-dot" />
