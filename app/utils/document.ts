@@ -10,3 +10,11 @@ export const getElementById = (root: ElementSearch, id: string) => {
 export const isGraphisElement = (
 	element: Element,
 ): element is GraphicsElement => !!(element as GraphicsElement).style;
+
+export const show = (element: GraphicsElement) => {
+	element.style.display = 'inline';
+};
+
+export const hide = (element: GraphicsElement) => {
+	element.style.display = 'none';
+};

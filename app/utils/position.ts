@@ -49,3 +49,20 @@ export const distanceToString = (distance: number) => {
 		longPart ? `${longPart}${longName}` : ''
 	} ${shortPart}${shortName}`.trim();
 };
+
+const getBearing = (from: Position, to: Position) => {
+	const φ1 = degreesToRadians(from.coords.latitude);
+	const λ1 = degreesToRadians(from.coords.longitude);
+	const φ2 = degreesToRadians(to.coords.latitude);
+	const λ2 = degreesToRadians(to.coords.longitude);
+	const y = Math.sin(λ2 - λ1) * Math.cos(φ2);
+	const x =
+		Math.cos(φ1) * Math.sin(φ2) -
+		Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
+	return Math.atan2(y, x);
+};
+
+const CIRCLE_RADIANS = Math.PI * 2;
+
+export const getFinalBearingProgress = (from: Position, to: Position) =>
+	((getBearing(to, from) + Math.PI) % CIRCLE_RADIANS) / CIRCLE_RADIANS;

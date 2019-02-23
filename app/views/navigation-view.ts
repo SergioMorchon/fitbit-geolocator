@@ -5,11 +5,12 @@ import { LOCATION_SLOTS_VIEW, NAVIGATION_VIEW } from '../constants/views';
 import store from '../data-sources/state';
 import { ILocationSlot } from '../models/location-slot';
 import { getCurrentLocationSlot } from '../reducers';
-import { getElementById } from '../utils/document';
+import { getElementById, hide, show } from '../utils/document';
 import i18n from '../utils/i18n';
 import {
 	distanceToString,
 	getDistance,
+	getFinalBearingProgress,
 	positionToString,
 } from '../utils/position';
 import { createView, INavigation } from '../utils/views';
@@ -31,10 +32,10 @@ export const createNavigationView = (navigation: INavigation) => {
 		view.root,
 		'current-target-timestamp',
 	) as TextAreaElement;
-	const navigationBearingText = getElementById(
+	const navigationBearingGroup = getElementById(
 		view.root,
 		'navigation-bearing',
-	) as TextElement;
+	) as GroupElement;
 	const container = getElementById(view.root, 'container');
 	view.onKeyBack = e => {
 		e.preventDefault();
@@ -67,8 +68,21 @@ export const createNavigationView = (navigation: INavigation) => {
 			},
 		} = from;
 		currentTargetTimestampText.text = new Date(timestamp).toISOString();
-		navigationBearingText.text =
-			heading !== null && !isNaN(heading) ? String(heading) : '';
+		if (
+			to &&
+			navigationBearingGroup.groupTransform &&
+			heading !== null &&
+			!isNaN(heading)
+		) {
+			show(navigationBearingGroup);
+			const headingProgress = heading / 360;
+			navigationBearingGroup.groupTransform.rotate.angle =
+				(getFinalBearingProgress(from.position, to.position) -
+					headingProgress) *
+				360;
+		} else {
+			hide(navigationBearingGroup);
+		}
 	};
 
 	const update = () => {

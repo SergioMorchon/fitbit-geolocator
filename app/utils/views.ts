@@ -1,7 +1,7 @@
 import { display } from 'display';
 import document from 'document';
 import { ViewId } from '../constants/views';
-import { getElementById, isGraphisElement } from './document';
+import { getElementById, hide, isGraphisElement, show } from './document';
 
 type KeyboardCallback = (e: KeyboardEvent) => void;
 type Callback = () => void;
@@ -29,14 +29,6 @@ export const createView = (id: ViewId): IView => {
 	};
 };
 
-const show = ({ root }: IView) => {
-	root.style.display = 'inline';
-};
-
-const hide = ({ root }: IView) => {
-	root.style.display = 'none';
-};
-
 export const createViewSet = () => {
 	const views: { [id: string]: IView } = {};
 	let innerCurrentViewId: ViewId | null = null;
@@ -45,19 +37,19 @@ export const createViewSet = () => {
 	const self = {
 		addView(view: IView) {
 			views[view.root.id] = view;
-			hide(view);
+			hide(view.root);
 		},
 		get currentViewId() {
 			return innerCurrentViewId;
 		},
 		set currentViewId(newCurrentViewId) {
 			if (isValidViewId(innerCurrentViewId)) {
-				hide(views[innerCurrentViewId]);
+				hide(views[innerCurrentViewId].root);
 			}
 			innerCurrentViewId = newCurrentViewId;
 			if (isValidViewId(innerCurrentViewId)) {
 				const view = views[innerCurrentViewId];
-				show(view);
+				show(view.root);
 				if (view.onShow) {
 					view.onShow();
 				}
