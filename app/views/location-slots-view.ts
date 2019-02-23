@@ -13,9 +13,11 @@ import { createView, INavigation } from '../utils/views';
 export const createLocationSlotsView = (navigation: INavigation) => {
 	const view = createView(LOCATION_SLOTS_VIEW);
 	const addLocationButton = getElementById(view.root, 'add-location-button');
-	addLocationButton.onclick = () => {
+	const addLocationAction = () => {
 		navigation.navigate(NEW_LOCATION_VIEW);
 	};
+	addLocationButton.onclick = addLocationAction;
+	view.onKeyDown = addLocationAction;
 	const list = getElementById(
 		view.root,
 		'location-slots-list',
@@ -51,8 +53,9 @@ export const createLocationSlotsView = (navigation: INavigation) => {
 		list.length = 0;
 		list.length = getLocationSlots(store.state).length;
 	};
-	view.onShow = update;
 	store.subscribe(update);
+
+	update();
 
 	return view;
 };

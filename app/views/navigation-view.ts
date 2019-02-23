@@ -68,7 +68,7 @@ export const createNavigationView = (navigation: INavigation) => {
 		},
 	};
 
-	removeLocationButton.onclick = () => {
+	const removeAction = () => {
 		container.value = 0;
 		const to = getCurrentTargetPosition();
 		if (to) {
@@ -76,6 +76,9 @@ export const createNavigationView = (navigation: INavigation) => {
 		}
 		navigation.navigate(LOCATION_SLOTS_VIEW);
 	};
+
+	removeLocationButton.onclick = removeAction;
+	view.onKeyDown = removeAction;
 	if (me.permissions.granted('access_location')) {
 		const watcher = geolocation.watchPosition(position => {
 			const { latitude, longitude } = position.coords;

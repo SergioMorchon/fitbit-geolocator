@@ -38,5 +38,7 @@ export const createNewLocationView = (navigation: INavigation) => {
 	};
 	view.onShow = update;
 
+	update();
+
 	return view;
 };
