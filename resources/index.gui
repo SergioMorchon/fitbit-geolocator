@@ -30,7 +30,7 @@
 				/>
 			</use>
 			<use href="#panoramaview-item">
-				<text id="current-target-timestamp" font-size="18" text-length="30"/>
+				<text id="current-target-timestamp" font-size="18" text-length="30" />
 				<use
 					id="remove-location-button"
 					href="#combo-button-lower-right"
