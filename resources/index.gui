@@ -4,7 +4,7 @@
 			<use href="#panoramaview-item">
 				<text
 					id="to-text"
-					text-length="100"
+					text-length="20"
 					font-size="20"
 					x="50%"
 					y="20+5%"
@@ -16,9 +16,9 @@
 					x="50%"
 					y="25%+22"
 					text-anchor="middle"
-				>
-					^
-				</text>
+					id="navigation-bearing"
+					text-length="4"
+				/>
 				<text
 					id="distance-text"
 					text-length="100"
@@ -30,6 +30,7 @@
 				/>
 			</use>
 			<use href="#panoramaview-item">
+				<text id="current-target-timestamp" font-size="18" text-length="30"/>
 				<use
 					id="remove-location-button"
 					href="#combo-button-lower-right"

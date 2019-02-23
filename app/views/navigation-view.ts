@@ -18,10 +18,6 @@ const getCurrentTargetPosition = () => getCurrentLocationSlot(store.state);
 
 export const createNavigationView = (navigation: INavigation) => {
 	const view = createView(NAVIGATION_VIEW);
-	view.onKeyBack = e => {
-		e.preventDefault();
-		navigation.navigate(LOCATION_SLOTS_VIEW);
-	};
 	const distanceText = getElementById(
 		view.root,
 		'distance-text',
@@ -31,7 +27,20 @@ export const createNavigationView = (navigation: INavigation) => {
 		view.root,
 		'remove-location-button',
 	) as ComboButton;
+	const currentTargetTimestampText = getElementById(
+		view.root,
+		'current-target-timestamp',
+	) as TextAreaElement;
+	const navigationBearingText = getElementById(
+		view.root,
+		'navigation-bearing',
+	) as TextElement;
 	const container = getElementById(view.root, 'container');
+	view.onKeyBack = e => {
+		e.preventDefault();
+		container.value = 0;
+		navigation.navigate(LOCATION_SLOTS_VIEW);
+	};
 
 	let from: ILocationSlot | undefined;
 
@@ -50,6 +59,16 @@ export const createNavigationView = (navigation: INavigation) => {
 		distanceText.text = to
 			? distanceToString(getDistance(from.position, to.position))
 			: '---';
+
+		const {
+			position: {
+				timestamp,
+				coords: { heading },
+			},
+		} = from;
+		currentTargetTimestampText.text = new Date(timestamp).toISOString();
+		navigationBearingText.text =
+			heading !== null && !isNaN(heading) ? String(heading) : '';
 	};
 
 	const update = () => {
