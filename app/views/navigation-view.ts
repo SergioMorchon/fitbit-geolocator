@@ -32,7 +32,13 @@ export const createNavigationView = (navigation: INavigation) => {
 	let from: ILocationSlot | undefined;
 
 	const updateTarget = (to: ILocationSlot | null) => {
-		toText.text = to ? positionToString(to.position) : i18n('set-target');
+		if (!to) {
+			hide(toText);
+			return;
+		}
+
+		toText.text = positionToString(to.position);
+		show(toText);
 	};
 
 	const updateOrientation = (to: ILocationSlot | null) => {
