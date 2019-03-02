@@ -54,24 +54,18 @@ export const createNavigationView = (navigation: INavigation) => {
 		toText.text = to ? positionToString(to.position) : i18n('set-target');
 	};
 
-	const updateDistance = () => {
-		if (!from) {
-			distanceText.text = i18n('wating-gps');
+	const updateOrientation = () => {
+		const to = getCurrentTargetPosition();
+		if (!from || !to) {
+			hide(navigationBearingGroup);
 			return;
 		}
 
-		const to = getCurrentTargetPosition();
-		distanceText.text = to
-			? distanceToString(getDistance(from.position, to.position))
-			: '---';
-
 		const {
 			position: {
-				timestamp,
 				coords: { heading },
 			},
 		} = from;
-		currentTargetTimestampText.text = new Date(timestamp).toISOString();
 		if (
 			to &&
 			navigationBearingGroup.groupTransform &&
@@ -89,9 +83,27 @@ export const createNavigationView = (navigation: INavigation) => {
 		}
 	};
 
+	const updateDistance = () => {
+		if (!from) {
+			distanceText.text = i18n('wating-gps');
+			return;
+		}
+
+		const to = getCurrentTargetPosition();
+		distanceText.text = to
+			? distanceToString(getDistance(from.position, to.position))
+			: '---';
+
+		const {
+			position: { timestamp },
+		} = from;
+		currentTargetTimestampText.text = new Date(timestamp).toISOString();
+	};
+
 	const update = () => {
 		updateTarget();
 		updateDistance();
+		updateOrientation();
 	};
 
 	const self = {
