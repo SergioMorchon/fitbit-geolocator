@@ -23,7 +23,12 @@
 		/>
 	</g>
 	<g id="location-details-view">
-		<text id="current-target-timestamp" font-size="18" text-length="30" />
+		<textarea
+			id="location-details-text"
+			fill="white"
+			font-size="20"
+			text-length="200"
+		/>
 	</g>
 	<g id="location-slots-view">
 		<defs>

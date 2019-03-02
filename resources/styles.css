@@ -25,3 +25,10 @@ text {
 	width: 80%;
 	y: 20%;
 }
+
+#location-details-text {
+	fill: white;
+	x: 10%;
+	width: 80%;
+	y: 20%;
+}

@@ -8,6 +8,8 @@ import {
 import store from '../data-sources/state';
 import { getCurrentLocationSlot } from '../reducers';
 import { getElementById } from '../utils/document';
+import i18n from '../utils/i18n';
+import { positionToString } from '../utils/position';
 import { createView, INavigation } from '../utils/views';
 
 export const createLocationDetailsView = (navigation: INavigation) => {
@@ -20,9 +22,9 @@ export const createLocationDetailsView = (navigation: INavigation) => {
 		document,
 		'start-navigation-button',
 	) as ComboButton;
-	const currentTargetTimestampText = getElementById(
+	const locationDetailsText = getElementById(
 		view.root,
-		'current-target-timestamp',
+		'location-details-text',
 	) as TextAreaElement;
 
 	const update = () => {
@@ -31,9 +33,13 @@ export const createLocationDetailsView = (navigation: INavigation) => {
 			return;
 		}
 
-		currentTargetTimestampText.text = new Date(
-			to.position.timestamp,
-		).toISOString();
+		locationDetailsText.text = [
+			i18n('details-location'),
+			positionToString(to.position),
+			'',
+			i18n('details-timestamp'),
+			new Date(to.position.timestamp).toISOString(),
+		].join('\n');
 	};
 
 	store.subscribe(update);
