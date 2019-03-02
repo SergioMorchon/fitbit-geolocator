@@ -35,10 +35,11 @@ export const createLocationDetailsView = (navigation: INavigation) => {
 	store.subscribe(update);
 	removeLocationButton.onactivate = () => {
 		const to = getCurrentLocationSlot(store.state);
-		if (to) {
-			store.dispatch(removeLocationSlot(to.name));
+		if (!to) {
+			return;
 		}
 
+		store.dispatch(removeLocationSlot(to.name));
 		navigation.navigate(LOCATION_SLOTS_VIEW);
 	};
 	startNavigationButton.onactivate = () => {
@@ -47,6 +48,9 @@ export const createLocationDetailsView = (navigation: INavigation) => {
 	view.comboButtons = {
 		bottomRight: startNavigationButton,
 		topRight: removeLocationButton,
+	};
+	view.onKeyBack = () => {
+		navigation.navigate(LOCATION_SLOTS_VIEW);
 	};
 
 	update();

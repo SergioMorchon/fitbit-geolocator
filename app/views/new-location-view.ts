@@ -27,13 +27,13 @@ export const createNewLocationView = (navigation: INavigation) => {
 	me.addEventListener('unload', () => {
 		geolocation.clearWatch(watchId);
 	});
-	view.onKeyBack = e => {
+	view.onKeyBack = () => {
 		if (position) {
 			store.dispatch(
 				addLocationSlot({ position, name: positionToString(position) }),
 			);
 		}
-		e.preventDefault();
+
 		navigation.navigate(LOCATION_SLOTS_VIEW);
 	};
 	view.onShow = update;

@@ -25,9 +25,8 @@ export const createNavigationView = (navigation: INavigation) => {
 		view.root,
 		'navigation-bearing',
 	) as GroupElement;
-	view.onKeyBack = e => {
+	view.onKeyBack = () => {
 		navigation.navigate(LOCATION_DETAILS_VIEW);
-		e.preventDefault();
 	};
 
 	let from: ILocationSlot | undefined;

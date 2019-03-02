@@ -35,10 +35,17 @@
 				system-events="all"
 				display="none"
 			>
-				<text id="text" text-length="30" />
+				<text
+					id="tile-text"
+					text-length="30"
+					font-size="24" 
+					x="50%"
+					y="50%+12"
+					text-anchor="middle"
+				/>
 				<rect id="tile-divider-bottom" class="tile-divider-bottom" />
 				<rect
-					id="action"
+					id="tile-action"
 					pointer-events="all"
 					x="0"
 					y="0"
@@ -48,6 +55,9 @@
 				/>
 			</symbol>
 		</defs>
+		<g id="location-slots-empty-case">
+			<textarea id="empty-case" text-length="100" font-size="24" />
+		</g>
 		<use id="location-slots-list" href="#tile-list">
 			<var id="virtual" value="1" />
 			<var id="separator-height-bottom" value="2" />

@@ -18,3 +18,10 @@ text {
 	height: 2;
 	fill: #a0a0a0;
 }
+
+#empty-case {
+	fill: white;
+	x: 10%;
+	width: 80%;
+	y: 20%;
+}

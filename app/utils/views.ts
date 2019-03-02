@@ -3,7 +3,7 @@ import document from 'document';
 import { ViewId } from '../constants/views';
 import { getElementById, hide, isGraphisElement, show } from './document';
 
-type KeyboardCallback = (e: KeyboardEvent) => void;
+type KeyboardCallback = () => void;
 type Callback = () => void;
 
 export interface IView {
@@ -85,12 +85,29 @@ export const createViewSet = () => {
 
 		const { key } = e;
 		const { onKeyBack, onKeyDown, onKeyUp } = views[innerCurrentViewId];
-		if (key === 'back' && onKeyBack) {
-			onKeyBack(e);
-		} else if (key === 'down' && onKeyDown) {
-			onKeyDown(e);
-		} else if (key === 'up' && onKeyUp) {
-			onKeyUp(e);
+		switch (e.key) {
+			case 'back': {
+				if (onKeyBack) {
+					onKeyBack();
+					e.preventDefault();
+				}
+
+				break;
+			}
+			case 'down': {
+				if (onKeyDown) {
+					onKeyDown();
+				}
+
+				break;
+			}
+			case 'up': {
+				if (onKeyUp) {
+					onKeyUp();
+				}
+
+				break;
+			}
 		}
 	});
 

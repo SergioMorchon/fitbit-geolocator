@@ -4,5 +4,6 @@
 	"meter": "m",
 	"kilometer": "km",
 	"foot": "ft",
-	"mile": "mi"
+	"mile": "mi",
+	"empty-case": "Add your first location to the list; they will be shown here."
 }
