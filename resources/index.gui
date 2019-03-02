@@ -1,39 +1,29 @@
 <svg>
 	<!-- #region views -->
 	<g id="navigation-view">
-		<use id="container" href="#panoramaview">
-			<use href="#panoramaview-item">
-				<g id="navigation-bearing" transform="translate(50%, 50%)">
-					<rect x="$-2" y="-120" width="4" height="120" fill="#ff0000" />
-				</g>
-				<text
-					id="to-text"
-					text-length="20"
-					font-size="20"
-					x="50%"
-					y="20+5%"
-					text-anchor="middle"
-				/>
-				<text
-					id="distance-text"
-					text-length="100"
-					font-size="40"
-					font-weight="bold"
-					x="50%"
-					y="50%+20"
-					text-anchor="middle"
-				/>
-			</use>
-			<use href="#panoramaview-item">
-				<text id="current-target-timestamp" font-size="18" text-length="30" />
-			</use>
-			<use id="pagination-dots" href="#pagination-widget" y="8">
-				<use href="#pagination-dot" />
-				<use href="#pagination-dot" />
-				<use href="#pagination-dot" />
-				<use href="#pagination-highlight-dot" />
-			</use>
-		</use>
+		<g id="navigation-bearing" transform="translate(50%, 50%)">
+			<rect x="$-2" y="-120" width="4" height="120" fill="#ff0000" />
+		</g>
+		<text
+			id="to-text"
+			text-length="20"
+			font-size="20"
+			x="50%"
+			y="20+5%"
+			text-anchor="middle"
+		/>
+		<text
+			id="distance-text"
+			text-length="100"
+			font-size="40"
+			font-weight="bold"
+			x="50%"
+			y="50%+20"
+			text-anchor="middle"
+		/>
+	</g>
+	<g id="location-details-view">
+		<text id="current-target-timestamp" font-size="18" text-length="30" />
 	</g>
 	<g id="location-slots-view">
 		<defs>
@@ -129,8 +119,25 @@
 	<!-- #endregion -->
 	<!-- #region combo buttons -->
 	<use
-		id="remove-location-button"
+		id="add-location-button"
 		href="#combo-button-lower-right"
+		fill="fb-white"
+	>
+		<set
+			href="combo-button-icon"
+			attributeName="href"
+			to="sqr_btn_plus_p.png"
+		/>
+		<set
+			href="combo-button-icon-press"
+			attributeName="href"
+			to="sqr_btn_plus_p.png"
+		/>
+		<set href="combo-button-stroke" attributeName="display" to="inline" />
+	</use>
+	<use
+		id="remove-location-button"
+		href="#combo-button-upper-right"
 		fill="fb-white"
 	>
 		<set
@@ -146,19 +153,19 @@
 		<set href="combo-button-stroke" attributeName="display" to="inline" />
 	</use>
 	<use
-		id="add-location-button"
+		id="start-navigation-button"
 		href="#combo-button-lower-right"
 		fill="fb-white"
 	>
 		<set
 			href="combo-button-icon"
 			attributeName="href"
-			to="sqr_btn_plus_p.png"
+			to="btn_combo_flag_p.png"
 		/>
 		<set
 			href="combo-button-icon-press"
 			attributeName="href"
-			to="sqr_btn_plus_p.png"
+			to="btn_combo_flag_p.png"
 		/>
 		<set href="combo-button-stroke" attributeName="display" to="inline" />
 	</use>

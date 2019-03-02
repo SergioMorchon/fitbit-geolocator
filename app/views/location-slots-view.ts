@@ -1,8 +1,8 @@
 import document from 'document';
 import { setCurrentLocationSlot } from '../actions/location-slots';
 import {
+	LOCATION_DETAILS_VIEW,
 	LOCATION_SLOTS_VIEW,
-	NAVIGATION_VIEW,
 	NEW_LOCATION_VIEW,
 } from '../constants/views';
 import store from '../data-sources/state';
@@ -43,7 +43,7 @@ export const createLocationSlotsView = (navigation: INavigation) => {
 			textElement.text = locationSlot.name;
 			actionElement.onclick = () => {
 				store.dispatch(setCurrentLocationSlot(locationSlot.name));
-				navigation.navigate(NAVIGATION_VIEW);
+				navigation.navigate(LOCATION_DETAILS_VIEW);
 			};
 		},
 		getTileInfo(position) {

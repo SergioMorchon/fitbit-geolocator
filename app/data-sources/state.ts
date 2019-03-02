@@ -25,7 +25,7 @@ store.subscribe(() => {
 const originalDispatch = store.dispatch;
 store.dispatch = (action: any) => {
 	// tslint:disable-next-line: no-console
-	console.log(`Action '${action.type}`);
+	console.log(action.type);
 	originalDispatch(action);
 };
 

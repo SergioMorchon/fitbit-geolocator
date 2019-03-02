@@ -1,8 +1,6 @@
 import { me } from 'appbit';
-import document from 'document';
 import { geolocation } from 'geolocation';
-import { removeLocationSlot } from '../actions/location-slots';
-import { LOCATION_SLOTS_VIEW, NAVIGATION_VIEW } from '../constants/views';
+import { LOCATION_DETAILS_VIEW, NAVIGATION_VIEW } from '../constants/views';
 import store from '../data-sources/state';
 import { ILocationSlot } from '../models/location-slot';
 import { getCurrentLocationSlot } from '../reducers';
@@ -16,8 +14,6 @@ import {
 } from '../utils/position';
 import { createView, INavigation } from '../utils/views';
 
-const getCurrentTargetPosition = () => getCurrentLocationSlot(store.state);
-
 export const createNavigationView = (navigation: INavigation) => {
 	const view = createView(NAVIGATION_VIEW);
 	const distanceText = getElementById(
@@ -25,37 +21,22 @@ export const createNavigationView = (navigation: INavigation) => {
 		'distance-text',
 	) as TextElement;
 	const toText = getElementById(view.root, 'to-text') as TextElement;
-	const removeLocationButton = getElementById(
-		document,
-		'remove-location-button',
-	) as ComboButton;
-	const currentTargetTimestampText = getElementById(
-		view.root,
-		'current-target-timestamp',
-	) as TextAreaElement;
 	const navigationBearingGroup = getElementById(
 		view.root,
 		'navigation-bearing',
 	) as GroupElement;
-	const container = getElementById(view.root, 'container');
 	view.onKeyBack = e => {
+		navigation.navigate(LOCATION_DETAILS_VIEW);
 		e.preventDefault();
-		container.value = 0;
-		navigation.navigate(LOCATION_SLOTS_VIEW);
-	};
-	view.comboButtons = {
-		bottomRight: removeLocationButton,
 	};
 
 	let from: ILocationSlot | undefined;
 
-	const updateTarget = () => {
-		const to = getCurrentTargetPosition();
+	const updateTarget = (to: ILocationSlot | null) => {
 		toText.text = to ? positionToString(to.position) : i18n('set-target');
 	};
 
-	const updateOrientation = () => {
-		const to = getCurrentTargetPosition();
+	const updateOrientation = (to: ILocationSlot | null) => {
 		if (!from || !to) {
 			hide(navigationBearingGroup);
 			return;
@@ -83,51 +64,24 @@ export const createNavigationView = (navigation: INavigation) => {
 		}
 	};
 
-	const updateDistance = () => {
+	const updateDistance = (to: ILocationSlot | null) => {
 		if (!from) {
 			distanceText.text = i18n('wating-gps');
 			return;
 		}
 
-		const to = getCurrentTargetPosition();
 		distanceText.text = to
 			? distanceToString(getDistance(from.position, to.position))
 			: '---';
-
-		const {
-			position: { timestamp },
-		} = from;
-		currentTargetTimestampText.text = new Date(timestamp).toISOString();
 	};
 
 	const update = () => {
-		updateTarget();
-		updateDistance();
-		updateOrientation();
+		const to = getCurrentLocationSlot(store.state);
+		updateTarget(to);
+		updateDistance(to);
+		updateOrientation(to);
 	};
 
-	const self = {
-		get from() {
-			return from;
-		},
-
-		set from(value) {
-			from = value;
-			update();
-		},
-	};
-
-	const removeAction = () => {
-		container.value = 0;
-		const to = getCurrentTargetPosition();
-		if (to) {
-			store.dispatch(removeLocationSlot(to.name));
-		}
-		navigation.navigate(LOCATION_SLOTS_VIEW);
-	};
-
-	removeLocationButton.onactivate = removeAction;
-	view.onKeyDown = removeAction;
 	if (me.permissions.granted('access_location')) {
 		const watcher = geolocation.watchPosition(position => {
 			const { latitude, longitude } = position.coords;
@@ -135,19 +89,15 @@ export const createNavigationView = (navigation: INavigation) => {
 				return;
 			}
 
-			self.from = { name: positionToString(position), position };
+			from = { name: positionToString(position), position };
+			update();
 		});
 		me.addEventListener('unload', () => {
 			geolocation.clearWatch(watcher);
 		});
 	}
 
-	view.onShow = () => {
-		container.value = 0;
-	};
-
 	store.subscribe(update);
-
 	update();
 
 	return view;
