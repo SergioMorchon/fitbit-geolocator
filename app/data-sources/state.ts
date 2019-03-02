@@ -1,3 +1,4 @@
+import { me } from 'appbit';
 import { readFileSync, writeFileSync } from 'fs';
 import { configureStore } from 'reduced-state';
 import reducers from '../reducers';
@@ -18,7 +19,7 @@ const store = configureStore({
 	reducer: reducers,
 });
 
-store.subscribe(() => {
+me.addEventListener('unload', () => {
 	writeFileSync(SETTINGS_FILE_NAME, store.state, ENCODING);
 });
 
