@@ -26,10 +26,14 @@ export const createLocationDetailsView = (navigation: INavigation) => {
 	) as TextAreaElement;
 
 	const update = () => {
-		const currentLocationSlot = getCurrentLocationSlot(store.state);
-		currentTargetTimestampText.text = currentLocationSlot
-			? new Date(currentLocationSlot.position.timestamp).toISOString()
-			: '';
+		const to = getCurrentLocationSlot(store.state);
+		if (!to) {
+			return;
+		}
+
+		currentTargetTimestampText.text = new Date(
+			to.position.timestamp,
+		).toISOString();
 	};
 
 	store.subscribe(update);
