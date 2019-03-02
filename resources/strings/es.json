@@ -4,7 +4,7 @@
 	"kilometer": "km",
 	"foot": "ft",
 	"mile": "mi",
-	"empty-case": "Añade tu primera ubicación a la lista; podrás verlas aquí.",
+	"empty-case": "Aquí verás el listado de tus ubicaciones. ¡Comienza añadiendo una!",
 	"details-location": "Ubicación",
 	"details-timestamp": "Marca de tiempo"
 }

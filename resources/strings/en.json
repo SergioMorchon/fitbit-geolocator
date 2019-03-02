@@ -4,7 +4,7 @@
 	"kilometer": "km",
 	"foot": "ft",
 	"mile": "mi",
-	"empty-case": "Add your first location to the list; they will be shown here.",
+	"empty-case": "Here you will see a list with your saved locations. Start adding one!",
 	"details-location": "Location",
 	"details-timestamp": "Timestamp"
 }

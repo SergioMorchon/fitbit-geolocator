@@ -30,7 +30,13 @@ export const createNewLocationView = (navigation: INavigation) => {
 	view.onKeyBack = () => {
 		if (position) {
 			store.dispatch(
-				addLocationSlot({ position, name: positionToString(position) }),
+				addLocationSlot({
+					name: positionToString(position),
+					position: {
+						...position,
+						timestamp: Date.now(),
+					},
+				}),
 			);
 		}
 
