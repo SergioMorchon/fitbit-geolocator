@@ -26,16 +26,16 @@ export const positionToString = ({
 }: Position) => `${toNum(latitude).toFixed(6)}, ${toNum(longitude).toFixed(6)}`;
 
 export const getDistance = (from: Position, to: Position) => {
-	const latitudeDistance = degreesToRadians(
+	const φ = degreesToRadians(
 		toNum(to.coords.latitude) - toNum(from.coords.latitude),
 	);
-	const longitudeDistance = degreesToRadians(
+	const λ = degreesToRadians(
 		toNum(to.coords.longitude) - toNum(from.coords.longitude),
 	);
 	const a =
-		Math.sin(latitudeDistance / 2) * Math.sin(latitudeDistance / 2) +
-		Math.sin(longitudeDistance / 2) *
-			Math.sin(longitudeDistance / 2) *
+		Math.sin(φ / 2) * Math.sin(φ / 2) +
+		Math.sin(λ / 2) *
+			Math.sin(λ / 2) *
 			Math.cos(degreesToRadians(toNum(from.coords.latitude))) *
 			Math.cos(degreesToRadians(toNum(to.coords.latitude)));
 	return EARTH_RADIUS * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
