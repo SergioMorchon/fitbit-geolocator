@@ -5,4 +5,4 @@ Aplicación basada en GPS para guardar ubicaciones y orientarte:
 ✔ Muestra a qué distancia estás de la ubicación seleccionada.
 ✔ Indica la dirección en línea recta hacia el objetivo.
 
-Ten en cuenta que los dispositivos Fitbit no tiene brújula, por lo que la orientación se calcula en base a tus últimos movimientos con el GPS.
+Ten en cuenta que los dispositivos Fitbit no tienen brújula, por lo que la orientación se calcula en base a tus últimos movimientos con el GPS.
