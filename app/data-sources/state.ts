@@ -22,4 +22,11 @@ store.subscribe(() => {
 	writeFileSync(SETTINGS_FILE_NAME, store.state, ENCODING);
 });
 
+const originalDispatch = store.dispatch;
+store.dispatch = (action: any) => {
+	// tslint:disable-next-line: no-console
+	console.log(`Action '${action.type}`);
+	originalDispatch(action);
+};
+
 export default store;

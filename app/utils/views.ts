@@ -12,6 +12,12 @@ export interface IView {
 	onKeyUp?: KeyboardCallback;
 	onKeyDown?: KeyboardCallback;
 	onShow?: Callback;
+	comboButtons?: {
+		topLeft?: ComboButton;
+		topRight?: ComboButton;
+		bottomLeft?: ComboButton;
+		bottomRight?: ComboButton;
+	};
 }
 
 export interface INavigation {
@@ -29,6 +35,19 @@ export const createView = (id: ViewId): IView => {
 	};
 };
 
+const applyVisibility = (view: IView, visible: boolean) => {
+	const action = visible ? show : hide;
+	action(view.root);
+	if (view.comboButtons) {
+		const { bottomLeft, bottomRight, topLeft, topRight } = view.comboButtons;
+		[bottomLeft, bottomRight, topLeft, topRight].forEach(comboButton => {
+			if (comboButton) {
+				action(comboButton);
+			}
+		});
+	}
+};
+
 export const createViewSet = () => {
 	const views: { [id: string]: IView } = {};
 	let innerCurrentViewId: ViewId | null = null;
@@ -37,19 +56,19 @@ export const createViewSet = () => {
 	const self = {
 		addView(view: IView) {
 			views[view.root.id] = view;
-			hide(view.root);
+			applyVisibility(view, false);
 		},
 		get currentViewId() {
 			return innerCurrentViewId;
 		},
 		set currentViewId(newCurrentViewId) {
 			if (isValidViewId(innerCurrentViewId)) {
-				hide(views[innerCurrentViewId].root);
+				applyVisibility(views[innerCurrentViewId], false);
 			}
 			innerCurrentViewId = newCurrentViewId;
 			if (isValidViewId(innerCurrentViewId)) {
 				const view = views[innerCurrentViewId];
-				show(view.root);
+				applyVisibility(view, true);
 				if (view.onShow) {
 					view.onShow();
 				}

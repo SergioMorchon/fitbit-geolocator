@@ -1,3 +1,4 @@
+import document from 'document';
 import { setCurrentLocationSlot } from '../actions/location-slots';
 import {
 	LOCATION_SLOTS_VIEW,
@@ -12,12 +13,18 @@ import { createView, INavigation } from '../utils/views';
 
 export const createLocationSlotsView = (navigation: INavigation) => {
 	const view = createView(LOCATION_SLOTS_VIEW);
-	const addLocationButton = getElementById(view.root, 'add-location-button');
+	const addLocationButton = getElementById(
+		document,
+		'add-location-button',
+	) as ComboButton;
 	const addLocationAction = () => {
 		navigation.navigate(NEW_LOCATION_VIEW);
 	};
-	addLocationButton.onclick = addLocationAction;
+	addLocationButton.onactivate = addLocationAction;
 	view.onKeyDown = addLocationAction;
+	view.comboButtons = {
+		bottomRight: addLocationButton,
+	};
 	const list = getElementById(
 		view.root,
 		'location-slots-list',

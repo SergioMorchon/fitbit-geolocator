@@ -1,4 +1,5 @@
 <svg>
+	<!-- #region views -->
 	<g id="navigation-view">
 		<use id="container" href="#panoramaview">
 			<use href="#panoramaview-item">
@@ -25,23 +26,6 @@
 			</use>
 			<use href="#panoramaview-item">
 				<text id="current-target-timestamp" font-size="18" text-length="30" />
-				<use
-					id="remove-location-button"
-					href="#combo-button-lower-right"
-					fill="fb-white"
-				>
-					<set
-						href="combo-button-icon"
-						attributeName="href"
-						to="sqr_btn_trash_p.png"
-					/>
-					<set
-						href="combo-button-icon-press"
-						attributeName="href"
-						to="sqr_btn_trash_p.png"
-					/>
-					<set href="combo-button-stroke" attributeName="display" to="inline" />
-				</use>
 			</use>
 			<use id="pagination-dots" href="#pagination-widget" y="8">
 				<use href="#pagination-dot" />
@@ -130,24 +114,6 @@
 				/>
 			</use>
 		</use>
-
-		<use
-			id="add-location-button"
-			href="#combo-button-lower-right"
-			fill="fb-white"
-		>
-			<set
-				href="combo-button-icon"
-				attributeName="href"
-				to="sqr_btn_plus_p.png"
-			/>
-			<set
-				href="combo-button-icon-press"
-				attributeName="href"
-				to="sqr_btn_plus_p.png"
-			/>
-			<set href="combo-button-stroke" attributeName="display" to="inline" />
-		</use>
 	</g>
 	<g id="new-location-view">
 		<text
@@ -160,4 +126,41 @@
 			text-anchor="middle"
 		/>
 	</g>
+	<!-- #endregion -->
+	<!-- #region combo buttons -->
+	<use
+		id="remove-location-button"
+		href="#combo-button-lower-right"
+		fill="fb-white"
+	>
+		<set
+			href="combo-button-icon"
+			attributeName="href"
+			to="sqr_btn_trash_p.png"
+		/>
+		<set
+			href="combo-button-icon-press"
+			attributeName="href"
+			to="sqr_btn_trash_p.png"
+		/>
+		<set href="combo-button-stroke" attributeName="display" to="inline" />
+	</use>
+	<use
+		id="add-location-button"
+		href="#combo-button-lower-right"
+		fill="fb-white"
+	>
+		<set
+			href="combo-button-icon"
+			attributeName="href"
+			to="sqr_btn_plus_p.png"
+		/>
+		<set
+			href="combo-button-icon-press"
+			attributeName="href"
+			to="sqr_btn_plus_p.png"
+		/>
+		<set href="combo-button-stroke" attributeName="display" to="inline" />
+	</use>
+	<!-- #endregion -->
 </svg>

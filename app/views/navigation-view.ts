@@ -1,4 +1,5 @@
 import { me } from 'appbit';
+import document from 'document';
 import { geolocation } from 'geolocation';
 import { removeLocationSlot } from '../actions/location-slots';
 import { LOCATION_SLOTS_VIEW, NAVIGATION_VIEW } from '../constants/views';
@@ -25,7 +26,7 @@ export const createNavigationView = (navigation: INavigation) => {
 	) as TextElement;
 	const toText = getElementById(view.root, 'to-text') as TextElement;
 	const removeLocationButton = getElementById(
-		view.root,
+		document,
 		'remove-location-button',
 	) as ComboButton;
 	const currentTargetTimestampText = getElementById(
@@ -41,6 +42,9 @@ export const createNavigationView = (navigation: INavigation) => {
 		e.preventDefault();
 		container.value = 0;
 		navigation.navigate(LOCATION_SLOTS_VIEW);
+	};
+	view.comboButtons = {
+		bottomRight: removeLocationButton,
 	};
 
 	let from: ILocationSlot | undefined;
@@ -110,7 +114,7 @@ export const createNavigationView = (navigation: INavigation) => {
 		navigation.navigate(LOCATION_SLOTS_VIEW);
 	};
 
-	removeLocationButton.onclick = removeAction;
+	removeLocationButton.onactivate = removeAction;
 	view.onKeyDown = removeAction;
 	if (me.permissions.granted('access_location')) {
 		const watcher = geolocation.watchPosition(position => {
