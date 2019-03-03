@@ -1,0 +1,13 @@
+<svg>
+	<symbol id="new-location-view">
+		<text
+			id="current-location"
+			text-length="100"
+			font-size="20"
+			font-weight="bold"
+			x="50%"
+			y="50%+10"
+			text-anchor="middle"
+		/>
+	</symbol>
+</svg>
