@@ -36,10 +36,9 @@
 		"defaultLanguage": "en"
 	},
 	"scripts": {
-		"prettier": "prettier \"**/*.ts\" \"**/*.tsx\" \"**/*.json\" \"**/*.md\" \"**/*.gui\"",
 		"tslint": "tslint --project app",
-		"check-code": "npm run tslint && npm run prettier -- -l",
-		"fix-code": "npm run tslint -- --fix && npm run prettier -- --write",
+		"check-code": "npm run tslint && prettier --check **/*.ts **/*.tsx **/*.json **/*.md **/*.gui",
+		"fix-code": "npm run tslint -- --fix && prettier --write **/*.ts **/*.tsx **/*.json **/*.md **/*.gui",
 		"build": "fitbit-build",
 		"debug": "fitbit"
 	},
