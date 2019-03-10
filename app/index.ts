@@ -1,5 +1,6 @@
 import { me } from 'appbit';
 import { memory } from 'system';
+import './actions/companion-messaging';
 import { LOCATION_SLOTS_VIEW, NAVIGATION_VIEW } from './constants/views';
 import store from './data-sources/state';
 import { createViewSet, INavigation } from './utils/views';

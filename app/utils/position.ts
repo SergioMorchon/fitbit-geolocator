@@ -1,6 +1,6 @@
 import { units } from 'user-settings';
+import { toNum } from '../../common/utils/number';
 import i18n from './i18n';
-import { toNum } from './number';
 
 const { distance: distanceUnits } = units;
 const EARTH_RADIUS = 6371e3;

@@ -1,6 +1,6 @@
 import { me } from 'appbit';
 import { geolocation } from 'geolocation';
-import { addLocationSlot } from '../actions/location-slots';
+import { setLocationSlot } from '../actions/location-slots';
 import { LOCATION_SLOTS_VIEW, NEW_LOCATION_VIEW } from '../constants/views';
 import store from '../data-sources/state';
 import { getElementById } from '../utils/document';
@@ -30,7 +30,7 @@ export const createNewLocationView = (navigation: INavigation) => {
 	view.onKeyBack = () => {
 		if (position) {
 			store.dispatch(
-				addLocationSlot({
+				setLocationSlot({
 					name: positionToString(position),
 					position: {
 						...position,
