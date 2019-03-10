@@ -1,11 +1,11 @@
+import { ILocationSlot } from '../../common/models/location-slot';
 import {
 	ADD_LOCATION_SLOT,
 	REMOVE_LOCATION_SLOT,
 	SET_CURRENT_LOCATION_SLOT,
 } from '../constants/actions/location-slots';
-import { ILocationSlot } from '../models/location-slot';
 
-export const addLocationSlot = (locationSlot: ILocationSlot) => ({
+export const setLocationSlot = (locationSlot: ILocationSlot) => ({
 	payload: {
 		locationSlot,
 	},

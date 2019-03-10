@@ -1,8 +1,8 @@
 import { me } from 'appbit';
 import { geolocation } from 'geolocation';
+import { ILocationSlot } from '../../common/models/location-slot';
 import { LOCATION_DETAILS_VIEW, NAVIGATION_VIEW } from '../constants/views';
 import store from '../data-sources/state';
-import { ILocationSlot } from '../models/location-slot';
 import { getCurrentLocationSlot } from '../reducers';
 import { getElementById, hide, show } from '../utils/document';
 import i18n from '../utils/i18n';
