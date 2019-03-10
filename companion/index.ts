@@ -3,12 +3,8 @@ import { SET_LOCATION } from '../common/constants/action-types/messaging';
 import { ISettingLocationSlot } from '../common/models/setting-location-slot';
 import { setLocation } from './actions';
 
-settingsStorage.addEventListener('change', e => {
-	if (e.key !== SET_LOCATION) {
-		return;
-	}
-
-	const locationJson = e.newValue;
+const processLocation = () => {
+	const locationJson = settingsStorage.getItem(SET_LOCATION);
 	if (!locationJson) {
 		return;
 	}
@@ -29,4 +25,8 @@ settingsStorage.addEventListener('change', e => {
 			timestamp: Date.now(),
 		},
 	});
-});
+	settingsStorage.removeItem(SET_LOCATION);
+};
+
+settingsStorage.addEventListener('change', processLocation);
+processLocation();

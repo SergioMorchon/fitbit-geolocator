@@ -21,9 +21,14 @@ const distanceConfig = {
 
 const degreesToRadians = (degrees: number) => (degrees * Math.PI) / 180;
 
+const SIGNIFICATIVE_DECIMALS = 5;
+
 export const positionToString = ({
 	coords: { latitude, longitude },
-}: Position) => `${toNum(latitude).toFixed(6)}, ${toNum(longitude).toFixed(6)}`;
+}: Position) =>
+	`${toNum(latitude).toFixed(SIGNIFICATIVE_DECIMALS)}, ${toNum(
+		longitude,
+	).toFixed(SIGNIFICATIVE_DECIMALS)}`;
 
 export const getDistance = (from: Position, to: Position) => {
 	const φ = degreesToRadians(
