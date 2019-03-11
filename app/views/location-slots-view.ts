@@ -1,4 +1,5 @@
 import document from 'document';
+import { ILocationSlot } from '../../common/models/location-slot';
 import { setCurrentLocationSlot } from '../actions/location-slots';
 import {
 	LOCATION_DETAILS_VIEW,
@@ -6,7 +7,6 @@ import {
 	NEW_LOCATION_VIEW,
 } from '../constants/views';
 import store from '../data-sources/state';
-import { ILocationSlot } from '../models/location-slot';
 import { getLocationSlotByName, getLocationSlots } from '../reducers';
 import { getElementById, hide, show } from '../utils/document';
 import i18n from '../utils/i18n';
