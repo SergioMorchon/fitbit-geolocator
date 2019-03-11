@@ -1,6 +1,5 @@
 {
 	"extends": "./node_modules/@fitbit/sdk/sdk-tsconfig.json",
-	"include": ["node_modules/fitbit-sdk-types/types"],
 	"compilerOptions": {
 		"strict": true,
 		"resolveJsonModule": true
