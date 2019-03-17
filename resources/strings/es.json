@@ -6,5 +6,8 @@
 	"mile": "mi",
 	"empty-case": "Aquí verás el listado de tus ubicaciones. ¡Comienza añadiendo una!",
 	"details-location": "Ubicación",
-	"details-timestamp": "Marca de tiempo"
+	"details-timestamp": "Marca de tiempo",
+	"delete-location-header": "Eliminar",
+	"delete-location-yes": "Yes",
+	"delete-location-no": "No"
 }
