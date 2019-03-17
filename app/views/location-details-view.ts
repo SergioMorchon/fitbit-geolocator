@@ -6,6 +6,7 @@ import {
 	NAVIGATION_VIEW,
 } from '../constants/views';
 import store from '../data-sources/state';
+import { open as openConfirm } from '../dialogs/confirm';
 import { getCurrentLocationSlot } from '../reducers';
 import { getElementById } from '../utils/document';
 import i18n from '../utils/i18n';
@@ -14,6 +15,7 @@ import { createView, INavigation } from '../utils/views';
 
 export const createLocationDetailsView = (navigation: INavigation) => {
 	const view = createView(LOCATION_DETAILS_VIEW);
+	let isConfirmDialogOpen = false;
 	const removeLocationButton = getElementById(
 		document,
 		'remove-location-button',
@@ -44,15 +46,35 @@ export const createLocationDetailsView = (navigation: INavigation) => {
 
 	store.subscribe(update);
 	removeLocationButton.onactivate = () => {
+		if (isConfirmDialogOpen) {
+			return;
+		}
+
 		const to = getCurrentLocationSlot(store.state);
 		if (!to) {
 			return;
 		}
 
-		store.dispatch(removeLocationSlot(to.name));
-		navigation.navigate(LOCATION_SLOTS_VIEW);
+		isConfirmDialogOpen = true;
+		openConfirm({
+			copy: to.name,
+			header: i18n('delete-location-header'),
+			negative: i18n('delete-location-no'),
+			positive: i18n('delete-location-yes'),
+		}).then(ok => {
+			if (ok) {
+				store.dispatch(removeLocationSlot(to.name));
+				navigation.navigate(LOCATION_SLOTS_VIEW);
+			}
+
+			isConfirmDialogOpen = false;
+		});
 	};
 	startNavigationButton.onactivate = () => {
+		if (isConfirmDialogOpen) {
+			return;
+		}
+
 		navigation.navigate(NAVIGATION_VIEW);
 	};
 	view.comboButtons = {
@@ -60,6 +82,10 @@ export const createLocationDetailsView = (navigation: INavigation) => {
 		topRight: removeLocationButton,
 	};
 	view.onKeyBack = () => {
+		if (isConfirmDialogOpen) {
+			return;
+		}
+
 		navigation.navigate(LOCATION_SLOTS_VIEW);
 	};
 
