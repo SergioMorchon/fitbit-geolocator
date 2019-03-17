@@ -5,6 +5,7 @@
 		<link rel="import" href="views/location-details.svg" />
 		<link rel="import" href="views/location-slots.svg" />
 		<link rel="import" href="views/new-location.svg" />
+		<link rel="import" href="dialogs/confirm.svg" />
 	</defs>
 
 	<use href="#navigation-view" id="navigation-view" />
@@ -65,4 +66,5 @@
 		<set href="combo-button-stroke" attributeName="display" to="inline" />
 	</use>
 	<!-- #endregion -->
+	<use href="#confirm-dialog" id="confirm-dialog" />
 </svg>
