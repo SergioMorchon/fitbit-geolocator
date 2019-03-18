@@ -3,7 +3,7 @@
 	"include": [
 		"**/*.ts",
 		"**/*.tsx",
-		"../node_modules/fitbit-sdk-types/types/settings.d.ts",
+		"../node_modules/fitbit-sdk-types/types/settings",
 		"../common/**/*.ts"
 	]
 }

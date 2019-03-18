@@ -4,9 +4,9 @@
 	"private": true,
 	"license": "UNLICENSED",
 	"devDependencies": {
-		"@fitbit/sdk": "3.0.0",
+		"@fitbit/sdk": "3.1.0",
 		"@fitbit/sdk-cli": "1.6.0",
-		"fitbit-sdk-types": "3.2.13",
+		"fitbit-sdk-types": "4.0.0",
 		"prettier": "1.16.4",
 		"tslint": "5.14.0",
 		"tslint-config-prettier": "1.18.0",
@@ -26,14 +26,14 @@
 			"meson"
 		],
 		"i18n": {
-			"en": {
+			"en-US": {
 				"name": "Geolocator"
 			},
-			"es": {
+			"es-ES": {
 				"name": "Geolocalizador"
 			}
 		},
-		"defaultLanguage": "en"
+		"defaultLanguage": "en-US"
 	},
 	"scripts": {
 		"prettier": "prettier **/*.ts **/*.json **/*.md **/*.gui **/*.svg",
