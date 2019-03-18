@@ -1,3 +1,4 @@
+import { gettext } from 'i18n';
 import { SET_LOCATION } from '../common/constants/action-types/messaging';
 import {
 	SETTINGS_KEY_ADD_LOCATION_LATITUDE,
@@ -40,24 +41,24 @@ const sendToWatch = (settingsStorage: LiveStorage) => {
 
 registerSettingsPage(({ settingsStorage }) => (
 	<Page>
-		<Section title="Add location">
+		<Section title={gettext('add-location')}>
 			<TextInput
-				title="Name"
+				title={gettext('name')}
 				type="text"
 				settingsKey={SETTINGS_KEY_ADD_LOCATION_NAME}
 			/>
 			<TextInput
-				title="Latitude"
+				title={gettext('latitude')}
 				type="number"
 				settingsKey={SETTINGS_KEY_ADD_LOCATION_LATITUDE}
 			/>
 			<TextInput
-				title="Longitude"
+				title={gettext('longitude')}
 				type="number"
 				settingsKey={SETTINGS_KEY_ADD_LOCATION_LONGITUDE}
 			/>
 			<Button
-				label="Send to watch"
+				label={gettext('send-to-watch')}
 				onClick={() => sendToWatch(settingsStorage)}
 			/>
 		</Section>
