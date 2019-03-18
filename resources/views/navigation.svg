@@ -1,5 +1,5 @@
 <svg>
-    <symbol id="navigation-view">
+	<symbol id="navigation-view">
 		<g id="navigation-bearing" transform="translate(50%, 50%)">
 			<rect x="$-2" y="-120" width="4" height="120" fill="#ff0000" />
 		</g>
@@ -20,5 +20,5 @@
 			y="50%+20"
 			text-anchor="middle"
 		/>
-    </symbol>
+	</symbol>
 </svg>
