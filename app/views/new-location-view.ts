@@ -1,10 +1,10 @@
 import { me } from 'appbit';
 import { geolocation } from 'geolocation';
+import { gettext } from 'i18n';
 import { setLocationSlot } from '../actions/location-slots';
 import { LOCATION_SLOTS_VIEW, NEW_LOCATION_VIEW } from '../constants/views';
 import store from '../data-sources/state';
 import { getElementById } from '../utils/document';
-import i18n from '../utils/i18n';
 import { positionToString } from '../utils/position';
 import { createView, INavigation } from '../utils/views';
 
@@ -18,7 +18,7 @@ export const createNewLocationView = (navigation: INavigation) => {
 	const update = () => {
 		currentLocationText.text = position
 			? positionToString(position)
-			: i18n('wating-gps');
+			: gettext('wating-gps');
 	};
 	const watchId = geolocation.watchPosition(newPosition => {
 		position = newPosition;

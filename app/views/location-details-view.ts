@@ -1,4 +1,5 @@
 import document from 'document';
+import { gettext } from 'i18n';
 import { removeLocationSlot } from '../actions/location-slots';
 import {
 	LOCATION_DETAILS_VIEW,
@@ -9,7 +10,6 @@ import store from '../data-sources/state';
 import { open as openConfirm } from '../dialogs/confirm';
 import { getCurrentLocationSlot } from '../reducers';
 import { getElementById } from '../utils/document';
-import i18n from '../utils/i18n';
 import { positionToString } from '../utils/position';
 import { createView, INavigation } from '../utils/views';
 
@@ -36,10 +36,10 @@ export const createLocationDetailsView = (navigation: INavigation) => {
 		}
 
 		locationDetailsText.text = [
-			i18n('details-location'),
+			gettext('details-location'),
 			positionToString(to.position),
 			'',
-			i18n('details-timestamp'),
+			gettext('details-timestamp'),
 			new Date(to.position.timestamp).toISOString(),
 		].join('\n');
 	};
@@ -58,9 +58,9 @@ export const createLocationDetailsView = (navigation: INavigation) => {
 		isConfirmDialogOpen = true;
 		openConfirm({
 			copy: to.name,
-			header: i18n('delete-location-header'),
-			negative: i18n('delete-location-no'),
-			positive: i18n('delete-location-yes'),
+			header: gettext('delete-location-header'),
+			negative: gettext('delete-location-no'),
+			positive: gettext('delete-location-yes'),
 		}).then(ok => {
 			if (ok) {
 				store.dispatch(removeLocationSlot(to.name));

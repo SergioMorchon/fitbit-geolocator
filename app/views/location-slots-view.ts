@@ -1,4 +1,5 @@
 import document from 'document';
+import { gettext } from 'i18n';
 import { ILocationSlot } from '../../common/models/location-slot';
 import { setCurrentLocationSlot } from '../actions/location-slots';
 import {
@@ -9,7 +10,6 @@ import {
 import store from '../data-sources/state';
 import { getLocationSlotByName, getLocationSlots } from '../reducers';
 import { getElementById, hide, show } from '../utils/document';
-import i18n from '../utils/i18n';
 import { createView, INavigation } from '../utils/views';
 
 export const createLocationSlotsView = (navigation: INavigation) => {
@@ -25,7 +25,7 @@ export const createLocationSlotsView = (navigation: INavigation) => {
 	(getElementById(
 		locationSlotsEmptyCase,
 		'empty-case',
-	) as TextAreaElement).text = i18n('empty-case');
+	) as TextAreaElement).text = gettext('empty-case');
 	const addLocationAction = () => {
 		navigation.navigate(NEW_LOCATION_VIEW);
 	};
