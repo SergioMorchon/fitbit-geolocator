@@ -1,21 +1,21 @@
+import { gettext } from 'i18n';
 import { units } from 'user-settings';
 import { toNum } from '../../common/utils/number';
-import i18n from './i18n';
 
 const { distance: distanceUnits } = units;
 const EARTH_RADIUS = 6371e3;
 const distanceConfig = {
 	metric: {
 		long: 1e3,
-		longName: i18n('kilometer'),
+		longName: gettext('kilometer'),
 		short: 1,
-		shortName: i18n('meter'),
+		shortName: gettext('meter'),
 	},
 	us: {
 		long: 1609.344,
-		longName: i18n('mile'),
+		longName: gettext('mile'),
 		short: 0.3048,
-		shortName: i18n('foot'),
+		shortName: gettext('foot'),
 	},
 };
 

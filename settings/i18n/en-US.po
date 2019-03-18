@@ -1,0 +1,14 @@
+msgid "add-location"
+msgstr "Add location"
+
+msgid "name"
+msgstr "Name"
+
+msgid "latitude"
+msgstr "Latitute"
+
+msgid "longitude"
+msgstr "Longitude"
+
+msgid "send-to-watch"
+msgstr "Send to watch"

@@ -1,11 +1,11 @@
 import { me } from 'appbit';
 import { geolocation } from 'geolocation';
+import { gettext } from 'i18n';
 import { ILocationSlot } from '../../common/models/location-slot';
 import { LOCATION_DETAILS_VIEW, NAVIGATION_VIEW } from '../constants/views';
 import store from '../data-sources/state';
 import { getCurrentLocationSlot } from '../reducers';
 import { getElementById, hide, show } from '../utils/document';
-import i18n from '../utils/i18n';
 import {
 	distanceToString,
 	getDistance,
@@ -71,7 +71,7 @@ export const createNavigationView = (navigation: INavigation) => {
 
 	const updateDistance = (to: ILocationSlot | null) => {
 		if (!from) {
-			distanceText.text = i18n('wating-gps');
+			distanceText.text = gettext('wating-gps');
 			return;
 		}
 
