@@ -36,7 +36,7 @@
 		"defaultLanguage": "en-US"
 	},
 	"scripts": {
-		"prettier": "prettier **/*.ts **/*.json **/*.md **/*.gui",
+		"prettier": "prettier **/*.ts **/*.json **/*.md **/*.gui **/*.svg",
 		"tslint": "tslint --project app",
 		"check-code": "npm run tslint && npm run prettier -- -l",
 		"fix-code": "npm run tslint -- --fix && npm run prettier -- --write",

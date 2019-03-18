@@ -1,10 +1,10 @@
 <svg>
-    <symbol id="location-details-view">
+	<symbol id="location-details-view">
 		<textarea
 			id="location-details-text"
 			fill="white"
 			font-size="20"
 			text-length="200"
 		/>
-    </symbol>
+	</symbol>
 </svg>
