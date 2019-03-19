@@ -26,7 +26,7 @@ msgid "delete-location-header"
 msgstr "Eliminar"
 
 msgid "delete-location-yes"
-msgstr "Yes"
+msgstr "Sí"
 
 msgid "delete-location-no"
 msgstr "No"
