@@ -2,6 +2,9 @@
 	"extends": "./node_modules/@fitbit/sdk/sdk-tsconfig.json",
 	"compilerOptions": {
 		"strict": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"noUnusedLocals": true,
+		"noImplicitReturns": true,
+		"noUnusedParameters": true
 	}
 }

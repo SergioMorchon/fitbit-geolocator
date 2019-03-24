@@ -13,7 +13,7 @@ const processFiles = () => {
 			'cbor',
 		) as MessageAction;
 		unlinkSync(fileName);
-		if (action === 'SET_LOCATION') {
+		if (action === SET_LOCATION) {
 			store.dispatch(setLocationSlot(payload));
 		}
 

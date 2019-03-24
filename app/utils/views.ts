@@ -83,7 +83,6 @@ export const createViewSet = () => {
 			return;
 		}
 
-		const { key } = e;
 		const { onKeyBack, onKeyDown, onKeyUp } = views[innerCurrentViewId];
 		switch (e.key) {
 			case 'back': {
