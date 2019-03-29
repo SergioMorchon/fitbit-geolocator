@@ -47,19 +47,9 @@ export const createNavigationView = (navigation: INavigation) => {
 			return;
 		}
 
-		const {
-			position: {
-				coords: { heading },
-			},
-		} = from;
-		if (
-			to &&
-			navigationBearingGroup.groupTransform &&
-			heading !== null &&
-			!isNaN(heading)
-		) {
+		if (to && navigationBearingGroup.groupTransform) {
 			show(navigationBearingGroup);
-			const headingProgress = heading / 360;
+			const headingProgress = (from.position.coords.heading || 0) / 360;
 			navigationBearingGroup.groupTransform.rotate.angle =
 				(getFinalBearingProgress(from.position, to.position) -
 					headingProgress) *
