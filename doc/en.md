@@ -14,3 +14,5 @@ Bear in mind that:
 
 - Fitbit devices has no compass, so the orientation is calculated based on your latest GPS movements.
 - If your Fitbit device has no built-in GPS, you'll need to have it connected to your smartphone with GPS.
+
+🧐 You can see how it's done: https://github.com/SergioMorchon/fitbit-geolocator

@@ -14,3 +14,5 @@ Ten en cuenta que:
 
 - Los dispositivos Fitbit no tienen brújula, por lo que la orientación se calcula en base a tus últimos movimientos con el GPS.
 - Si tu dispositivo Fitbit no tiene GPS integrado, necesitarás tenerlo conectado con tu teléfono con GPS.
+
+🧐 Puedes ver cómo está hecho: https://github.com/SergioMorchon/fitbit-geolocator
