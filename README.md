@@ -7,6 +7,7 @@
 ## Documentation
 
 - [English](./doc/en.md).
+- [French](./doc/fr.md).
 - [Spanish](./doc/es.md).
 
 ## Screenshots
