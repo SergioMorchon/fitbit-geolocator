@@ -47,6 +47,7 @@
 		"debug": "fitbit"
 	},
 	"dependencies": {
+		"promise-animate": "^1.0.0",
 		"reduced-state": "0.0.2"
 	}
 }

@@ -1,6 +1,7 @@
 import { me } from 'appbit';
 import { geolocation } from 'geolocation';
 import { gettext } from 'i18n';
+import animate from 'promise-animate';
 import { ILocationSlot } from '../../common/models/location-slot';
 import { LOCATION_DETAILS_VIEW, NAVIGATION_VIEW } from '../constants/views';
 import store from '../data-sources/state';
@@ -13,6 +14,15 @@ import {
 	positionToString,
 } from '../utils/position';
 import { createView, INavigation } from '../utils/views';
+
+/*
+ * Easy-in-out function creator
+ * Credits to https://math.stackexchange.com/a/121755
+ */
+const createEasyInOut = (factor: number) => (x: number) =>
+	x ** factor / (x ** factor + (1 - x) ** factor);
+
+const easyInOut = createEasyInOut(2.5);
 
 export const createNavigationView = (navigation: INavigation) => {
 	const view = createView(NAVIGATION_VIEW);
@@ -30,6 +40,7 @@ export const createNavigationView = (navigation: INavigation) => {
 	};
 
 	let from: ILocationSlot | undefined;
+	let animation: ReturnType<typeof animate>;
 
 	const updateTarget = (to: ILocationSlot | null) => {
 		if (!to) {
@@ -48,12 +59,46 @@ export const createNavigationView = (navigation: INavigation) => {
 		}
 
 		if (to && navigationBearingGroup.groupTransform) {
+			if (animation) {
+				animation.cancel();
+			}
+
 			show(navigationBearingGroup);
 			const headingProgress = (from.position.coords.heading || 0) / 360;
-			navigationBearingGroup.groupTransform.rotate.angle =
+			const currentAngle = navigationBearingGroup.groupTransform.rotate.angle;
+			const targetAngle =
 				(getFinalBearingProgress(from.position, to.position) -
 					headingProgress) *
 				360;
+
+			let animationFunction: (progress: number) => number;
+			if (targetAngle > currentAngle) {
+				if (targetAngle - currentAngle <= 180) {
+					const angle = targetAngle - currentAngle;
+					animationFunction = progress => currentAngle + angle * progress;
+				} else {
+					const angle = currentAngle + 360 - targetAngle;
+					animationFunction = progress => currentAngle + 360 - angle * progress;
+				}
+			} else {
+				if (currentAngle - targetAngle <= 180) {
+					const angle = currentAngle - targetAngle;
+					animationFunction = progress => currentAngle - angle * progress;
+				} else {
+					const angle = targetAngle + 360 - currentAngle;
+					animationFunction = progress => currentAngle + 360 + angle * progress;
+				}
+			}
+
+			animation = animate<number>({
+				duration: 500,
+				getValue: timeProgress => animationFunction(easyInOut(timeProgress)),
+				setValue: value => {
+					if (navigationBearingGroup.groupTransform) {
+						navigationBearingGroup.groupTransform.rotate.angle = value;
+					}
+				},
+			});
 		} else {
 			hide(navigationBearingGroup);
 		}
