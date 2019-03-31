@@ -1,8 +1,10 @@
 import { me } from 'appbit';
 import { memory } from 'system';
 import './actions/companion-messaging';
+import { setLocationSlot } from './actions/location-slots';
 import { LOCATION_SLOTS_VIEW, NAVIGATION_VIEW } from './constants/views';
 import store from './data-sources/state';
+import { ILaunchArguments } from './launch-arguments';
 import { createViewSet, INavigation } from './utils/views';
 import { createLocationDetailsView } from './views/location-details-view';
 import { createLocationSlotsView } from './views/location-slots-view';
@@ -39,3 +41,28 @@ const logMemory = () => {
 logMemory();
 store.subscribe(logMemory);
 me.addEventListener('unload', logMemory);
+
+if (me.launchArguments) {
+	const {
+		name,
+		coords: [latitude, longitude],
+	} = me.launchArguments as ILaunchArguments;
+	store.dispatch(
+		setLocationSlot({
+			name,
+			position: {
+				coords: {
+					accuracy: 1,
+					altitude: null,
+					altitudeAccuracy: null,
+					heading: null,
+					latitude,
+					longitude,
+					speed: null,
+				},
+				timestamp: Date.now(),
+			},
+		}),
+	);
+	navigation.navigate(NAVIGATION_VIEW);
+}
