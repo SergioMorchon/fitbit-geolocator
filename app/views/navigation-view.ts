@@ -94,6 +94,7 @@ export const createNavigationView = (navigation: INavigation) => {
 			}
 
 			animate({
+				cancellationToken,
 				duration: 500,
 				update: progress => {
 					if (navigationBearingGroup.groupTransform) {
