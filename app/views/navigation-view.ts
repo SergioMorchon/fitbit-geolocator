@@ -40,7 +40,9 @@ export const createNavigationView = (navigation: INavigation) => {
 	};
 
 	let from: ILocationSlot | undefined;
-	let animation: ReturnType<typeof animate>;
+	let cancellationToken = {
+		cancel: false,
+	};
 
 	const updateTarget = (to: ILocationSlot | null) => {
 		if (!to) {
@@ -59,9 +61,10 @@ export const createNavigationView = (navigation: INavigation) => {
 		}
 
 		if (to && navigationBearingGroup.groupTransform) {
-			if (animation) {
-				animation.cancel();
-			}
+			cancellationToken.cancel = true;
+			cancellationToken = {
+				cancel: false,
+			};
 
 			show(navigationBearingGroup);
 			const headingProgress = (from.position.coords.heading || 0) / 360;
@@ -90,7 +93,7 @@ export const createNavigationView = (navigation: INavigation) => {
 				}
 			}
 
-			animation = animate<number>({
+			animate<number>({
 				duration: 500,
 				getValue: timeProgress => animationFunction(easyInOut(timeProgress)),
 				setValue: value => {
