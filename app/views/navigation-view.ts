@@ -93,12 +93,13 @@ export const createNavigationView = (navigation: INavigation) => {
 				}
 			}
 
-			animate<number>({
+			animate({
 				duration: 500,
-				getValue: timeProgress => animationFunction(easyInOut(timeProgress)),
-				setValue: value => {
+				update: progress => {
 					if (navigationBearingGroup.groupTransform) {
-						navigationBearingGroup.groupTransform.rotate.angle = value;
+						navigationBearingGroup.groupTransform.rotate.angle = animationFunction(
+							easyInOut(progress),
+						);
 					}
 				},
 			});
