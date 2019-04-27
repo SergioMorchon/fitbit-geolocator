@@ -134,7 +134,7 @@ export const createNavigationView = (navigation: INavigation) => {
 				return;
 			}
 
-			from = { name: positionToString(position), position };
+			from = { name: positionToString(position), position, details: '' };
 			update();
 		});
 		me.addEventListener('unload', () => {

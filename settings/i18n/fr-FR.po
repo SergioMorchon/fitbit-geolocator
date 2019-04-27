@@ -10,5 +10,8 @@ msgstr "Latitude"
 msgid "longitude"
 msgstr "Longitude"
 
+msgid "details"
+msgstr "Détails"
+
 msgid "send-to-watch"
 msgstr "Envoyer"

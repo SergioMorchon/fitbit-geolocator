@@ -49,6 +49,7 @@ if (me.launchArguments) {
 	} = me.launchArguments as ILaunchArguments;
 	store.dispatch(
 		setLocationSlot({
+			details: '',
 			name,
 			position: {
 				coords: {

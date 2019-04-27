@@ -41,6 +41,9 @@ export const createLocationDetailsView = (navigation: INavigation) => {
 			'',
 			gettext('details-timestamp'),
 			new Date(to.position.timestamp).toISOString(),
+			'',
+			gettext('details'),
+			to.details,
 		].join('\n');
 	};
 
