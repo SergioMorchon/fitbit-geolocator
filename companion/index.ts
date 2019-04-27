@@ -11,6 +11,7 @@ const processLocation = () => {
 
 	const location = JSON.parse(locationJson) as ISettingLocationSlot;
 	setLocation({
+		details: location.details,
 		name: location.name,
 		position: {
 			coords: {

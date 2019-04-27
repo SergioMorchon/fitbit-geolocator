@@ -31,6 +31,7 @@ export const createNewLocationView = (navigation: INavigation) => {
 		if (position) {
 			store.dispatch(
 				setLocationSlot({
+					details: '',
 					name: positionToString(position),
 					position: {
 						...position,

@@ -22,6 +22,9 @@ msgstr "Location"
 msgid "details-timestamp"
 msgstr "Timestamp"
 
+msgid "details"
+msgstr "Details"
+
 msgid "delete-location-header"
 msgstr "Delete"
 

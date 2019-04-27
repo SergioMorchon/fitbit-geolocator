@@ -28,7 +28,8 @@ text {
 
 #location-details-text {
 	fill: white;
-	x: 10%;
-	width: 80%;
-	y: 20%;
+	x: 10;
+	y: 10;
+	width: 100%-20;
+	height: 100%-20;
 }
