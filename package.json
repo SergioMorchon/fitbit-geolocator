@@ -4,12 +4,12 @@
 	"private": true,
 	"license": "UNLICENSED",
 	"devDependencies": {
-		"@fitbit/sdk": "3.1.0",
-		"@fitbit/sdk-cli": "1.6.0",
-		"fitbit-sdk-types": "4.1.5",
-		"prettier": "1.17.0",
-		"tslint": "5.16.0",
-		"tslint-config-prettier": "1.18.0"
+		"@fitbit/sdk": "^3.1.2",
+		"@fitbit/sdk-cli": "^1.6.3",
+		"fitbit-sdk-types": "^4.1.5",
+		"prettier": "^1.18.2",
+		"tslint": "^5.18.0",
+		"tslint-config-prettier": "^1.18.0"
 	},
 	"fitbit": {
 		"appUUID": "6aeb6da0-dfb9-40a5-9fcb-160a5b5e3be5",
