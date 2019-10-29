@@ -1,43 +1,28 @@
-import document from 'document';
+import { next } from 'fitbit-views';
 import { gettext } from 'i18n';
 import { ILocationSlot } from '../../common/models/location-slot';
 import { setCurrentLocationSlot } from '../actions/location-slots';
-import {
-	LOCATION_DETAILS_VIEW,
-	LOCATION_SLOTS_VIEW,
-	NEW_LOCATION_VIEW,
-} from '../constants/views';
+import { LOCATION_DETAILS_VIEW, NEW_LOCATION_VIEW } from '../constants/views';
 import store from '../data-sources/state';
 import { getLocationSlotByName, getLocationSlots } from '../reducers';
 import { getElementById, hide, show } from '../utils/document';
-import { createView, INavigation } from '../utils/views';
 
-export const createLocationSlotsView = (navigation: INavigation) => {
-	const view = createView(LOCATION_SLOTS_VIEW);
+export default () => {
 	const addLocationButton = getElementById(
-		document,
 		'add-location-button',
 	) as ComboButton;
 	const locationSlotsEmptyCase = getElementById(
-		view.root,
 		'location-slots-empty-case',
 	) as GraphicsElement;
 	(getElementById(
-		locationSlotsEmptyCase,
 		'empty-case',
+		locationSlotsEmptyCase,
 	) as TextAreaElement).text = gettext('empty-case');
 	const addLocationAction = () => {
-		navigation.navigate(NEW_LOCATION_VIEW);
+		next(NEW_LOCATION_VIEW);
 	};
 	addLocationButton.onactivate = addLocationAction;
-	view.onKeyDown = addLocationAction;
-	view.comboButtons = {
-		bottomRight: addLocationButton,
-	};
-	const list = getElementById(
-		view.root,
-		'location-slots-list',
-	) as VirtualTileList<{
+	const list = getElementById('location-slots-list') as VirtualTileList<{
 		locationSlot: ILocationSlot;
 		type: 'location-slots';
 	}>;
@@ -47,11 +32,11 @@ export const createLocationSlotsView = (navigation: INavigation) => {
 				return;
 			}
 
-			(getElementById(tile, 'tile-text') as TextElement).text =
+			(getElementById('tile-text', tile) as TextElement).text =
 				locationSlot.name;
-			(getElementById(tile, 'tile-action') as RectElement).onclick = () => {
+			(getElementById('tile-action', tile) as RectElement).onclick = () => {
 				store.dispatch(setCurrentLocationSlot(locationSlot.name));
-				navigation.navigate(LOCATION_DETAILS_VIEW);
+				next(LOCATION_DETAILS_VIEW);
 			};
 		},
 		getTileInfo(position) {
@@ -73,9 +58,7 @@ export const createLocationSlotsView = (navigation: INavigation) => {
 			show(locationSlotsEmptyCase);
 		}
 	};
-	store.subscribe(update);
 
 	update();
-
-	return view;
+	return store.subscribe(update);
 };

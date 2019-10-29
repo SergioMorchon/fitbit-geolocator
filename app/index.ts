@@ -1,28 +1,28 @@
 import { me } from 'appbit';
+import { next, setup } from 'fitbit-views';
 import { memory } from 'system';
 import './actions/companion-messaging';
 import { setLocationSlot } from './actions/location-slots';
-import { LOCATION_SLOTS_VIEW, NAVIGATION_VIEW } from './constants/views';
+import * as Views from './constants/views';
 import store from './data-sources/state';
 import { ILaunchArguments } from './launch-arguments';
-import { createViewSet, INavigation } from './utils/views';
-import { createLocationDetailsView } from './views/location-details-view';
-import { createLocationSlotsView } from './views/location-slots-view';
-import { createNavigationView } from './views/navigation-view';
-import { createNewLocationView } from './views/new-location-view';
+import createLocationDetailsView from './views/location-details-view';
+import createLocationSlotsView from './views/location-slots-view';
+import createNavigationView from './views/navigation-view';
+import createNewLocationView from './views/new-location-view';
 
-const views = createViewSet();
-const navigation: INavigation = {
-	navigate: viewId => {
-		views.currentViewId = viewId;
-		me.appTimeoutEnabled = viewId !== NAVIGATION_VIEW;
+setup(
+	{
+		[Views.LOCATION_DETAILS_VIEW]: createLocationDetailsView,
+		[Views.LOCATION_SLOTS_VIEW]: createLocationSlotsView,
+		[Views.NAVIGATION_VIEW]: createNavigationView,
+		[Views.NEW_LOCATION_VIEW]: createNewLocationView,
 	},
-};
-views.addView(createLocationSlotsView(navigation));
-views.addView(createNewLocationView(navigation));
-views.addView(createLocationDetailsView(navigation));
-views.addView(createNavigationView(navigation));
-navigation.navigate(LOCATION_SLOTS_VIEW);
+	{
+		getViewFilename: viewId => `./resources/views/${viewId}.gui`,
+	},
+);
+next(Views.LOCATION_SLOTS_VIEW);
 
 const memoryConsumptionToString = (consumed: number, total: number) =>
 	`${Number((consumed * 100) / total).toFixed(2)}% (${consumed}/${total})`;
@@ -65,5 +65,5 @@ if (me.launchArguments) {
 			},
 		}),
 	);
-	navigation.navigate(NAVIGATION_VIEW);
+	next(Views.NAVIGATION_VIEW);
 }

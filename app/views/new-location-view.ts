@@ -1,33 +1,20 @@
-import { me } from 'appbit';
+import { back, buttons } from 'fitbit-views';
 import { geolocation } from 'geolocation';
 import { gettext } from 'i18n';
 import { setLocationSlot } from '../actions/location-slots';
-import { LOCATION_SLOTS_VIEW, NEW_LOCATION_VIEW } from '../constants/views';
 import store from '../data-sources/state';
 import { getElementById } from '../utils/document';
 import { positionToString } from '../utils/position';
-import { createView, INavigation } from '../utils/views';
 
-export const createNewLocationView = (navigation: INavigation) => {
-	const view = createView(NEW_LOCATION_VIEW);
-	const currentLocationText = getElementById(
-		view.root,
-		'current-location',
-	) as TextElement;
+export default () => {
+	const currentLocationText = getElementById('current-location') as TextElement;
 	let position: Position | null = null;
 	const update = () => {
 		currentLocationText.text = position
 			? positionToString(position)
 			: gettext('wating-gps');
 	};
-	const watchId = geolocation.watchPosition(newPosition => {
-		position = newPosition;
-		update();
-	});
-	me.addEventListener('unload', () => {
-		geolocation.clearWatch(watchId);
-	});
-	view.onKeyBack = () => {
+	buttons.back = () => {
 		if (position) {
 			store.dispatch(
 				setLocationSlot({
@@ -41,11 +28,13 @@ export const createNewLocationView = (navigation: INavigation) => {
 			);
 		}
 
-		navigation.navigate(LOCATION_SLOTS_VIEW);
+		back();
 	};
-	view.onShow = update;
 
+	const geolocationWatcher = geolocation.watchPosition(newPosition => {
+		position = newPosition;
+		update();
+	});
 	update();
-
-	return view;
+	return () => geolocation.clearWatch(geolocationWatcher);
 };
