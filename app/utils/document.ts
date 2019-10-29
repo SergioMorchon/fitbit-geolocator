@@ -1,4 +1,6 @@
-export const getElementById = (root: ElementSearch, id: string) => {
+import document from 'document';
+
+export const getElementById = (id: string, root: ElementSearch = document) => {
 	const element = root.getElementById(id);
 	if (!element) {
 		throw Error(`Element #${id} not found`);

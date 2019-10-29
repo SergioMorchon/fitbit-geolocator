@@ -1,9 +1,7 @@
-import { me } from 'appbit';
 import { geolocation } from 'geolocation';
 import { gettext } from 'i18n';
 import animate from 'promise-animate';
 import { ILocationSlot } from '../../common/models/location-slot';
-import { LOCATION_DETAILS_VIEW, NAVIGATION_VIEW } from '../constants/views';
 import store from '../data-sources/state';
 import { getCurrentLocationSlot } from '../reducers';
 import { getElementById, hide, show } from '../utils/document';
@@ -13,7 +11,6 @@ import {
 	getFinalBearingProgress,
 	positionToString,
 } from '../utils/position';
-import { createView, INavigation } from '../utils/views';
 
 /*
  * Easy-in-out function creator
@@ -24,20 +21,12 @@ const createEasyInOut = (factor: number) => (x: number) =>
 
 const easyInOut = createEasyInOut(2.5);
 
-export const createNavigationView = (navigation: INavigation) => {
-	const view = createView(NAVIGATION_VIEW);
-	const distanceText = getElementById(
-		view.root,
-		'distance-text',
-	) as TextElement;
-	const toText = getElementById(view.root, 'to-text') as TextElement;
+export default () => {
+	const distanceText = getElementById('distance-text') as TextElement;
+	const toText = getElementById('to-text') as TextElement;
 	const navigationBearingGroup = getElementById(
-		view.root,
 		'navigation-bearing',
 	) as GroupElement;
-	view.onKeyBack = () => {
-		navigation.navigate(LOCATION_DETAILS_VIEW);
-	};
 
 	let from: ILocationSlot | undefined;
 	let cancellationToken = {
@@ -127,23 +116,20 @@ export const createNavigationView = (navigation: INavigation) => {
 		updateOrientation(to);
 	};
 
-	if (me.permissions.granted('access_location')) {
-		const watcher = geolocation.watchPosition(position => {
-			const { latitude, longitude } = position.coords;
-			if (latitude === null || longitude === null) {
-				return;
-			}
+	const geolocationWatcher = geolocation.watchPosition(position => {
+		const { latitude, longitude } = position.coords;
+		if (latitude === null || longitude === null) {
+			return;
+		}
 
-			from = { name: positionToString(position), position, details: '' };
-			update();
-		});
-		me.addEventListener('unload', () => {
-			geolocation.clearWatch(watcher);
-		});
-	}
+		from = { name: positionToString(position), position, details: '' };
+		update();
+	});
 
-	store.subscribe(update);
 	update();
-
-	return view;
+	const unsubscribeFromStore = store.subscribe(update);
+	return () => {
+		unsubscribeFromStore();
+		geolocation.clearWatch(geolocationWatcher);
+	};
 };

@@ -1,11 +1,4 @@
-import document from 'document';
 import { getElementById, hide, show } from '../utils/document';
-
-const root = getElementById(document, 'confirm-dialog') as GraphicsElement;
-const headerText = getElementById(root, 'header/text');
-const copyText = getElementById(root, 'copy/text');
-const positiveButton = getElementById(root, 'positive-button');
-const negativeButton = getElementById(root, 'negative-button');
 
 interface IShowOptions {
 	header: string;
@@ -14,10 +7,13 @@ interface IShowOptions {
 	negative: string;
 }
 
-hide(root);
-
 export const open = ({ header, copy, positive, negative }: IShowOptions) =>
-	new Promise(resolve => {
+	new Promise<boolean>(resolve => {
+		const root = getElementById('confirm-dialog') as GraphicsElement;
+		const headerText = getElementById('header/text');
+		const copyText = getElementById('copy/text');
+		const positiveButton = getElementById('positive-button');
+		const negativeButton = getElementById('negative-button');
 		const getCloseCallback = (result: boolean) => () => {
 			hide(root);
 			resolve(result);
