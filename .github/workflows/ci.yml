@@ -10,11 +10,8 @@ jobs:
     name: CI on ${{ matrix.node_version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
+      - run: git config --global core.autocrlf false
       - uses: actions/checkout@v1
-        with:
-          config:
-            core:
-              autocrlf: false
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node_version }}
