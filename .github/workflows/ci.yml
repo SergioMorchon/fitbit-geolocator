@@ -11,10 +11,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v1
-      with:
-        config:
-          core:
-            autocrlf: false
+        with:
+          config:
+            core:
+              autocrlf: false
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node_version }}
