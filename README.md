@@ -1,6 +1,6 @@
 # Geolocator
 
-[![Build Status](https://travis-ci.com/SergioMorchon/fitbit-geolocator.svg?branch=master)](https://travis-ci.com/SergioMorchon/fitbit-geolocator)
+![CI Status](https://github.com/SergioMorchon/fitbit-geolocator/workflows/CI/badge.svg)
 
 **[![Icon](./resources/icon.png) Download it!](https://gam.fitbit.com/gallery/app/6aeb6da0-dfb9-40a5-9fcb-160a5b5e3be5)**
 
