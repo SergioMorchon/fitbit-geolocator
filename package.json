@@ -40,9 +40,9 @@
 		"defaultLanguage": "en-US"
 	},
 	"scripts": {
-		"prettier": "prettier **/*.ts **/*.json **/*.md **/*.gui **/*.svg",
+		"prettier": "prettier **/*.ts **/*.tsx **/*.json **/*.md **/*.gui **/*.svg",
 		"tslint": "tslint --project app",
-		"check-code": "npm run tslint && npm run prettier -- -l",
+		"check-code": "npm run tslint && npm run prettier -- --check",
 		"fix-code": "npm run tslint -- --fix && npm run prettier -- --write",
 		"build": "fitbit-build",
 		"debug": "fitbit"
