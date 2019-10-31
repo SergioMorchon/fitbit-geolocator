@@ -5,12 +5,16 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        os: [windows-latest]
         node-version: [12]
     name: CI on ${{ matrix.node_version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v1
+      with:
+        config:
+          core:
+            autocrlf: false
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node_version }}
