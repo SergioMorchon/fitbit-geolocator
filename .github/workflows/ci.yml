@@ -7,13 +7,13 @@ jobs:
       matrix:
         os: [windows-latest, ubuntu-latest]
         node-version: [12]
-    name: CI on ${{matrix.node_version}} and {{matrix.os}}
-    runs-on: ${{matrix.os}}
+    name: CI on ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: ${{matrix.node_version}}
+          node-version: ${{ matrix.node_version }}
       - run: npm ci
       - run: npm run check-code
       - run: npm run build
