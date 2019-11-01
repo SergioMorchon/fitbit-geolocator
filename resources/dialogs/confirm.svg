@@ -13,19 +13,17 @@
 			<set href="#bottom-padding" attributeName="display" to="none" />
 		</use>
 		<use
-			id="positive-button"
+			id="negative-button"
 			class="dialog-half-button-left"
-			href="#square-button-positive"
+			href="#square-button-negative"
 		>
-			<set href="#text" attributeName="text-buffer" to="Later" />
 			<set href="#text" attributeName="text-anchor" to="middle" />
 		</use>
 		<use
-			id="negative-button"
+			id="positive-button"
 			class="dialog-half-button-right"
-			href="#square-button-negative"
+			href="#square-button-positive"
 		>
-			<set href="#text" attributeName="text-buffer" to="Start" />
 			<set href="#text" attributeName="text-anchor" to="middle" />
 		</use>
 	</symbol>
