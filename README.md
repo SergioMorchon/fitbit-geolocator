@@ -1,6 +1,6 @@
 # Geolocator
 
-![CI Status](https://github.com/SergioMorchon/fitbit-geolocator/workflows/CI/badge.svg)
+[![CI Status](https://github.com/SergioMorchon/fitbit-geolocator/workflows/CI/badge.svg)](https://github.com/SergioMorchon/fitbit-geolocator/actions?query=workflow%3ACI)
 
 **[![Icon](./resources/icon.png) Download it!](https://gam.fitbit.com/gallery/app/6aeb6da0-dfb9-40a5-9fcb-160a5b5e3be5)**
 
