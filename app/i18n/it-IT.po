@@ -17,7 +17,7 @@ msgid "empty-case"
 msgstr "Qui potrai vedere una lista dei luoghi salvati. Inizia aggiungendone uno!"
 
 msgid "details-location"
-msgstr Luogo
+msgstr "Luogo"
 
 msgid "details-timestamp"
 msgstr "Timestamp"
