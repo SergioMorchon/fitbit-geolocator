@@ -1,0 +1,35 @@
+msgid "wating-gps"
+msgstr "In attesa del GPS"
+
+msgid "meter"
+msgstr "m"
+
+msgid "kilometer"
+msgstr "km"
+
+msgid "foot"
+msgstr "ft"
+
+msgid "mile"
+msgstr "mi"
+
+msgid "empty-case"
+msgstr "Qui potrai vedere una lista dei luoghi salvati. Inizia aggiungendone uno!"
+
+msgid "details-location"
+msgstr "Luogo"
+
+msgid "details-timestamp"
+msgstr "Timestamp"
+
+msgid "details"
+msgstr "Dettagli"
+
+msgid "delete-location-header"
+msgstr "Elimina"
+
+msgid "delete-location-yes"
+msgstr "Sì"
+
+msgid "delete-location-no"
+msgstr "No"
