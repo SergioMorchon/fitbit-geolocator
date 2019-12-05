@@ -23,6 +23,7 @@ launchApp(uuid, args);
 
 - [English](./doc/en.md).
 - [French](./doc/fr.md).
+- [Italian](./doc/it.md).
 - [Spanish](./doc/es.md).
 
 ## Screenshots
