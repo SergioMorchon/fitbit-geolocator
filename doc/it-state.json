@@ -1,0 +1,31 @@
+{
+	"locationSlots": {
+		"byName": {
+			"Airport": {
+				"name": "Aeroporto",
+				"position": {
+					"coords": {
+						"accuracy": 1,
+						"latitude": 40.49177,
+						"longitude": -3.593251
+					},
+					"timestamp": 1568549765581
+				},
+				"details": "Controlla i bagagli al 46esimo posto."
+			},
+			"Casa": {
+				"name": "Casa",
+				"position": {
+					"coords": {
+						"accuracy": 1,
+						"latitude": 40.417017,
+						"longitude": -3.703552
+					},
+					"timestamp": 1568549765581
+				},
+				"details": ""
+			}
+		},
+		"current": "Aeroporto"
+	}
+}
