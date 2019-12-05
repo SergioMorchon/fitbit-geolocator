@@ -35,6 +35,9 @@
 			},
 			"fr-FR": {
 				"name": "Géolocalisateur"
+			},
+			"it-IT": {
+				"name": "Geolocalizzatore"
 			}
 		},
 		"defaultLanguage": "en-US"
