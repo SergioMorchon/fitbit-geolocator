@@ -1,13 +1,13 @@
 import { getElementById, hide, show } from '../utils/document';
 
-interface IShowOptions {
+interface ShowOptions {
 	header: string;
 	copy: string;
 	positive: string;
 	negative: string;
 }
 
-export const open = ({ header, copy, positive, negative }: IShowOptions) =>
+export const open = ({ header, copy, positive, negative }: ShowOptions) =>
 	new Promise<boolean>(resolve => {
 		const root = getElementById('confirm-dialog') as GraphicsElement;
 		const headerText = getElementById('header/text');

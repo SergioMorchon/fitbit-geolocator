@@ -1,6 +1,6 @@
 import { settingsStorage } from 'settings';
 import { SET_LOCATION } from '../common/constants/action-types/messaging';
-import { ISettingLocationSlot } from '../common/models/setting-location-slot';
+import { SettingLocationSlot } from './setting-location-slot';
 import { setLocation } from './actions';
 
 const processLocation = () => {
@@ -9,7 +9,7 @@ const processLocation = () => {
 		return;
 	}
 
-	const location = JSON.parse(locationJson) as ISettingLocationSlot;
+	const location = JSON.parse(locationJson) as SettingLocationSlot;
 	setLocation({
 		details: location.details,
 		name: location.name,

@@ -1,23 +1,23 @@
-import { ILocationSlot } from '../../common/models/location-slot';
+import { LocationSlot } from '../../common/models/location-slot';
 import {
 	ADD_LOCATION_SLOT,
 	REMOVE_LOCATION_SLOT,
 	SET_CURRENT_LOCATION_SLOT,
 } from '../constants/actions/location-slots';
 
-interface IState {
+interface State {
 	byName: {
-		[name: string]: ILocationSlot;
+		[name: string]: LocationSlot;
 	};
 	current?: string;
 }
 
 export default (
-	state: IState = {
+	state: State = {
 		byName: {},
 	},
 	action: any,
-): IState => {
+): State => {
 	switch (action.type) {
 		case ADD_LOCATION_SLOT: {
 			const { locationSlot } = action.payload;
@@ -31,7 +31,8 @@ export default (
 		}
 		case REMOVE_LOCATION_SLOT: {
 			const { name } = action.payload;
-			const { [name]: _, ...byName } = state.byName;
+			const byName = { ...state.byName };
+			delete byName[name];
 			return {
 				...state,
 				byName,
@@ -49,9 +50,9 @@ export default (
 	}
 };
 
-export const getLocationSlotByName = (state: IState, name: string) =>
+export const getLocationSlotByName = (state: State, name: string) =>
 	state.byName[name] || null;
-export const getLocationSlots = (state: IState) =>
+export const getLocationSlots = (state: State) =>
 	Object.keys(state.byName).map(name => state.byName[name]);
-export const getCurrentLocationSlot = (state: IState) =>
+export const getCurrentLocationSlot = (state: State) =>
 	state.current ? state.byName[state.current] : null;

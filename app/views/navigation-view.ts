@@ -1,7 +1,7 @@
 import { geolocation } from 'geolocation';
 import { gettext } from 'i18n';
 import animate from 'promise-animate';
-import { ILocationSlot } from '../../common/models/location-slot';
+import { LocationSlot } from '../../common/models/location-slot';
 import store from '../data-sources/state';
 import { getCurrentLocationSlot } from '../reducers';
 import { getElementById, hide, show } from '../utils/document';
@@ -28,12 +28,12 @@ export default () => {
 		'navigation-bearing',
 	) as GroupElement;
 
-	let from: ILocationSlot | undefined;
+	let from: LocationSlot | undefined;
 	let cancellationToken = {
 		cancel: false,
 	};
 
-	const updateTarget = (to: ILocationSlot | null) => {
+	const updateTarget = (to: LocationSlot | null) => {
 		if (!to) {
 			hide(toText);
 			return;
@@ -43,7 +43,7 @@ export default () => {
 		show(toText);
 	};
 
-	const updateOrientation = (to: ILocationSlot | null) => {
+	const updateOrientation = (to: LocationSlot | null) => {
 		if (!from || !to) {
 			hide(navigationBearingGroup);
 			return;
@@ -98,7 +98,7 @@ export default () => {
 		}
 	};
 
-	const updateDistance = (to: ILocationSlot | null) => {
+	const updateDistance = (to: LocationSlot | null) => {
 		if (!from) {
 			distanceText.text = gettext('wating-gps');
 			return;

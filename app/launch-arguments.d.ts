@@ -1,6 +1,4 @@
-import { ILocationSlot } from '../common/models/location-slot';
-
-interface ILaunchArguments {
+export interface LaunchArguments {
 	name: string;
 	coords: [number, number];
 }

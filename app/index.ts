@@ -5,7 +5,7 @@ import './actions/companion-messaging';
 import { setLocationSlot } from './actions/location-slots';
 import * as Views from './constants/views';
 import store from './data-sources/state';
-import { ILaunchArguments } from './launch-arguments';
+import { LaunchArguments } from './launch-arguments';
 import createLocationDetailsView from './views/location-details-view';
 import createLocationSlotsView from './views/location-slots-view';
 import createNavigationView from './views/navigation-view';
@@ -46,7 +46,7 @@ if (me.launchArguments) {
 	const {
 		name,
 		coords: [latitude, longitude],
-	} = me.launchArguments as ILaunchArguments;
+	} = me.launchArguments as LaunchArguments;
 	store.dispatch(
 		setLocationSlot({
 			details: '',

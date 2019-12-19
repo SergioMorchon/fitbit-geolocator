@@ -6,7 +6,7 @@ import { getElementById, hide, isGraphisElement, show } from './document';
 type KeyboardCallback = () => void;
 type Callback = () => void;
 
-export interface IView {
+export interface View {
 	readonly root: GraphicsElement;
 	onKeyBack?: KeyboardCallback;
 	onKeyUp?: KeyboardCallback;
@@ -20,11 +20,11 @@ export interface IView {
 	};
 }
 
-export interface INavigation {
+export interface Navigation {
 	navigate(viewId: ViewId): void;
 }
 
-export const createView = (id: ViewId): IView => {
+export const createView = (id: ViewId): View => {
 	const root = getElementById(document, id);
 	if (!isGraphisElement(root)) {
 		throw new Error(`#${id} isn't GraphicsElement`);
@@ -35,7 +35,7 @@ export const createView = (id: ViewId): IView => {
 	};
 };
 
-const applyVisibility = (view: IView, visible: boolean) => {
+const applyVisibility = (view: View, visible: boolean) => {
 	const action = visible ? show : hide;
 	action(view.root);
 	if (view.comboButtons) {
@@ -49,12 +49,12 @@ const applyVisibility = (view: IView, visible: boolean) => {
 };
 
 export const createViewSet = () => {
-	const views: { [id: string]: IView } = {};
+	const views: { [id: string]: View } = {};
 	let innerCurrentViewId: ViewId | null = null;
 	const isValidViewId = (id: ViewId | null): id is ViewId =>
 		id !== null && id in views;
 	const self = {
-		addView(view: IView) {
+		addView(view: View) {
 			views[view.root.id] = view;
 			applyVisibility(view, false);
 		},

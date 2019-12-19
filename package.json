@@ -4,12 +4,14 @@
 	"private": true,
 	"license": "UNLICENSED",
 	"devDependencies": {
-		"@fitbit/sdk": "^4.0.1",
-		"@fitbit/sdk-cli": "^1.7.0",
-		"fitbit-sdk-types": "^4.2.0",
-		"prettier": "^1.18.2",
-		"tslint": "^5.20.0",
-		"tslint-config-prettier": "^1.18.0"
+		"@fitbit/sdk": "^4.1.0",
+		"@fitbit/sdk-cli": "^1.7.1",
+		"@typescript-eslint/eslint-plugin": "^2.12.0",
+		"@typescript-eslint/parser": "^2.12.0",
+		"eslint": "^6.7.2",
+		"eslint-config-prettier": "^6.7.0",
+		"fitbit-sdk-types": "^4.3.0",
+		"prettier": "^1.19.1"
 	},
 	"fitbit": {
 		"appUUID": "6aeb6da0-dfb9-40a5-9fcb-160a5b5e3be5",
@@ -44,9 +46,9 @@
 	},
 	"scripts": {
 		"prettier": "prettier **/*.ts **/*.tsx **/*.json **/*.md **/*.gui **/*.svg",
-		"tslint": "tslint --project app",
-		"check-code": "npm run tslint && npm run prettier -- --check",
-		"fix-code": "npm run tslint -- --fix && npm run prettier -- --write",
+		"lint": "eslint --max-warnings 0 common/**/*.ts app/**/*.ts companion/**/*.ts settings/**/*.tsx",
+		"check-code": "npm run lint && npm run prettier -- --check",
+		"fix-code": "npm run lint -- --fix && npm run prettier -- --write",
 		"build": "fitbit-build",
 		"debug": "fitbit"
 	},

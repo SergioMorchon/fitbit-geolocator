@@ -1,6 +1,6 @@
 import { next } from 'fitbit-views';
 import { gettext } from 'i18n';
-import { ILocationSlot } from '../../common/models/location-slot';
+import { LocationSlot } from '../../common/models/location-slot';
 import { setCurrentLocationSlot } from '../actions/location-slots';
 import { LOCATION_DETAILS_VIEW, NEW_LOCATION_VIEW } from '../constants/views';
 import store from '../data-sources/state';
@@ -23,7 +23,7 @@ export default () => {
 	};
 	addLocationButton.onactivate = addLocationAction;
 	const list = getElementById('location-slots-list') as VirtualTileList<{
-		locationSlot: ILocationSlot;
+		locationSlot: LocationSlot;
 		type: 'location-slots';
 	}>;
 	list.delegate = {
