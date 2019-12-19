@@ -14,4 +14,4 @@ msgid "details"
 msgstr "Dettagli"
 
 msgid "send-to-watch"
-msgstr "Invia a orologio"
+msgstr "Invia"
