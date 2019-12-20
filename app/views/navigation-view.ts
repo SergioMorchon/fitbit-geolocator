@@ -1,6 +1,5 @@
 import { geolocation } from 'geolocation';
 import { gettext } from 'i18n';
-import animate from 'promise-animate';
 import { LocationSlot } from '../../common/models/location-slot';
 import store from '../data-sources/state';
 import { getCurrentLocationSlot } from '../reducers';
@@ -12,21 +11,16 @@ import {
 	positionToString,
 } from '../utils/position';
 
-/*
- * Easy-in-out function creator
- * Credits to https://math.stackexchange.com/a/121755
- */
-const createEasyInOut = (factor: number) => (x: number) =>
-	x ** factor / (x ** factor + (1 - x) ** factor);
-
-const easyInOut = createEasyInOut(2.5);
-
 export default () => {
 	const distanceText = getElementById('distance-text') as TextElement;
 	const toText = getElementById('to-text') as TextElement;
 	const navigationBearingGroup = getElementById(
 		'navigation-bearing',
 	) as GroupElement;
+	const animationElement = getElementById(
+		'animation',
+		navigationBearingGroup,
+	) as any;
 
 	let from: LocationSlot | undefined;
 	let cancellationToken = {
@@ -63,36 +57,9 @@ export default () => {
 					headingProgress) *
 				360;
 
-			let animationFunction: (progress: number) => number;
-			if (targetAngle > currentAngle) {
-				if (targetAngle - currentAngle <= 180) {
-					const angle = targetAngle - currentAngle;
-					animationFunction = progress => currentAngle + angle * progress;
-				} else {
-					const angle = currentAngle + 360 - targetAngle;
-					animationFunction = progress => currentAngle + 360 - angle * progress;
-				}
-			} else {
-				if (currentAngle - targetAngle <= 180) {
-					const angle = currentAngle - targetAngle;
-					animationFunction = progress => currentAngle - angle * progress;
-				} else {
-					const angle = targetAngle + 360 - currentAngle;
-					animationFunction = progress => currentAngle + 360 + angle * progress;
-				}
-			}
-
-			animate({
-				cancellationToken,
-				duration: 500,
-				update: progress => {
-					if (navigationBearingGroup.groupTransform) {
-						navigationBearingGroup.groupTransform.rotate.angle = animationFunction(
-							easyInOut(progress),
-						);
-					}
-				},
-			});
+			animationElement.from = currentAngle;
+			animationElement.to = targetAngle;
+			animationElement.animate('enable');
 		} else {
 			hide(navigationBearingGroup);
 		}

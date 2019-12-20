@@ -1,5 +1,6 @@
 <svg>
 	<g id="navigation-bearing" transform="translate(50%, 50%)">
+		<animateTransform id="animation" attributeType="rotate" begin="enable" end="disable" dur="0.5" easing="ease-out" />
 		<rect x="$-2" y="-120" width="4" height="120" fill="#ff0000" />
 	</g>
 	<text
