@@ -1,14 +1,21 @@
-import { back, buttons, next } from 'fitbit-views';
 import { gettext } from 'i18n';
-import { removeLocationSlot } from '../actions/location-slots';
-import { NAVIGATION_VIEW } from '../constants/views';
-import store from '../data-sources/state';
+import { LOCATION_DETAILS_VIEW } from '../constants/views';
 import { open as openConfirm } from '../dialogs/confirm';
-import { getCurrentLocationSlot } from '../reducers';
 import { getElementById } from '../utils/document';
 import { positionToString } from '../utils/position';
+import { loadUI, handleBack } from '../ui';
+import {
+	loadState,
+	removeLocationSlot,
+	saveState,
+} from '../data-sources/state';
+import { LocationSlot } from '../../common/models/location-slot';
 
-export default () => {
+const goToListView = () =>
+	import('./location-slots-view').catch(e => console.error(e));
+
+export default (locationSlot: LocationSlot) => {
+	loadUI(LOCATION_DETAILS_VIEW);
 	let isConfirmDialogOpen = false;
 	const removeLocationButton = getElementById(
 		'remove-location-button',
@@ -21,20 +28,15 @@ export default () => {
 	) as TextAreaElement;
 
 	const update = () => {
-		const to = getCurrentLocationSlot(store.state);
-		if (!to) {
-			return;
-		}
-
 		locationDetailsText.text = [
 			gettext('details-location'),
-			positionToString(to.position),
+			positionToString(locationSlot.position),
 			'',
 			gettext('details-timestamp'),
-			new Date(to.position.timestamp).toISOString(),
+			new Date(locationSlot.position.timestamp).toISOString(),
 			'',
 			gettext('details'),
-			to.details,
+			locationSlot.details,
 		].join('\n');
 	};
 
@@ -43,21 +45,19 @@ export default () => {
 			return;
 		}
 
-		const to = getCurrentLocationSlot(store.state);
-		if (!to) {
-			return;
-		}
-
 		isConfirmDialogOpen = true;
 		openConfirm({
-			copy: to.name,
+			copy: locationSlot.name,
 			header: gettext('delete-location-header'),
 			negative: gettext('delete-location-no'),
 			positive: gettext('delete-location-yes'),
 		}).then(ok => {
 			if (ok) {
-				store.dispatch(removeLocationSlot(to.name));
-				back();
+				const state = loadState();
+				removeLocationSlot(state, locationSlot.name);
+				saveState(state);
+				goToListView();
+				return;
 			}
 
 			isConfirmDialogOpen = false;
@@ -68,16 +68,17 @@ export default () => {
 			return;
 		}
 
-		next(NAVIGATION_VIEW);
+		import('./navigation-view')
+			.then(m => m.default(locationSlot))
+			.catch(e => console.error(e));
 	};
-	buttons.back = () => {
+	handleBack(() => {
 		if (isConfirmDialogOpen) {
 			return;
 		}
 
-		back();
-	};
+		goToListView();
+	});
 
 	update();
-	return store.subscribe(update);
 };

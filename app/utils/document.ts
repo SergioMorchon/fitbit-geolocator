@@ -9,10 +9,6 @@ export const getElementById = (id: string, root: ElementSearch = document) => {
 	return element;
 };
 
-export const isGraphisElement = (
-	element: Element,
-): element is GraphicsElement => !!(element as GraphicsElement).style;
-
 export const show = (element: GraphicsElement) => {
 	element.style.display = 'inline';
 };

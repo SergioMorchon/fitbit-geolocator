@@ -1,33 +1,43 @@
-import { me } from 'appbit';
 import { readFileSync, writeFileSync } from 'fs';
-import { configureStore } from 'reduced-state';
-import reducers from '../reducers';
+import { LocationSlot } from '../../common/models/location-slot';
 
 const SETTINGS_FILE_NAME = 'storage';
 const ENCODING = 'cbor';
 
-const tryRestore = (): any => {
+interface State {
+	locationSlots: {
+		byName: {
+			[name: string]: LocationSlot | undefined;
+		};
+	};
+}
+
+export const loadState = (): State => {
 	try {
-		return readFileSync(SETTINGS_FILE_NAME, ENCODING);
+		return readFileSync(SETTINGS_FILE_NAME, ENCODING) as State;
 	} catch (e) {
-		return undefined;
+		return {
+			locationSlots: {
+				byName: {},
+			},
+		};
 	}
 };
 
-const store = configureStore({
-	initialState: tryRestore(),
-	reducer: reducers,
-});
-
-me.addEventListener('unload', () => {
-	writeFileSync(SETTINGS_FILE_NAME, store.state, ENCODING);
-});
-
-const originalDispatch = store.dispatch;
-store.dispatch = (action: any) => {
-	// tslint:disable-next-line: no-console
-	console.log(`Action: ${action.type}`);
-	originalDispatch(action);
+export const saveState = (state: State) => {
+	writeFileSync(SETTINGS_FILE_NAME, state, ENCODING);
 };
 
-export default store;
+export const getLocationSlotByName = (state: State, name: string) =>
+	state.locationSlots.byName[name];
+export const getLocationSlots = (state: State) =>
+	Object.keys(state.locationSlots.byName).map(
+		name => state.locationSlots.byName[name] as LocationSlot,
+	);
+
+export const addLocationSlot = (state: State, locationSlot: LocationSlot) => {
+	state.locationSlots.byName[locationSlot.name] = locationSlot;
+};
+export const removeLocationSlot = (state: State, name: string) => {
+	delete state.locationSlots.byName[name];
+};

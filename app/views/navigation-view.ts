@@ -2,8 +2,6 @@ import { geolocation } from 'geolocation';
 import { gettext } from 'i18n';
 import animate from 'promise-animate';
 import { LocationSlot } from '../../common/models/location-slot';
-import store from '../data-sources/state';
-import { getCurrentLocationSlot } from '../reducers';
 import { getElementById, hide, show } from '../utils/document';
 import {
 	distanceToString,
@@ -11,6 +9,8 @@ import {
 	getFinalBearingProgress,
 	positionToString,
 } from '../utils/position';
+import { loadUI, handleBack } from '../ui';
+import { NAVIGATION_VIEW } from '../constants/views';
 
 /*
  * Easy-in-out function creator
@@ -21,7 +21,8 @@ const createEasyInOut = (factor: number) => (x: number) =>
 
 const easyInOut = createEasyInOut(2.5);
 
-export default () => {
+export default (locationSlot: LocationSlot) => {
+	loadUI(NAVIGATION_VIEW);
 	const distanceText = getElementById('distance-text') as TextElement;
 	const toText = getElementById('to-text') as TextElement;
 	const navigationBearingGroup = getElementById(
@@ -33,23 +34,18 @@ export default () => {
 		cancel: false,
 	};
 
-	const updateTarget = (to: LocationSlot | null) => {
-		if (!to) {
-			hide(toText);
-			return;
-		}
-
-		toText.text = positionToString(to.position);
+	const updateTarget = () => {
+		toText.text = positionToString(locationSlot.position);
 		show(toText);
 	};
 
-	const updateOrientation = (to: LocationSlot | null) => {
-		if (!from || !to) {
+	const updateOrientation = () => {
+		if (!from) {
 			hide(navigationBearingGroup);
 			return;
 		}
 
-		if (to && navigationBearingGroup.groupTransform) {
+		if (navigationBearingGroup.groupTransform) {
 			cancellationToken.cancel = true;
 			cancellationToken = {
 				cancel: false,
@@ -59,7 +55,7 @@ export default () => {
 			const headingProgress = (from.position.coords.heading || 0) / 360;
 			const currentAngle = navigationBearingGroup.groupTransform.rotate.angle;
 			const targetAngle =
-				(getFinalBearingProgress(from.position, to.position) -
+				(getFinalBearingProgress(from.position, locationSlot.position) -
 					headingProgress) *
 				360;
 
@@ -98,22 +94,21 @@ export default () => {
 		}
 	};
 
-	const updateDistance = (to: LocationSlot | null) => {
+	const updateDistance = () => {
 		if (!from) {
 			distanceText.text = gettext('wating-gps');
 			return;
 		}
 
-		distanceText.text = to
-			? distanceToString(getDistance(from.position, to.position))
-			: '---';
+		distanceText.text = distanceToString(
+			getDistance(from.position, locationSlot.position),
+		);
 	};
 
 	const update = () => {
-		const to = getCurrentLocationSlot(store.state);
-		updateTarget(to);
-		updateDistance(to);
-		updateOrientation(to);
+		updateTarget();
+		updateDistance();
+		updateOrientation();
 	};
 
 	const geolocationWatcher = geolocation.watchPosition(position => {
@@ -127,9 +122,11 @@ export default () => {
 	});
 
 	update();
-	const unsubscribeFromStore = store.subscribe(update);
-	return () => {
-		unsubscribeFromStore();
+
+	handleBack(() => {
 		geolocation.clearWatch(geolocationWatcher);
-	};
+		import('./location-details-view')
+			.then(m => m.default(locationSlot))
+			.catch(e => console.error(e));
+	});
 };
