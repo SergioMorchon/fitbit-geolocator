@@ -6,11 +6,11 @@
 	"devDependencies": {
 		"@fitbit/sdk": "^4.1.0",
 		"@fitbit/sdk-cli": "^1.7.1",
-		"@typescript-eslint/eslint-plugin": "^2.21.0",
-		"@typescript-eslint/parser": "^2.21.0",
+		"@typescript-eslint/eslint-plugin": "^2.23.0",
+		"@typescript-eslint/parser": "^2.23.0",
 		"eslint": "^6.8.0",
 		"eslint-config-prettier": "^6.10.0",
-		"fitbit-sdk-types": "^4.3.3",
+		"fitbit-sdk-types": "^4.3.5",
 		"prettier": "^1.19.1"
 	},
 	"fitbit": {
