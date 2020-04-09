@@ -1,7 +1,7 @@
 import { settingsStorage } from 'settings';
-import { SET_LOCATION } from '../common/constants/action-types/messaging';
 import { SettingLocationSlot } from './setting-location-slot';
 import { setLocation } from './actions';
+import { SET_LOCATION } from './settings-keys';
 
 const processLocation = () => {
 	const locationJson = settingsStorage.getItem(SET_LOCATION);
@@ -15,13 +15,9 @@ const processLocation = () => {
 		name: location.name,
 		position: {
 			coords: {
-				accuracy: 0,
-				altitude: null,
-				altitudeAccuracy: null,
 				heading: null,
 				latitude: location.latitude,
 				longitude: location.longitude,
-				speed: null,
 			},
 			timestamp: Date.now(),
 		},

@@ -5,7 +5,7 @@ import { state } from '../state';
 import { open as openConfirm } from './confirm-dialog';
 import { byId } from '../utils/document';
 import { positionToString } from '../utils/position';
-import { LocationSlot } from '../../common/models/location-slot';
+import { LocationSlot } from '../location-slot';
 
 export default (location: LocationSlot) => {
 	let isConfirmDialogOpen = false;

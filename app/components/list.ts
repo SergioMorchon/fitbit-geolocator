@@ -1,12 +1,10 @@
 import { next } from 'fitbit-views';
 import { gettext } from 'i18n';
-import { LocationSlot } from '../../common/models/location-slot';
+import { LocationSlot } from '../location-slot';
 import { DETAILS, ADD_LOCATION } from '../views-names';
 import { byId, hide, show } from '../utils/document';
 import { inbox } from 'file-transfer';
 import { readFileSync, unlinkSync } from 'fs';
-import { MessageAction } from '../../common/models/messaging-action';
-import { SET_LOCATION } from '../../common/constants/action-types/messaging';
 import { state } from '../state';
 
 const getAllLocationSlots = () =>
@@ -62,14 +60,12 @@ export default () => {
 	const processFiles = () => {
 		let fileName = inbox.nextFile();
 		while (fileName) {
-			const [action, payload] = readFileSync(
+			const location = readFileSync(
 				`/private/data/${fileName}`,
 				'cbor',
-			) as MessageAction;
+			) as LocationSlot;
 			unlinkSync(fileName);
-			if (action === SET_LOCATION) {
-				state.locationSlots.byName[payload.name] = payload;
-			}
+			state.locationSlots.byName[location.name] = location;
 
 			fileName = inbox.nextFile(fileName);
 		}

@@ -1,7 +1,7 @@
 import { me } from 'appbit';
 import { readFileSync, writeFileSync } from 'fs';
 
-import type { LocationSlot } from '../common/models/location-slot';
+import type { LocationSlot } from './location-slot';
 
 const SETTINGS_FILE_NAME = 'storage';
 const ENCODING = 'cbor';

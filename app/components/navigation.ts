@@ -1,7 +1,7 @@
 import { geolocation } from 'geolocation';
 import { gettext } from 'i18n';
 import animate from 'promise-animate';
-import { LocationSlot } from '../../common/models/location-slot';
+import { LocationSlot } from '../location-slot';
 import { byId, hide, show } from '../utils/document';
 import {
 	distanceToString,

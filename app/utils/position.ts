@@ -1,6 +1,6 @@
 import { gettext } from 'i18n';
 import { units } from 'user-settings';
-import { toNum } from '../../common/utils/number';
+import type { Position } from '../location-slot';
 
 const { distance: distanceUnits } = units;
 const EARTH_RADIUS = 6371e3;
@@ -26,23 +26,19 @@ const SIGNIFICATIVE_DECIMALS = 5;
 export const positionToString = ({
 	coords: { latitude, longitude },
 }: Position) =>
-	`${toNum(latitude).toFixed(SIGNIFICATIVE_DECIMALS)}, ${toNum(
-		longitude,
-	).toFixed(SIGNIFICATIVE_DECIMALS)}`;
+	`${latitude.toFixed(SIGNIFICATIVE_DECIMALS)}, ${longitude.toFixed(
+		SIGNIFICATIVE_DECIMALS,
+	)}`;
 
 export const getDistance = (from: Position, to: Position) => {
-	const φ = degreesToRadians(
-		toNum(to.coords.latitude) - toNum(from.coords.latitude),
-	);
-	const λ = degreesToRadians(
-		toNum(to.coords.longitude) - toNum(from.coords.longitude),
-	);
+	const φ = degreesToRadians(to.coords.latitude - from.coords.latitude);
+	const λ = degreesToRadians(to.coords.longitude - from.coords.longitude);
 	const a =
 		Math.sin(φ / 2) * Math.sin(φ / 2) +
 		Math.sin(λ / 2) *
 			Math.sin(λ / 2) *
-			Math.cos(degreesToRadians(toNum(from.coords.latitude))) *
-			Math.cos(degreesToRadians(toNum(to.coords.latitude)));
+			Math.cos(degreesToRadians(from.coords.latitude)) *
+			Math.cos(degreesToRadians(to.coords.latitude));
 	return EARTH_RADIUS * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 
