@@ -1,16 +1,15 @@
 import { geolocation } from 'geolocation';
 import { gettext } from 'i18n';
 import animate from 'promise-animate';
-import { LocationSlot } from '../../common/models/location-slot';
-import store from '../data-sources/state';
-import { getCurrentLocationSlot } from '../reducers';
-import { getElementById, hide, show } from '../utils/document';
+import { LocationSlot } from '../location-slot';
+import { byId, hide, show } from '../utils/document';
 import {
 	distanceToString,
 	getDistance,
 	getFinalBearingProgress,
 	positionToString,
 } from '../utils/position';
+import { buttons, back } from 'fitbit-views';
 
 /*
  * Easy-in-out function creator
@@ -21,12 +20,10 @@ const createEasyInOut = (factor: number) => (x: number) =>
 
 const easyInOut = createEasyInOut(2.5);
 
-export default () => {
-	const distanceText = getElementById('distance-text') as TextElement;
-	const toText = getElementById('to-text') as TextElement;
-	const navigationBearingGroup = getElementById(
-		'navigation-bearing',
-	) as GroupElement;
+export default (location: LocationSlot) => {
+	const distanceText = byId('distance-text') as TextElement;
+	const toText = byId('to-text') as TextElement;
+	const navigationBearingGroup = byId('navigation-bearing') as GroupElement;
 
 	let from: LocationSlot | undefined;
 	let cancellationToken = {
@@ -110,10 +107,9 @@ export default () => {
 	};
 
 	const update = () => {
-		const to = getCurrentLocationSlot(store.state);
-		updateTarget(to);
-		updateDistance(to);
-		updateOrientation(to);
+		updateTarget(location);
+		updateDistance(location);
+		updateOrientation(location);
 	};
 
 	const geolocationWatcher = geolocation.watchPosition(position => {
@@ -126,10 +122,10 @@ export default () => {
 		update();
 	});
 
-	update();
-	const unsubscribeFromStore = store.subscribe(update);
-	return () => {
-		unsubscribeFromStore();
-		geolocation.clearWatch(geolocationWatcher);
+	buttons.back = () => {
+		back(location);
 	};
+
+	update();
+	return () => geolocation.clearWatch(geolocationWatcher);
 };

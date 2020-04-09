@@ -1,48 +1,38 @@
 import { gettext } from 'i18n';
-import { SET_LOCATION } from '../common/constants/action-types/messaging';
 import {
 	SETTINGS_KEY_ADD_LOCATION_DETAILS,
 	SETTINGS_KEY_ADD_LOCATION_LATITUDE,
 	SETTINGS_KEY_ADD_LOCATION_LONGITUDE,
 	SETTINGS_KEY_ADD_LOCATION_NAME,
-} from '../common/constants/settings-keys';
-import { toNum } from '../common/utils/number';
-
-const tryParseSettingsWTFValue = (valueJson: string) => {
-	try {
-		return JSON.parse(valueJson).name;
-	} catch {
-		return valueJson;
-	}
-};
+	SET_LOCATION,
+} from '../companion/settings-keys';
 
 const sendToWatch = (settingsStorage: LiveStorage) => {
-	const nameSettingValue = settingsStorage.getItem(
-		SETTINGS_KEY_ADD_LOCATION_NAME,
-	);
+	const name = settingsStorage.getItem(SETTINGS_KEY_ADD_LOCATION_NAME);
 	const latitudeSettingValue = settingsStorage.getItem(
 		SETTINGS_KEY_ADD_LOCATION_LATITUDE,
 	);
 	const longitudeSettingValue = settingsStorage.getItem(
 		SETTINGS_KEY_ADD_LOCATION_LONGITUDE,
 	);
-	if (!nameSettingValue || !latitudeSettingValue || !longitudeSettingValue) {
+	if (
+		!name ||
+		latitudeSettingValue === null ||
+		longitudeSettingValue === null
+	) {
 		return;
 	}
 
-	const detailsSettingValue = settingsStorage.getItem(
-		SETTINGS_KEY_ADD_LOCATION_DETAILS,
-	);
+	const details =
+		settingsStorage.getItem(SETTINGS_KEY_ADD_LOCATION_DETAILS) || '';
 
 	settingsStorage.setItem(
 		SET_LOCATION,
 		JSON.stringify({
-			details: detailsSettingValue
-				? tryParseSettingsWTFValue(detailsSettingValue)
-				: '',
-			latitude: toNum(tryParseSettingsWTFValue(latitudeSettingValue)),
-			longitude: toNum(tryParseSettingsWTFValue(longitudeSettingValue)),
-			name: tryParseSettingsWTFValue(nameSettingValue),
+			details,
+			latitude: Number(latitudeSettingValue),
+			longitude: Number(longitudeSettingValue),
+			name,
 		}),
 	);
 };
@@ -54,21 +44,25 @@ registerSettingsPage(({ settingsStorage }) => (
 				title={gettext('name')}
 				type="text"
 				settingsKey={SETTINGS_KEY_ADD_LOCATION_NAME}
+				useSimpleValue
 			/>
 			<TextInput
 				title={gettext('latitude')}
 				type="number"
 				settingsKey={SETTINGS_KEY_ADD_LOCATION_LATITUDE}
+				useSimpleValue
 			/>
 			<TextInput
 				title={gettext('longitude')}
 				type="number"
 				settingsKey={SETTINGS_KEY_ADD_LOCATION_LONGITUDE}
+				useSimpleValue
 			/>
 			<TextInput
 				title={gettext('details')}
 				type="text"
 				settingsKey={SETTINGS_KEY_ADD_LOCATION_DETAILS}
+				useSimpleValue
 			/>
 			<Button
 				label={gettext('send-to-watch')}

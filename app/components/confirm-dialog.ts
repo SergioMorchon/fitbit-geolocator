@@ -1,4 +1,4 @@
-import { getElementById, hide, show } from '../utils/document';
+import { byId, hide, show } from '../utils/document';
 
 interface ShowOptions {
 	header: string;
@@ -9,11 +9,11 @@ interface ShowOptions {
 
 export const open = ({ header, copy, positive, negative }: ShowOptions) =>
 	new Promise<boolean>(resolve => {
-		const root = getElementById('confirm-dialog') as GraphicsElement;
-		const headerText = getElementById('header/text');
-		const copyText = getElementById('copy/text');
-		const positiveButton = getElementById('positive-button');
-		const negativeButton = getElementById('negative-button');
+		const root = byId('confirm-dialog') as GraphicsElement;
+		const headerText = byId('header/text');
+		const copyText = byId('copy/text');
+		const positiveButton = byId('positive-button');
+		const negativeButton = byId('negative-button');
 		const getCloseCallback = (result: boolean) => () => {
 			hide(root);
 			resolve(result);

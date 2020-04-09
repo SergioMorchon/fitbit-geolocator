@@ -1,0 +1,39 @@
+<svg>
+	<defs>
+		<link rel="stylesheet" href="details.css" />
+		<link rel="import" href="/mnt/sysassets/widgets/combo_button_widget.gui" />
+		<link rel="stylesheet" href="/mnt/sysassets/widgets/dynamic_textarea.css" />
+		<link rel="import" href="/mnt/sysassets/widgets/dynamic_textarea.gui" />
+		<link rel="import" href="/mnt/sysassets/widgets/square_button_widget.gui" />
+		<link rel="import" href="/mnt/sysassets/widgets/mixed_text_widget.gui" />
+		<link rel="import" href="confirm.gui" />
+	</defs>
+	<textarea id="location-details-text" text-length="500" />
+	<use id="remove-location-button" href="#combo-button-upper-right">
+		<set
+			href="combo-button-icon"
+			attributeName="href"
+			to="sqr_btn_trash_p.png"
+		/>
+		<set
+			href="combo-button-icon-press"
+			attributeName="href"
+			to="sqr_btn_trash_p.png"
+		/>
+		<set href="combo-button-stroke" attributeName="display" to="inline" />
+	</use>
+	<use id="start-navigation-button" href="#combo-button-lower-right">
+		<set
+			href="combo-button-icon"
+			attributeName="href"
+			to="btn_combo_flag_p.png"
+		/>
+		<set
+			href="combo-button-icon-press"
+			attributeName="href"
+			to="btn_combo_flag_p.png"
+		/>
+		<set href="combo-button-stroke" attributeName="display" to="inline" />
+	</use>
+	<use href="#confirm-dialog" id="confirm-dialog" />
+</svg>

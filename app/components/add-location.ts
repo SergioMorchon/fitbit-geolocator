@@ -1,13 +1,12 @@
 import { back, buttons } from 'fitbit-views';
 import { geolocation } from 'geolocation';
 import { gettext } from 'i18n';
-import { setLocationSlot } from '../actions/location-slots';
-import store from '../data-sources/state';
-import { getElementById } from '../utils/document';
+import { state } from '../state';
+import { byId } from '../utils/document';
 import { positionToString } from '../utils/position';
 
 export default () => {
-	const currentLocationText = getElementById('current-location') as TextElement;
+	const currentLocationText = byId('current-location') as TextElement;
 	let position: Position | null = null;
 	const update = () => {
 		currentLocationText.text = position
@@ -16,16 +15,15 @@ export default () => {
 	};
 	buttons.back = () => {
 		if (position) {
-			store.dispatch(
-				setLocationSlot({
-					details: '',
-					name: positionToString(position),
-					position: {
-						...position,
-						timestamp: Date.now(),
-					},
-				}),
-			);
+			const name = positionToString(position);
+			state.locationSlots.byName[name] = {
+				details: '',
+				name,
+				position: {
+					...position,
+					timestamp: Date.now(),
+				},
+			};
 		}
 
 		back();

@@ -1,4 +1,4 @@
-import { LocationSlot } from '../common/models/location-slot';
+import type { LocationSlot } from '../app/location-slot';
 
 export interface SettingLocationSlot {
 	details: LocationSlot['details'];

@@ -1,0 +1,15 @@
+#location-details-text {
+	x: 10;
+	y: 10;
+	width: 100%-20;
+	height: 100%-20;
+	font-size: 20;
+}
+
+#remove-location-button {
+	fill: fb-white;
+}
+
+#start-navigation-button {
+	fill: fb-white;
+}

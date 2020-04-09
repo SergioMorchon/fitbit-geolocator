@@ -1,5 +1,8 @@
 <svg>
 	<defs>
+		<link rel="stylesheet" href="list.css" />
+		<link rel="import" href="/mnt/sysassets/widgets/combo_button_widget.gui" />
+		<link rel="import" href="/mnt/sysassets/widgets/tile_list_widget.gui" />
 		<symbol
 			id="location-slot"
 			href="#tile-list-item"
@@ -87,11 +90,7 @@
 			/>
 		</use>
 	</use>
-	<use
-		id="add-location-button"
-		href="#combo-button-lower-right"
-		fill="fb-white"
-	>
+	<use id="add-location-button" href="#combo-button-lower-right">
 		<set
 			href="combo-button-icon"
 			attributeName="href"

@@ -1,10 +1,10 @@
 import { encode } from 'cbor';
 import { outbox } from 'file-transfer';
 import { settingsStorage } from 'settings';
-import { SET_LOCATION } from '../common/constants/action-types/messaging';
-import { LocationSlot } from '../common/models/location-slot';
+import type { LocationSlot } from '../app/location-slot';
+import { SET_LOCATION } from './settings-keys';
 
 export const setLocation = async (location: LocationSlot) => {
-	await outbox.enqueue(Date.now().toString(), encode([SET_LOCATION, location]));
+	await outbox.enqueue(Date.now().toString(), encode(location));
 	settingsStorage.removeItem(SET_LOCATION);
 };
