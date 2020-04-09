@@ -1,35 +1,6 @@
 text {
 	fill: white;
 }
-
-.tile-list-item {
-	height: 88;
-}
-
-.tile-list-item text {
-	font-family: System-Regular;
-	fill: 'white';
-}
-
-.tile-divider-bottom {
-	x: 0;
-	y: 100%-2;
-	width: 100%;
-	height: 2;
-	fill: #a0a0a0;
-}
-
-#empty-case {
+textarea {
 	fill: white;
-	x: 10%;
-	width: 80%;
-	y: 20%;
-}
-
-#location-details-text {
-	fill: white;
-	x: 10;
-	y: 10;
-	width: 100%-20;
-	height: 100%-20;
 }

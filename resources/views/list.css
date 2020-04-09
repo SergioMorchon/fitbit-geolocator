@@ -1,0 +1,22 @@
+.tile-list-item {
+	height: 88;
+}
+
+.tile-divider-bottom {
+	x: 0;
+	y: 100%-2;
+	width: 100%;
+	height: 2;
+	fill: #a0a0a0;
+}
+
+#empty-case {
+	fill: white;
+	x: 10%;
+	y: 20%;
+	width: 80%;
+}
+
+#add-location-button {
+	fill: fb-white;
+}

@@ -1,5 +1,6 @@
 <svg>
 	<defs>
+		<link rel="stylesheet" href="details.css" />
 		<link rel="import" href="/mnt/sysassets/widgets/combo_button_widget.gui" />
 		<link rel="stylesheet" href="/mnt/sysassets/widgets/dynamic_textarea.css" />
 		<link rel="import" href="/mnt/sysassets/widgets/dynamic_textarea.gui" />
@@ -9,14 +10,11 @@
 	</defs>
 	<textarea
 		id="location-details-text"
-		fill="white"
-		font-size="20"
 		text-length="500"
 	/>
 	<use
 		id="remove-location-button"
 		href="#combo-button-upper-right"
-		fill="fb-white"
 	>
 		<set
 			href="combo-button-icon"
@@ -33,7 +31,6 @@
 	<use
 		id="start-navigation-button"
 		href="#combo-button-lower-right"
-		fill="fb-white"
 	>
 		<set
 			href="combo-button-icon"

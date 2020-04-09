@@ -1,22 +1,13 @@
 <svg>
+	<defs>
+		<link rel="stylesheet" href="navigation.css" />
+	</defs>
 	<g id="navigation-bearing" transform="translate(50%, 50%)">
-		<rect x="$-2" y="-120" width="4" height="120" fill="#ff0000" />
+		<rect />
 	</g>
-	<text
-		id="to-text"
-		text-length="20"
-		font-size="20"
-		x="50%"
-		y="20+5%"
-		text-anchor="middle"
-	/>
+	<text id="to-text" text-length="20" />
 	<text
 		id="distance-text"
 		text-length="100"
-		font-size="40"
-		font-weight="bold"
-		x="50%"
-		y="50%+20"
-		text-anchor="middle"
 	/>
 </svg>
