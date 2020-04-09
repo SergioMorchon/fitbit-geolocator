@@ -90,10 +90,7 @@
 			/>
 		</use>
 	</use>
-	<use
-		id="add-location-button"
-		href="#combo-button-lower-right"
-	>
+	<use id="add-location-button" href="#combo-button-lower-right">
 		<set
 			href="combo-button-icon"
 			attributeName="href"

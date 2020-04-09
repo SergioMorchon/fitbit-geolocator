@@ -45,8 +45,8 @@
 		"defaultLanguage": "en-US"
 	},
 	"scripts": {
-		"prettier": "prettier **/*.ts **/*.tsx **/*.json **/*.md **/*.gui **/*.svg",
-		"lint": "eslint --max-warnings 0 common/**/*.ts app/**/*.ts companion/**/*.ts settings/**/*.tsx",
+		"prettier": "prettier **/*.ts **/*.tsx **/*.json **/*.md **/*.gui **/*.css",
+		"lint": "eslint --max-warnings 0 app/**/*.ts companion/**/*.ts settings/**/*.tsx",
 		"check-code": "npm run lint && npm run prettier -- --check",
 		"fix-code": "npm run lint -- --fix && npm run prettier -- --write",
 		"build": "fitbit-build",

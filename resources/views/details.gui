@@ -8,14 +8,8 @@
 		<link rel="import" href="/mnt/sysassets/widgets/mixed_text_widget.gui" />
 		<link rel="import" href="confirm.gui" />
 	</defs>
-	<textarea
-		id="location-details-text"
-		text-length="500"
-	/>
-	<use
-		id="remove-location-button"
-		href="#combo-button-upper-right"
-	>
+	<textarea id="location-details-text" text-length="500" />
+	<use id="remove-location-button" href="#combo-button-upper-right">
 		<set
 			href="combo-button-icon"
 			attributeName="href"
@@ -28,10 +22,7 @@
 		/>
 		<set href="combo-button-stroke" attributeName="display" to="inline" />
 	</use>
-	<use
-		id="start-navigation-button"
-		href="#combo-button-lower-right"
-	>
+	<use id="start-navigation-button" href="#combo-button-lower-right">
 		<set
 			href="combo-button-icon"
 			attributeName="href"

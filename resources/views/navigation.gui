@@ -6,8 +6,5 @@
 		<rect />
 	</g>
 	<text id="to-text" text-length="20" />
-	<text
-		id="distance-text"
-		text-length="100"
-	/>
+	<text id="distance-text" text-length="100" />
 </svg>
