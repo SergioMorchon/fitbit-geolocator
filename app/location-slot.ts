@@ -1,9 +1,11 @@
+export interface Coordinates {
+	readonly heading: number | null;
+	readonly latitude: number;
+	readonly longitude: number;
+}
+
 export interface Position {
-	readonly coords: {
-		readonly heading: number | null;
-		readonly latitude: number;
-		readonly longitude: number;
-	};
+	readonly coords: Coordinates;
 	readonly timestamp: number;
 }
 

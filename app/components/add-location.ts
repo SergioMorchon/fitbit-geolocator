@@ -6,8 +6,8 @@ import { byId } from '../utils/document';
 import { positionToString } from '../utils/position';
 
 export default () => {
-	const currentLocationText = byId('current-location') as TextElement;
-	let position: Position | null = null;
+	const currentLocationText = byId('current-location');
+	let position: Position | undefined;
 	const update = () => {
 		currentLocationText.text = position
 			? positionToString(position)

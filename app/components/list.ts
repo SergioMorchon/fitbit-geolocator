@@ -35,8 +35,8 @@ export default () => {
 				return;
 			}
 
-			(byId('tile-text', tile) as TextElement).text = locationSlot.name;
-			(byId('tile-action', tile) as RectElement).onclick = () => {
+			byId('tile-text', tile).text = locationSlot.name;
+			byId('tile-action', tile).onclick = () => {
 				next(DETAILS, locationSlot);
 			};
 		},

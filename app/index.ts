@@ -1,6 +1,4 @@
-import { me } from 'appbit';
 import { next, setup } from 'fitbit-views';
-import { memory } from 'system';
 import { DETAILS, LIST, NAVIGATION, ADD_LOCATION } from './views-names';
 import details from './components/details';
 import list from './components/list';
@@ -19,20 +17,3 @@ setup(
 	},
 );
 next(LIST);
-
-const memoryConsumptionToString = (consumed: number, total: number) =>
-	`${Number((consumed * 100) / total).toFixed(2)}% (${consumed}/${total})`;
-
-const logMemory = () => {
-	const {
-		js: { used, total, peak },
-	} = memory;
-	// tslint:disable-next-line: no-console
-	console.log(
-		`Current memory: ${memoryConsumptionToString(used, total)}`,
-		`Peak memory: ${memoryConsumptionToString(peak, total)}`,
-	);
-};
-
-logMemory();
-me.addEventListener('unload', logMemory);
