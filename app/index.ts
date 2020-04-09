@@ -1,24 +1,24 @@
 import { me } from 'appbit';
 import { next, setup } from 'fitbit-views';
 import { memory } from 'system';
-import * as Views from './views-names';
-import createLocationDetailsView from './components/location-details-view';
-import createLocationSlotsView from './components/location-slots-view';
-import createNavigationView from './components/navigation-view';
-import createNewLocationView from './components/new-location-view';
+import { DETAILS, LIST, NAVIGATION, ADD_LOCATION } from './views-names';
+import details from './components/details';
+import list from './components/list';
+import navigation from './components/navigation';
+import addLocation from './components/add-location';
 
 setup(
 	{
-		[Views.LOCATION_DETAILS_VIEW]: createLocationDetailsView,
-		[Views.LOCATION_SLOTS_VIEW]: createLocationSlotsView,
-		[Views.NAVIGATION_VIEW]: createNavigationView,
-		[Views.NEW_LOCATION_VIEW]: createNewLocationView,
+		[DETAILS]: details,
+		[LIST]: list,
+		[NAVIGATION]: navigation,
+		[ADD_LOCATION]: addLocation,
 	},
 	{
 		getViewFilename: viewId => `./resources/views/${viewId}.gui`,
 	},
 );
-next(Views.LOCATION_SLOTS_VIEW);
+next(LIST);
 
 const memoryConsumptionToString = (consumed: number, total: number) =>
 	`${Number((consumed * 100) / total).toFixed(2)}% (${consumed}/${total})`;

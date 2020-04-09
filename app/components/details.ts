@@ -1,6 +1,6 @@
 import { back, buttons, next } from 'fitbit-views';
 import { gettext } from 'i18n';
-import { NAVIGATION_VIEW } from '../views-names';
+import { NAVIGATION } from '../views-names';
 import { state } from '../state';
 import { open as openConfirm } from './confirm-dialog';
 import { byId } from '../utils/document';
@@ -55,7 +55,7 @@ export default (location: LocationSlot) => {
 			return;
 		}
 
-		next(NAVIGATION_VIEW, location);
+		next(NAVIGATION, location);
 	};
 	buttons.back = () => {
 		if (isConfirmDialogOpen) {

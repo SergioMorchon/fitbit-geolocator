@@ -1,7 +1,7 @@
 import { next } from 'fitbit-views';
 import { gettext } from 'i18n';
 import { LocationSlot } from '../../common/models/location-slot';
-import { LOCATION_DETAILS_VIEW, NEW_LOCATION_VIEW } from '../views-names';
+import { DETAILS, ADD_LOCATION } from '../views-names';
 import { byId, hide, show } from '../utils/document';
 import { inbox } from 'file-transfer';
 import { readFileSync, unlinkSync } from 'fs';
@@ -24,7 +24,7 @@ export default () => {
 		locationSlotsEmptyCase,
 	) as TextAreaElement).text = gettext('empty-case');
 	const addLocationAction = () => {
-		next(NEW_LOCATION_VIEW);
+		next(ADD_LOCATION);
 	};
 	addLocationButton.onactivate = addLocationAction;
 	const list = byId('location-slots-list') as VirtualTileList<{
@@ -39,7 +39,7 @@ export default () => {
 
 			(byId('tile-text', tile) as TextElement).text = locationSlot.name;
 			(byId('tile-action', tile) as RectElement).onclick = () => {
-				next(LOCATION_DETAILS_VIEW, locationSlot);
+				next(DETAILS, locationSlot);
 			};
 		},
 		getTileInfo(position) {
