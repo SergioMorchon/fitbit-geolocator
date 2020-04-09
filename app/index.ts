@@ -1,15 +1,11 @@
 import { me } from 'appbit';
 import { next, setup } from 'fitbit-views';
 import { memory } from 'system';
-import './actions/companion-messaging';
-import { setLocationSlot } from './actions/location-slots';
-import * as Views from './constants/views';
-import store from './data-sources/state';
-import { LaunchArguments } from './launch-arguments';
-import createLocationDetailsView from './views/location-details-view';
-import createLocationSlotsView from './views/location-slots-view';
-import createNavigationView from './views/navigation-view';
-import createNewLocationView from './views/new-location-view';
+import * as Views from './views-names';
+import createLocationDetailsView from './components/location-details-view';
+import createLocationSlotsView from './components/location-slots-view';
+import createNavigationView from './components/navigation-view';
+import createNewLocationView from './components/new-location-view';
 
 setup(
 	{
@@ -39,31 +35,4 @@ const logMemory = () => {
 };
 
 logMemory();
-store.subscribe(logMemory);
 me.addEventListener('unload', logMemory);
-
-if (me.launchArguments) {
-	const {
-		name,
-		coords: [latitude, longitude],
-	} = me.launchArguments as LaunchArguments;
-	store.dispatch(
-		setLocationSlot({
-			details: '',
-			name,
-			position: {
-				coords: {
-					accuracy: 1,
-					altitude: null,
-					altitudeAccuracy: null,
-					heading: null,
-					latitude,
-					longitude,
-					speed: null,
-				},
-				timestamp: Date.now(),
-			},
-		}),
-	);
-	next(Views.NAVIGATION_VIEW);
-}
