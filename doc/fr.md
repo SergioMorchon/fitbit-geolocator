@@ -8,7 +8,6 @@ Application basée sur GPS pour stocker des emplacements et vous orienter:
 ℹ Comment fonctionne l'application?
 
 - Pour ajouter un emplacement, vous pouvez le faire à la fois à partir de l'horloge et de la section de configuration (⚙). Si vous le faites à partir de l'horloge, votre emplacement actuel sera utilisé et un nom sera généré en fonction des coordonnées.
-- Les emplacements sont enregistrés en fonction du nom, donc si vous ajoutez un nouvel emplacement avec un nom existant, vous l'écraserez.
 
 Veuillez noter:
 

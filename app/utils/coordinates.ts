@@ -1,6 +1,7 @@
 import { gettext } from 'i18n';
 import { units } from 'user-settings';
-import type { Position, Coordinates } from '../location-slot';
+
+import type { Coordinates } from '../state';
 
 const { distance: distanceUnits } = units;
 const EARTH_RADIUS = 6_371_000;
@@ -23,9 +24,7 @@ const RADIAN = Math.PI / 180;
 
 const SIGNIFICATIVE_DECIMALS = 5;
 
-export const positionToString = ({
-	coords: { latitude, longitude },
-}: Position) =>
+export const coordinatesToString = ({ latitude, longitude }: Coordinates) =>
 	`${latitude.toFixed(SIGNIFICATIVE_DECIMALS)}, ${longitude.toFixed(
 		SIGNIFICATIVE_DECIMALS,
 	)}`;

@@ -8,7 +8,6 @@ Aplicación basada en GPS para guardar ubicaciones y orientarte:
 ℹ ¿Cómo funciona?
 
 - Para añadir una ubicación, puedes hacerlo tanto desde el reloj como desde la sección de configuración (⚙). Si lo haces desde el reloj, se utilizará tu ubicación actual y se generará un nombre en base a las coordenadas.
-- Las ubicaciones se guardan en base al nombre, por lo que si añades una nueva ubicación con un nombre ya existente, la sobrescribirás.
 
 Ten en cuenta que:
 

@@ -1,16 +1,12 @@
 import { next } from 'fitbit-views';
 import { gettext } from 'i18n';
-import { LocationSlot } from '../location-slot';
 import { DETAILS, ADD_LOCATION } from '../views-names';
 import { byId, hide, show } from '../utils/document';
 import { inbox } from 'file-transfer';
 import { readFileSync, unlinkSync } from 'fs';
 import { state } from '../state';
 
-const getAllLocationSlots = () =>
-	Object.keys(state.locationSlots.byName).map(
-		name => state.locationSlots.byName[name],
-	);
+import type { Location } from '../state';
 
 export default () => {
 	const addLocationButton = byId('add-location-button') as ComboButton;
@@ -26,30 +22,30 @@ export default () => {
 	};
 	addLocationButton.onactivate = addLocationAction;
 	const list = byId('location-slots-list') as VirtualTileList<{
-		locationSlot: LocationSlot;
+		location: Location;
 		type: 'location-slots';
 	}>;
 	list.delegate = {
-		configureTile: (tile, { type, locationSlot }) => {
+		configureTile: (tile, { type, location }) => {
 			if (type !== 'location-slots') {
 				return;
 			}
 
-			byId('tile-text', tile).text = locationSlot.name;
+			byId('tile-text', tile).text = location.name;
 			byId('tile-action', tile).onclick = () => {
-				next(DETAILS, locationSlot);
+				next(DETAILS, location);
 			};
 		},
 		getTileInfo(position) {
 			return {
-				locationSlot: getAllLocationSlots()[position],
+				location: state.locations[position],
 				type: 'location-slots',
 			};
 		},
 	};
 	const update = () => {
 		list.length = 0;
-		list.length = getAllLocationSlots().length;
+		list.length = state.locations.length;
 		if (list.length > 0) {
 			hide(locationSlotsEmptyCase);
 		} else {
@@ -63,9 +59,9 @@ export default () => {
 			const location = readFileSync(
 				`/private/data/${fileName}`,
 				'cbor',
-			) as LocationSlot;
+			) as Location;
 			unlinkSync(fileName);
-			state.locationSlots.byName[location.name] = location;
+			state.locations.push(location);
 
 			fileName = inbox.nextFile(fileName);
 		}

@@ -1,5 +1,4 @@
 import { settingsStorage } from 'settings';
-import { SettingLocationSlot } from './setting-location-slot';
 import { setLocation } from './actions';
 import { SET_LOCATION } from './settings-keys';
 
@@ -9,19 +8,7 @@ const processLocation = () => {
 		return;
 	}
 
-	const location = JSON.parse(locationJson) as SettingLocationSlot;
-	setLocation({
-		details: location.details,
-		name: location.name,
-		position: {
-			coords: {
-				heading: null,
-				latitude: location.latitude,
-				longitude: location.longitude,
-			},
-			timestamp: Date.now(),
-		},
-	});
+	setLocation(JSON.parse(locationJson));
 	settingsStorage.removeItem(SET_LOCATION);
 };
 

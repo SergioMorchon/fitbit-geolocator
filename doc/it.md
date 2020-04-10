@@ -8,7 +8,6 @@ App basata su GPS per memorizzare le posizioni e orientarsi:
 ℹ Come funziona?
 
 - Per aggiungere una posizione, puoi farlo dall'orologio o dalla sezione dedicata all'interno delle impostazioni (⚙). Se lo fai dall'orologio, userà le tue coordinate attuali e genererà un nome in automatico.
-- Le posizioni vengono memorizzate in base al nome, quindi se ne aggiungi una nuova con un nome già esistente, la sovrascriverà.
 
 Ricorda che:
 

@@ -4,10 +4,11 @@ import { NAVIGATION } from '../views-names';
 import { state } from '../state';
 import { open as openConfirm } from './confirm-dialog';
 import { byId } from '../utils/document';
-import { positionToString } from '../utils/position';
-import { LocationSlot } from '../location-slot';
+import { coordinatesToString } from '../utils/coordinates';
 
-export default (location: LocationSlot) => {
+import type { Location } from '../state';
+
+export default (location: Location) => {
 	let isConfirmDialogOpen = false;
 	const removeLocationButton = byId('remove-location-button') as ComboButton;
 	const startNavigationButton = byId('start-navigation-button') as ComboButton;
@@ -16,10 +17,10 @@ export default (location: LocationSlot) => {
 	const update = () => {
 		locationDetailsText.text = [
 			gettext('details-location'),
-			positionToString(location.position),
+			coordinatesToString(location.coordinates),
 			'',
 			gettext('details-timestamp'),
-			new Date(location.position.timestamp).toISOString(),
+			new Date(location.timestamp).toISOString(),
 			'',
 			gettext('details'),
 			location.details,
@@ -31,10 +32,6 @@ export default (location: LocationSlot) => {
 			return;
 		}
 
-		if (!location) {
-			return;
-		}
-
 		isConfirmDialogOpen = true;
 		openConfirm({
 			copy: location.name,
@@ -43,7 +40,7 @@ export default (location: LocationSlot) => {
 			positive: gettext('delete-location-yes'),
 		}).then(ok => {
 			if (ok) {
-				delete state.locationSlots.byName[location.name];
+				state.locations.splice(state.locations.indexOf(location), 1);
 				back();
 			}
 

@@ -7,6 +7,8 @@ import {
 	SET_LOCATION,
 } from '../companion/settings-keys';
 
+import type { Location } from '../app/state';
+
 const sendToWatch = (settingsStorage: LiveStorage) => {
 	const name = settingsStorage.getItem(SETTINGS_KEY_ADD_LOCATION_NAME);
 	const latitudeSettingValue = settingsStorage.getItem(
@@ -26,15 +28,17 @@ const sendToWatch = (settingsStorage: LiveStorage) => {
 	const details =
 		settingsStorage.getItem(SETTINGS_KEY_ADD_LOCATION_DETAILS) || '';
 
-	settingsStorage.setItem(
-		SET_LOCATION,
-		JSON.stringify({
-			details,
+	const location: Location = {
+		name,
+		details,
+		coordinates: {
 			latitude: Number(latitudeSettingValue),
 			longitude: Number(longitudeSettingValue),
-			name,
-		}),
-	);
+		},
+		timestamp: Date.now(),
+	};
+
+	settingsStorage.setItem(SET_LOCATION, JSON.stringify(location));
 };
 
 registerSettingsPage(({ settingsStorage }) => (

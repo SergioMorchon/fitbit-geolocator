@@ -8,7 +8,6 @@ GPS based app to store locations and orientate yourself:
 ℹ How does it work?
 
 - To add a location, you can do it either from the watch or from the settings section (⚙). If you do it from the watch, it will use your current coordinates and generate the name with them.
-- Locations are stored by their name, so if you add a new one with an already existing name, it will overwrite it.
 
 Bear in mind that:
 

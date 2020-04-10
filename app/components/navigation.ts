@@ -1,15 +1,16 @@
 import { geolocation } from 'geolocation';
 import { gettext } from 'i18n';
 import animate from 'promise-animate';
-import { LocationSlot, Position } from '../location-slot';
 import { byId, hide, show } from '../utils/document';
 import {
 	distanceToString,
 	getDistance,
 	getFinalBearingProgress,
-	positionToString,
-} from '../utils/position';
+	coordinatesToString,
+} from '../utils/coordinates';
 import { buttons, back } from 'fitbit-views';
+
+import type { Location } from '../state';
 
 /*
  * Easy-in-out function creator
@@ -20,9 +21,9 @@ const createEasyInOut = (factor: number) => (x: number) =>
 
 const easyInOut = createEasyInOut(2.5);
 
-export default (target: LocationSlot) => {
+export default (target: Location) => {
 	const distanceText = byId('distance-text');
-	byId('to-text').text = positionToString(target.position);
+	byId('to-text').text = coordinatesToString(target.coordinates);
 	const navigationBearingGroup = byId('navigation-bearing') as GroupElement;
 
 	let from: Position | undefined;
@@ -45,7 +46,7 @@ export default (target: LocationSlot) => {
 		const headingProgress = (from.coords.heading || 0) / 360;
 		const currentAngle = navigationBearingGroup.groupTransform.rotate.angle;
 		const targetAngle =
-			(getFinalBearingProgress(from.coords, target.position.coords) -
+			(getFinalBearingProgress(from.coords, target.coordinates) -
 				headingProgress) *
 			360;
 
@@ -83,7 +84,7 @@ export default (target: LocationSlot) => {
 
 	const update = () => {
 		distanceText.text = from
-			? distanceToString(getDistance(from.coords, target.position.coords))
+			? distanceToString(getDistance(from.coords, target.coordinates))
 			: gettext('wating-gps');
 		updateOrientation();
 	};
