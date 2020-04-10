@@ -1,11 +1,8 @@
 <svg>
+	<defs>
+		<link rel="stylesheet" href="add-location.css" />
+	</defs>
 	<text
 		id="current-location"
-		text-length="100"
-		font-size="20"
-		font-weight="bold"
-		x="50%"
-		y="50%+10"
-		text-anchor="middle"
 	/>
 </svg>

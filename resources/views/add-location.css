@@ -1,0 +1,8 @@
+text {
+	text-length: 20;
+	font-size: 20;
+	font-weight: bold;
+	x: 50%;
+	y: 50%+10;
+	text-anchor: middle;
+}

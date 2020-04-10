@@ -1,11 +1,7 @@
 <svg>
 	<symbol id="confirm-dialog" display="none">
-		<rect class="full-size" fill="fb-black" />
-		<use
-			href="#mixed-text-center-mid"
-			class="dialog-mixed-text"
-			fill="fb-white"
-		>
+		<rect class="full-size" />
+		<use href="#mixed-text-center-mid" class="dialog-mixed-text">
 			<set href="#top-padding" attributeName="display" to="none" />
 			<set href="#header/text" attributeName="text-length" to="20" />
 			<set href="#header/text" attributeName="fill" to="fb-magenta" />
@@ -16,15 +12,11 @@
 			id="negative-button"
 			class="dialog-half-button-left"
 			href="#square-button-negative"
-		>
-			<set href="#text" attributeName="text-anchor" to="middle" />
-		</use>
+		/>
 		<use
 			id="positive-button"
 			class="dialog-half-button-right"
 			href="#square-button-positive"
-		>
-			<set href="#text" attributeName="text-anchor" to="middle" />
-		</use>
+		/>
 	</symbol>
 </svg>

@@ -8,7 +8,7 @@
 		<link rel="import" href="/mnt/sysassets/widgets/mixed_text_widget.gui" />
 		<link rel="import" href="confirm.gui" />
 	</defs>
-	<textarea id="location-details-text" text-length="500" />
+	<textarea id="location-details-text"  />
 	<use id="remove-location-button" href="#combo-button-upper-right">
 		<set
 			href="combo-button-icon"

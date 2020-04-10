@@ -5,6 +5,6 @@
 	<g id="navigation-bearing" transform="translate(50%, 50%)">
 		<rect />
 	</g>
-	<text id="to-text" text-length="20" />
-	<text id="distance-text" text-length="100" />
+	<text id="to-text" />
+	<text id="distance-text" />
 </svg>
