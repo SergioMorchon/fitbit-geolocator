@@ -2,7 +2,5 @@
 	<defs>
 		<link rel="stylesheet" href="add-location.css" />
 	</defs>
-	<text
-		id="current-location"
-	/>
+	<text id="current-location" />
 </svg>

@@ -11,16 +11,9 @@
 			system-events="all"
 			display="none"
 		>
-			<text
-				id="tile-text"
-				class="tile-text"
-			/>
+			<text id="tile-text" class="tile-text" />
 			<rect id="tile-divider-bottom" class="tile-divider-bottom" />
-			<rect
-				id="tile-action"
-				class="tile-action"
-				pointer-events="all"
-			/>
+			<rect id="tile-action" class="tile-action" pointer-events="all" />
 		</symbol>
 	</defs>
 	<g id="location-slots-empty-case">
