@@ -2,7 +2,7 @@ import { back, buttons, next } from 'fitbit-views';
 import { gettext } from 'i18n';
 import { NAVIGATION } from '../views-names';
 import { state } from '../state';
-import { open as openConfirm } from './confirm-dialog';
+import { open as openConfirm } from 'fitbit-widgets/dist/confirm-dialog';
 import { byId } from '../utils/document';
 import { coordinatesToString } from '../utils/coordinates';
 
