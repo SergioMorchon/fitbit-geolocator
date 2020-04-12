@@ -1,4 +1,11 @@
 <svg>
+	<defs>
+		<link rel="import" href="/mnt/sysassets/widgets_common.gui" />
+		<link rel="stylesheet" href="/mnt/sysassets/widgets/dynamic_textarea.css" />
+		<link rel="import" href="/mnt/sysassets/widgets/dynamic_textarea.gui" />
+		<link rel="import" href="/mnt/sysassets/widgets/square_button_widget.gui" />
+		<link rel="import" href="/mnt/sysassets/widgets/mixed_text_widget.gui" />
+	</defs>
 	<symbol id="confirm-dialog" display="none">
 		<rect class="full-size" />
 		<use href="#mixed-text-center-mid" class="dialog-mixed-text">

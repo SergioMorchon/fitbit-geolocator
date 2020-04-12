@@ -54,6 +54,7 @@
 	},
 	"dependencies": {
 		"fitbit-views": "^1.0.3",
+		"fitbit-widgets": "0.0.2",
 		"promise-animate": "^1.0.2"
 	}
 }

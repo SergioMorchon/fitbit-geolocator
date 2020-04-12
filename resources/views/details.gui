@@ -2,11 +2,7 @@
 	<defs>
 		<link rel="stylesheet" href="details.css" />
 		<link rel="import" href="/mnt/sysassets/widgets/combo_button_widget.gui" />
-		<link rel="stylesheet" href="/mnt/sysassets/widgets/dynamic_textarea.css" />
-		<link rel="import" href="/mnt/sysassets/widgets/dynamic_textarea.gui" />
-		<link rel="import" href="/mnt/sysassets/widgets/square_button_widget.gui" />
-		<link rel="import" href="/mnt/sysassets/widgets/mixed_text_widget.gui" />
-		<link rel="import" href="confirm.gui" />
+		<link rel="import" href="../fitbit-widgets/confirm-dialog/index.gui" />
 	</defs>
 	<textarea id="location-details-text" />
 	<use id="remove-location-button" href="#combo-button-upper-right">
