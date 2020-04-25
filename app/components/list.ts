@@ -1,7 +1,7 @@
 import { next } from 'fitbit-views';
 import { gettext } from 'i18n';
 import { DETAILS, ADD_LOCATION } from '../views-names';
-import { byId, hide, show } from '../utils/document';
+import { byId, hide, show } from 'fitbit-widgets/dist/document';
 import { inbox } from 'file-transfer';
 import { readFileSync, unlinkSync } from 'fs';
 import { state } from '../state';
@@ -10,13 +10,8 @@ import type { Location } from '../state';
 
 export default () => {
 	const addLocationButton = byId('add-location-button') as ComboButton;
-	const locationSlotsEmptyCase = byId(
-		'location-slots-empty-case',
-	) as GraphicsElement;
-	(byId(
-		'empty-case',
-		locationSlotsEmptyCase,
-	) as TextAreaElement).text = gettext('empty-case');
+	const emptyCase = byId('empty-case') as TextAreaElement;
+	emptyCase.text = gettext('empty-case');
 	const addLocationAction = () => {
 		next(ADD_LOCATION);
 	};
@@ -47,9 +42,9 @@ export default () => {
 		list.length = 0;
 		list.length = state.locations.length;
 		if (list.length > 0) {
-			hide(locationSlotsEmptyCase);
+			hide(emptyCase);
 		} else {
-			show(locationSlotsEmptyCase);
+			show(emptyCase);
 		}
 	};
 

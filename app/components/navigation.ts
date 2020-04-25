@@ -1,13 +1,13 @@
 import { geolocation } from 'geolocation';
 import { gettext } from 'i18n';
 import animate from 'promise-animate';
-import { byId, hide, show } from '../utils/document';
+import { byId, hide, show } from 'fitbit-widgets/dist/document';
 import {
 	distanceToString,
 	getDistance,
 	getFinalBearingProgress,
 	coordinatesToString,
-} from '../utils/coordinates';
+} from '../coordinates';
 import { buttons, back } from 'fitbit-views';
 
 import type { Location } from '../state';

@@ -9,7 +9,7 @@ import {
 
 import type { Location } from '../app/state';
 
-const sendToWatch = (settingsStorage: LiveStorage) => {
+const getLocation = (settingsStorage: LiveStorage): Location | null => {
 	const name = settingsStorage.getItem(SETTINGS_KEY_ADD_LOCATION_NAME);
 	const latitudeSettingValue = settingsStorage.getItem(
 		SETTINGS_KEY_ADD_LOCATION_LATITUDE,
@@ -22,13 +22,13 @@ const sendToWatch = (settingsStorage: LiveStorage) => {
 		latitudeSettingValue === null ||
 		longitudeSettingValue === null
 	) {
-		return;
+		return null;
 	}
 
 	const details =
 		settingsStorage.getItem(SETTINGS_KEY_ADD_LOCATION_DETAILS) || '';
 
-	const location: Location = {
+	return {
 		name,
 		details,
 		coordinates: {
@@ -37,41 +37,50 @@ const sendToWatch = (settingsStorage: LiveStorage) => {
 		},
 		timestamp: Date.now(),
 	};
-
-	settingsStorage.setItem(SET_LOCATION, JSON.stringify(location));
 };
 
-registerSettingsPage(({ settingsStorage }) => (
-	<Page>
-		<Section title={gettext('add-location')}>
-			<TextInput
-				title={gettext('name')}
-				type="text"
-				settingsKey={SETTINGS_KEY_ADD_LOCATION_NAME}
-				useSimpleValue
-			/>
-			<TextInput
-				title={gettext('latitude')}
-				type="number"
-				settingsKey={SETTINGS_KEY_ADD_LOCATION_LATITUDE}
-				useSimpleValue
-			/>
-			<TextInput
-				title={gettext('longitude')}
-				type="number"
-				settingsKey={SETTINGS_KEY_ADD_LOCATION_LONGITUDE}
-				useSimpleValue
-			/>
-			<TextInput
-				title={gettext('details')}
-				type="text"
-				settingsKey={SETTINGS_KEY_ADD_LOCATION_DETAILS}
-				useSimpleValue
-			/>
-			<Button
-				label={gettext('send-to-watch')}
-				onClick={() => sendToWatch(settingsStorage)}
-			/>
-		</Section>
-	</Page>
-));
+registerSettingsPage(({ settingsStorage }) => {
+	const location = getLocation(settingsStorage);
+	return (
+		<Page>
+			<Section title={gettext('add-location')}>
+				<TextInput
+					label={gettext('name')}
+					placeholder={gettext('name')}
+					type="text"
+					settingsKey={SETTINGS_KEY_ADD_LOCATION_NAME}
+					useSimpleValue
+				/>
+				<TextInput
+					label={gettext('latitude')}
+					placeholder={gettext('latitude')}
+					type="number"
+					settingsKey={SETTINGS_KEY_ADD_LOCATION_LATITUDE}
+					useSimpleValue
+				/>
+				<TextInput
+					label={gettext('longitude')}
+					placeholder={gettext('longitude')}
+					type="number"
+					settingsKey={SETTINGS_KEY_ADD_LOCATION_LONGITUDE}
+					useSimpleValue
+				/>
+				<TextInput
+					label={gettext('details')}
+					placeholder={gettext('details')}
+					type="text"
+					settingsKey={SETTINGS_KEY_ADD_LOCATION_DETAILS}
+					useSimpleValue
+				/>
+				{!!location && (
+					<Button
+						label={gettext('send-to-watch')}
+						onClick={() =>
+							settingsStorage.setItem(SET_LOCATION, JSON.stringify(location))
+						}
+					/>
+				)}
+			</Section>
+		</Page>
+	);
+});

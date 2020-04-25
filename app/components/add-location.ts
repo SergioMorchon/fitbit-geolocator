@@ -2,8 +2,8 @@ import { back, buttons } from 'fitbit-views';
 import { geolocation } from 'geolocation';
 import { gettext } from 'i18n';
 import { state } from '../state';
-import { byId } from '../utils/document';
-import { coordinatesToString } from '../utils/coordinates';
+import { byId } from 'fitbit-widgets/dist/document';
+import { coordinatesToString } from '../coordinates';
 
 import type { Coordinates } from '../state';
 

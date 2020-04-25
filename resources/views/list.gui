@@ -16,9 +16,6 @@
 			<rect id="tile-action" class="tile-action" pointer-events="all" />
 		</symbol>
 	</defs>
-	<g id="location-slots-empty-case">
-		<textarea id="empty-case" text-length="100" font-size="24" />
-	</g>
 	<use id="location-slots-list" href="#tile-list">
 		<var id="virtual" value="1" />
 		<var id="separator-height-bottom" value="2" />
@@ -75,6 +72,7 @@
 			/>
 		</use>
 	</use>
+	<textarea id="empty-case" />
 	<use id="add-location-button" href="#combo-button-lower-right">
 		<set
 			href="combo-button-icon"

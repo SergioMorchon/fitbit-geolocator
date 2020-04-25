@@ -1,7 +1,7 @@
 import { gettext } from 'i18n';
 import { units } from 'user-settings';
 
-import type { Coordinates } from '../state';
+import type { Coordinates } from './state';
 
 const { distance: distanceUnits } = units;
 const EARTH_RADIUS = 6_371_000;

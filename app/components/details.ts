@@ -3,8 +3,8 @@ import { gettext } from 'i18n';
 import { NAVIGATION } from '../views-names';
 import { state } from '../state';
 import { open as openConfirm } from 'fitbit-widgets/dist/confirm-dialog';
-import { byId } from '../utils/document';
-import { coordinatesToString } from '../utils/coordinates';
+import { byId } from 'fitbit-widgets/dist/document';
+import { coordinatesToString } from '../coordinates';
 
 import type { Location } from '../state';
 
