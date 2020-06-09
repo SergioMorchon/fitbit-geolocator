@@ -7,7 +7,7 @@ import { coordinatesToString } from '../coordinates';
 
 import type { Coordinates } from '../state';
 
-export default () => {
+export default (): (() => void) => {
 	const currentLocationText = byId('current-location');
 	let coordinates: Coordinates | undefined;
 	const update = () => {

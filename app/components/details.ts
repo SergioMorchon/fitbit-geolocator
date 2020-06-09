@@ -8,7 +8,7 @@ import { coordinatesToString } from '../coordinates';
 
 import type { Location } from '../state';
 
-export default (location: Location) => {
+export default (location: Location): void => {
 	let isConfirmDialogOpen = false;
 	const removeLocationButton = byId('remove-location-button') as ComboButton;
 	const startNavigationButton = byId('start-navigation-button') as ComboButton;

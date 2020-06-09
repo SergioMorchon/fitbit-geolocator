@@ -24,14 +24,17 @@ const RADIAN = Math.PI / 180;
 
 const SIGNIFICATIVE_DECIMALS = 5;
 
-export const coordinatesToString = ({ latitude, longitude }: Coordinates) =>
+export const coordinatesToString = ({
+	latitude,
+	longitude,
+}: Coordinates): string =>
 	`${latitude.toFixed(SIGNIFICATIVE_DECIMALS)}, ${longitude.toFixed(
 		SIGNIFICATIVE_DECIMALS,
 	)}`;
 
 const degreesToRadians = (degrees: number) => degrees * RADIAN;
 
-export const getDistance = (from: Coordinates, to: Coordinates) => {
+export const getDistance = (from: Coordinates, to: Coordinates): number => {
 	const φ = degreesToRadians(to.latitude - from.latitude);
 	const λ = degreesToRadians(to.longitude - from.longitude);
 	const a =
@@ -43,7 +46,7 @@ export const getDistance = (from: Coordinates, to: Coordinates) => {
 	return EARTH_RADIUS * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 
-export const distanceToString = (distance: number) => {
+export const distanceToString = (distance: number): string => {
 	const { short, shortName, long, longName } = distanceConfig[distanceUnits];
 	const longPart = Math.floor(distance / long);
 	const shortPart = Math.floor((distance - longPart * long) / short);
@@ -66,5 +69,8 @@ const getBearing = (from: Coordinates, to: Coordinates) => {
 
 const CIRCLE_RADIANS = Math.PI * 2;
 
-export const getFinalBearingProgress = (from: Coordinates, to: Coordinates) =>
+export const getFinalBearingProgress = (
+	from: Coordinates,
+	to: Coordinates,
+): number =>
 	((getBearing(to, from) + Math.PI) % CIRCLE_RADIANS) / CIRCLE_RADIANS;

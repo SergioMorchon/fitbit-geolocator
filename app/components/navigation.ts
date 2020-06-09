@@ -21,7 +21,7 @@ const createEasyInOut = (factor: number) => (x: number) =>
 
 const easyInOut = createEasyInOut(2.5);
 
-export default (target: Location) => {
+export default (target: Location): (() => void) => {
 	const distanceText = byId('distance-text');
 	byId('to-text').text = coordinatesToString(target.coordinates);
 	const navigationBearingGroup = byId('navigation-bearing') as GroupElement;

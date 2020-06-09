@@ -8,7 +8,7 @@ import { state } from '../state';
 
 import type { Location } from '../state';
 
-export default () => {
+export default (): (() => void) => {
 	const addLocationButton = byId('add-location-button') as ComboButton;
 	const emptyCase = byId('empty-case') as TextAreaElement;
 	emptyCase.text = gettext('empty-case');
